@@ -1,0 +1,5 @@
+experiment: lightgcn
+layers: 2
+trials:
+  - {lr: 0.01}
+  - {lr: 0.03}

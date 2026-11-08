@@ -1,0 +1,10 @@
+experiment: autorec_item
+auto_variant: item
+hidden: 128
+epochs: 60
+hypothesis: Item-side reconstruction with input corruption may generalize better than the small user-side baseline.
+trials:
+  - {lr: 0.001, input_dropout: 0.0}
+  - {lr: 0.003, input_dropout: 0.0}
+  - {lr: 0.001, input_dropout: 0.2}
+  - {lr: 0.003, input_dropout: 0.2}

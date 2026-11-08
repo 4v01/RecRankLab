@@ -1,0 +1,18 @@
+dataset: ml-1m
+data_root: data
+output_root: outputs/main
+seeds: [17, 29, 43]
+threads: 2
+epochs: 20
+dim: 32
+hidden: 64
+layers: 2
+reg: 0.0001
+lr: 0.01
+rating_batch_size: 8192
+ranking_batch_size: 32768
+auto_batch_size: 128
+negative_policy: all_history
+trials:
+  - {lr: 0.01}
+  - {lr: 0.03}

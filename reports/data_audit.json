@@ -1,0 +1,79 @@
+{
+  "dataset": {
+    "dataset": "ml-1m",
+    "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+    "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+    "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+    "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+    "n_users": 6040,
+    "n_items": 3706,
+    "n_ratings": 1000209,
+    "split_counts": {
+      "train": 797758,
+      "val": 99692,
+      "test": 102759
+    },
+    "split_index_sha256": {
+      "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+      "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+      "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+    },
+    "files": {
+      "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+      "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+      "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+    },
+    "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+  },
+  "catalog_universe": "unique IDs observed in ratings; unrated metadata-only movies are not counted",
+  "partition_rating_counts": {
+    "train": 797758,
+    "val": 99692,
+    "test": 102759
+  },
+  "partition_positive_counts": {
+    "train": 469250,
+    "val": 53006,
+    "test": 53025
+  },
+  "stages": {
+    "validation": {
+      "fit_rows": 797758,
+      "fit_positives": 469250,
+      "fit_users": 6040,
+      "fit_items": 3667,
+      "users_without_positive_fit_support": 2,
+      "items_without_positive_fit_support": 241,
+      "eligible_users": 5789,
+      "total_users": 6040,
+      "excluded_users": 251,
+      "users_without_heldout_positives": 251,
+      "cold_start_positive_targets": 5,
+      "prior_positive_targets": 0,
+      "heldout_positive_targets": 53006,
+      "catalog_size": 3667,
+      "unsupported_catalog_items": 39,
+      "eligible_user_sha256": "69670af93a3240bf9a53ceea86193bf5b8c9d9aa572f7669c4b7fee954533abd",
+      "candidate_catalog_sha256": "e1d356d8da48299dc2ccc7b0b77b8855b66725055214a21ea637473d3d678850"
+    },
+    "test": {
+      "fit_rows": 897450,
+      "fit_positives": 522256,
+      "fit_users": 6040,
+      "fit_items": 3683,
+      "users_without_positive_fit_support": 2,
+      "items_without_positive_fit_support": 213,
+      "eligible_users": 5820,
+      "total_users": 6040,
+      "excluded_users": 220,
+      "users_without_heldout_positives": 219,
+      "cold_start_positive_targets": 9,
+      "prior_positive_targets": 0,
+      "heldout_positive_targets": 53025,
+      "catalog_size": 3683,
+      "unsupported_catalog_items": 23,
+      "eligible_user_sha256": "6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b",
+      "candidate_catalog_sha256": "53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9"
+    }
+  }
+}

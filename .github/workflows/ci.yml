@@ -1,0 +1,49 @@
+name: CPU correctness and MovieLens smoke
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements-lock.txt
+      - run: pip install --no-deps -e .
+      - run: PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest -q
+      - run: python scripts/audit_results.py
+  movielens-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements-lock.txt
+      - run: pip install --no-deps -e .
+      - run: python -m recranklab.data.prepare --dataset ml-100k --config configs/base.yaml
+      - name: All six models on real ML-100K (one epoch; not benchmark scores)
+        shell: bash
+        run: |
+          set -euo pipefail
+          for model in popularity biasmf autorec bpr_mf lightgcn ease; do
+            config="configs/${model}.yaml"
+            if [[ "$model" == popularity ]]; then config=configs/base.yaml; fi
+            python -m recranklab.experiments.run --model "$model" --config "$config" --smoke --seeds 17
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smoke-metrics-only
+          path: |
+            outputs/smoke/**/result.json
+            outputs/smoke/**/validation.json
+          retention-days: 14

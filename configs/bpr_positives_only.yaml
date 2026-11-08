@@ -1,0 +1,5 @@
+experiment: bpr_positives_only
+negative_policy: positives_only
+trials:
+  - {lr: 0.01}
+  - {lr: 0.03}

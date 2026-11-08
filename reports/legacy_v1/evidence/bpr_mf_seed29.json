@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "signature": "c8f7d7ee7c4b4d1d3eaf36c6eec63fbfe4e06aff0f87ffbdd607a7d8048ada7e",
+  "dataset": "ml-1m",
+  "experiment": "bpr_mf",
+  "model": "bpr_mf",
+  "seed": 29,
+  "completed_at_utc": "2026-11-07T16:35:40.374619+00:00",
+  "config": {
+    "dataset": "ml-1m",
+    "data_root": "data",
+    "output_root": "outputs/main",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 2,
+    "epochs": 20,
+    "dim": 32,
+    "hidden": 64,
+    "layers": 2,
+    "reg": 0.0001,
+    "lr": 0.01,
+    "rating_batch_size": 8192,
+    "ranking_batch_size": 32768,
+    "auto_batch_size": 128,
+    "negative_policy": "all_history",
+    "trials": [
+      {
+        "lr": 0.01
+      },
+      {
+        "lr": 0.03
+      }
+    ],
+    "experiment": "bpr_mf"
+  },
+  "config_sha256": "c14b9bf4c65b06b6d66a4db34ec06e3ef27f8a00d925bb97d60d2a3d6b6064d6",
+  "selected_config": {
+    "dataset": "ml-1m",
+    "data_root": "data",
+    "output_root": "outputs/main",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 2,
+    "epochs": 20,
+    "dim": 32,
+    "hidden": 64,
+    "layers": 2,
+    "reg": 0.0001,
+    "lr": 0.01,
+    "rating_batch_size": 8192,
+    "ranking_batch_size": 32768,
+    "auto_batch_size": 128,
+    "negative_policy": "all_history",
+    "trials": [
+      {
+        "lr": 0.01
+      },
+      {
+        "lr": 0.03
+      }
+    ],
+    "experiment": "bpr_mf",
+    "seed": 29,
+    "model": "bpr_mf"
+  },
+  "selected_trial": 0,
+  "validation_trials": [
+    {
+      "trial_id": 0,
+      "overrides": {
+        "lr": 0.01
+      },
+      "metrics": {
+        "recall@10": 0.08189056940428001,
+        "ndcg@10": 0.08087826509724015,
+        "recall@20": 0.13873311574237293,
+        "ndcg@20": 0.09810238030761688,
+        "coverage@10": 0.3476956640305427,
+        "coverage@20": 0.4357785655849468,
+        "eligible_users": 5789,
+        "total_users": 6040,
+        "excluded_users": 251,
+        "users_without_heldout_positives": 251,
+        "cold_start_positive_targets": 5,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 53006,
+        "catalog_size": 3667,
+        "unsupported_catalog_items": 39,
+        "eligible_user_sha256": "69670af93a3240bf9a53ceea86193bf5b8c9d9aa572f7669c4b7fee954533abd",
+        "candidate_catalog_sha256": "e1d356d8da48299dc2ccc7b0b77b8855b66725055214a21ea637473d3d678850"
+      },
+      "fit_seconds": 10.242045671000142,
+      "loss_history": [
+        0.6929811604799079,
+        0.6434596697970407,
+        0.42332406354826946,
+        0.26747090481352664,
+        0.23593208291401047,
+        0.21168532723020098,
+        0.19106042491233788,
+        0.17435608678151143,
+        0.16176111668859572,
+        0.15080873350761773,
+        0.14386865561270118,
+        0.1364475289985863,
+        0.13052949042338036,
+        0.1260152070555969,
+        0.1208840742668511,
+        0.1180861216087448,
+        0.114242057577625,
+        0.11180313244787504,
+        0.1087364215398,
+        0.10520773122357636
+      ]
+    },
+    {
+      "trial_id": 1,
+      "overrides": {
+        "lr": 0.03
+      },
+      "metrics": {
+        "recall@10": 0.07871950906750783,
+        "ndcg@10": 0.07438256329914633,
+        "recall@20": 0.13249260527578113,
+        "ndcg@20": 0.091523941120818,
+        "coverage@10": 0.5344968639214617,
+        "coverage@20": 0.6304881374420507,
+        "eligible_users": 5789,
+        "total_users": 6040,
+        "excluded_users": 251,
+        "users_without_heldout_positives": 251,
+        "cold_start_positive_targets": 5,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 53006,
+        "catalog_size": 3667,
+        "unsupported_catalog_items": 39,
+        "eligible_user_sha256": "69670af93a3240bf9a53ceea86193bf5b8c9d9aa572f7669c4b7fee954533abd",
+        "candidate_catalog_sha256": "e1d356d8da48299dc2ccc7b0b77b8855b66725055214a21ea637473d3d678850"
+      },
+      "fit_seconds": 10.174842955999793,
+      "loss_history": [
+        0.6580225988524228,
+        0.2992949085464234,
+        0.21637710003631827,
+        0.16980926089542117,
+        0.14598974321469005,
+        0.13334466826096456,
+        0.12264799361258792,
+        0.1165551412196698,
+        0.1120485200695237,
+        0.10621593250384277,
+        0.10463885071071845,
+        0.10147793394539924,
+        0.09880632254803631,
+        0.09675619662487576,
+        0.09526073423359835,
+        0.09446316307989536,
+        0.09292490937519912,
+        0.0925569535989868,
+        0.09038917907915284,
+        0.08843060525221334
+      ]
+    }
+  ],
+  "test_metrics": {
+    "recall@10": 0.08190980587342273,
+    "ndcg@10": 0.0865306256816911,
+    "recall@20": 0.13583792874580716,
+    "ndcg@20": 0.10205213282745336,
+    "coverage@10": 0.3559598153679066,
+    "coverage@20": 0.4474613087157209,
+    "eligible_users": 5820,
+    "total_users": 6040,
+    "excluded_users": 220,
+    "users_without_heldout_positives": 219,
+    "cold_start_positive_targets": 9,
+    "prior_positive_targets": 0,
+    "heldout_positive_targets": 53025,
+    "catalog_size": 3683,
+    "unsupported_catalog_items": 23,
+    "eligible_user_sha256": "6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b",
+    "candidate_catalog_sha256": "53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9"
+  },
+  "data": {
+    "dataset": "ml-1m",
+    "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+    "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+    "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+    "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+    "n_users": 6040,
+    "n_items": 3706,
+    "n_ratings": 1000209,
+    "split_counts": {
+      "train": 797758,
+      "val": 99692,
+      "test": 102759
+    },
+    "split_index_sha256": {
+      "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+      "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+      "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+    },
+    "files": {
+      "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+      "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+      "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+    },
+    "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+  },
+  "environment": {
+    "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+    "git_dirty": false,
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "logical_cpus": 9,
+    "device": "cpu",
+    "packages": {
+      "torch": "2.5.1+cpu",
+      "numpy": "2.3.5",
+      "pandas": "2.2.3",
+      "scipy": "1.17.0",
+      "scikit-learn": "1.8.0",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.10.8",
+      "pytest": "9.2.0"
+    }
+  },
+  "trainable_parameters": 311872,
+  "final_fit_seconds": 10.92366601599997,
+  "evaluation_seconds": 8.928105640000012,
+  "total_seconds": 58.37330362600005,
+  "peak_rss_mib": 692.59375,
+  "peak_rss_scope": "process lifetime high-water mark, including earlier seeds",
+  "final_loss_history": [
+    0.6922104562243017,
+    0.6208750033184307,
+    0.3723529762747109,
+    0.2568935919310517,
+    0.22671015228602398,
+    0.20084047418577677,
+    0.18023252831304895,
+    0.16504445092213374,
+    0.1542768526798019,
+    0.14628370841805582,
+    0.1392594429878791,
+    0.13325585559024658,
+    0.12823338656526495,
+    0.12339777402222103,
+    0.11985448702175985,
+    0.11699922903100816,
+    0.11313754352306254,
+    0.11076607203153793,
+    0.10832023776186356,
+    0.10701811689844552
+  ],
+  "checkpoint_sha256": "024e921e6eb2513b2d6cdc1e16b6d9f2f709df3775969a85b28afe2210d8a83f",
+  "per_user_sha256": "8639f4030cb8b4f0fc32de44bcbf94a85d7cc6c6aea18db447fdfa83fb5924cb"
+}

@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "signature": "326fc7ad46d055dd651dd6369628c4919d62002e924689c7a11a21e170dde1f7",
+  "dataset": "ml-1m",
+  "experiment": "autorec",
+  "model": "autorec",
+  "seed": 17,
+  "completed_at_utc": "2026-11-07T16:31:29.663810+00:00",
+  "config": {
+    "dataset": "ml-1m",
+    "data_root": "data",
+    "output_root": "outputs/main",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 2,
+    "epochs": 20,
+    "dim": 32,
+    "hidden": 64,
+    "layers": 2,
+    "reg": 0.0001,
+    "lr": 0.01,
+    "rating_batch_size": 8192,
+    "ranking_batch_size": 32768,
+    "auto_batch_size": 128,
+    "negative_policy": "all_history",
+    "trials": [
+      {
+        "lr": 0.001
+      },
+      {
+        "lr": 0.003
+      }
+    ],
+    "experiment": "autorec"
+  },
+  "config_sha256": "8b1655e8ce079f3347e0a08527a4d6bab6907550c647f043c0c56e9b7f77936e",
+  "selected_config": {
+    "dataset": "ml-1m",
+    "data_root": "data",
+    "output_root": "outputs/main",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 2,
+    "epochs": 20,
+    "dim": 32,
+    "hidden": 64,
+    "layers": 2,
+    "reg": 0.0001,
+    "lr": 0.001,
+    "rating_batch_size": 8192,
+    "ranking_batch_size": 32768,
+    "auto_batch_size": 128,
+    "negative_policy": "all_history",
+    "trials": [
+      {
+        "lr": 0.001
+      },
+      {
+        "lr": 0.003
+      }
+    ],
+    "experiment": "autorec",
+    "seed": 17,
+    "model": "autorec"
+  },
+  "selected_trial": 0,
+  "validation_trials": [
+    {
+      "trial_id": 0,
+      "overrides": {
+        "lr": 0.001
+      },
+      "metrics": {
+        "recall@10": 0.016445558327879004,
+        "ndcg@10": 0.016755269122257034,
+        "recall@20": 0.03331672011614595,
+        "ndcg@20": 0.022691775542148733,
+        "coverage@10": 0.017180256340332697,
+        "coverage@20": 0.031088082901554404,
+        "eligible_users": 5789,
+        "total_users": 6040,
+        "excluded_users": 251,
+        "users_without_heldout_positives": 251,
+        "cold_start_positive_targets": 5,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 53006,
+        "catalog_size": 3667,
+        "unsupported_catalog_items": 39,
+        "eligible_user_sha256": "69670af93a3240bf9a53ceea86193bf5b8c9d9aa572f7669c4b7fee954533abd",
+        "candidate_catalog_sha256": "e1d356d8da48299dc2ccc7b0b77b8855b66725055214a21ea637473d3d678850",
+        "rmse": 0.9717993879661326,
+        "mae": 0.7722280207084662,
+        "rating_count": 99692,
+        "cold_item_ratings": 17,
+        "cold_user_ratings": 0
+      },
+      "fit_seconds": 11.749276985000051,
+      "loss_history": [
+        7.3739489416281385,
+        1.3602601177990437,
+        0.9738213084638119,
+        0.9601018689572811,
+        0.9573650993406773,
+        0.9534920478860537,
+        0.9531530911723772,
+        0.9491476627687613,
+        0.9492811275025209,
+        0.9490864910185337,
+        0.9428755988677343,
+        0.9395763327678045,
+        0.9338790774345398,
+        0.9335323298970858,
+        0.9334055197735628,
+        0.9247962795197964,
+        0.9257231342295805,
+        0.9224360225101312,
+        0.9221546103556951,
+        0.9208275365332762
+      ]
+    },
+    {
+      "trial_id": 1,
+      "overrides": {
+        "lr": 0.003
+      },
+      "metrics": {
+        "recall@10": 0.014775910585243893,
+        "ndcg@10": 0.016097162230100492,
+        "recall@20": 0.02962179795674841,
+        "ndcg@20": 0.02164014895258788,
+        "coverage@10": 0.03872375238614671,
+        "coverage@20": 0.06053995091355331,
+        "eligible_users": 5789,
+        "total_users": 6040,
+        "excluded_users": 251,
+        "users_without_heldout_positives": 251,
+        "cold_start_positive_targets": 5,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 53006,
+        "catalog_size": 3667,
+        "unsupported_catalog_items": 39,
+        "eligible_user_sha256": "69670af93a3240bf9a53ceea86193bf5b8c9d9aa572f7669c4b7fee954533abd",
+        "candidate_catalog_sha256": "e1d356d8da48299dc2ccc7b0b77b8855b66725055214a21ea637473d3d678850",
+        "rmse": 0.9359368667108527,
+        "mae": 0.7426917028639135,
+        "rating_count": 99692,
+        "cold_item_ratings": 17,
+        "cold_user_ratings": 0
+      },
+      "fit_seconds": 10.246214621000036,
+      "loss_history": [
+        3.520461684713761,
+        0.9700223977367083,
+        0.9648946647842725,
+        0.9635440061489741,
+        0.9560850076377392,
+        0.9400001168251038,
+        0.9293774825831255,
+        0.9199993958075842,
+        0.9139543746908506,
+        0.9063290332754453,
+        0.8959989622235298,
+        0.8858800095816454,
+        0.8747843205928802,
+        0.8700529088576635,
+        0.8632333762943745,
+        0.8486654485265414,
+        0.8436570999523004,
+        0.837472760428985,
+        0.832273098329703,
+        0.8268187393744787
+      ]
+    }
+  ],
+  "test_metrics": {
+    "recall@10": 0.019787119196630364,
+    "ndcg@10": 0.021019195359980394,
+    "recall@20": 0.033496396531330325,
+    "ndcg@20": 0.024956586385347267,
+    "coverage@10": 0.019006244909041542,
+    "coverage@20": 0.0325821341297855,
+    "eligible_users": 5820,
+    "total_users": 6040,
+    "excluded_users": 220,
+    "users_without_heldout_positives": 219,
+    "cold_start_positive_targets": 9,
+    "prior_positive_targets": 0,
+    "heldout_positive_targets": 53025,
+    "catalog_size": 3683,
+    "unsupported_catalog_items": 23,
+    "eligible_user_sha256": "6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b",
+    "candidate_catalog_sha256": "53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9",
+    "rmse": 0.9793679216061325,
+    "mae": 0.7786509384251319,
+    "rating_count": 102759,
+    "cold_item_ratings": 30,
+    "cold_user_ratings": 0
+  },
+  "data": {
+    "dataset": "ml-1m",
+    "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+    "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+    "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+    "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+    "n_users": 6040,
+    "n_items": 3706,
+    "n_ratings": 1000209,
+    "split_counts": {
+      "train": 797758,
+      "val": 99692,
+      "test": 102759
+    },
+    "split_index_sha256": {
+      "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+      "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+      "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+    },
+    "files": {
+      "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+      "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+      "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+    },
+    "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+  },
+  "environment": {
+    "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+    "git_dirty": false,
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "logical_cpus": 9,
+    "device": "cpu",
+    "packages": {
+      "torch": "2.5.1+cpu",
+      "numpy": "2.3.5",
+      "pandas": "2.2.3",
+      "scipy": "1.17.0",
+      "scikit-learn": "1.8.0",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.10.8",
+      "pytest": "9.2.0"
+    }
+  },
+  "trainable_parameters": 478138,
+  "final_fit_seconds": 9.856713150999894,
+  "evaluation_seconds": 9.53454332399997,
+  "total_seconds": 61.74517082400007,
+  "peak_rss_mib": 836.1015625,
+  "peak_rss_scope": "process lifetime high-water mark, including earlier seeds",
+  "final_loss_history": [
+    7.31370984017849,
+    1.3486563774446647,
+    0.9723948463797569,
+    0.9603561696906885,
+    0.9584434578816096,
+    0.9555303864181042,
+    0.9556597359478474,
+    0.9518663845956326,
+    0.9518427054087321,
+    0.9510542154312134,
+    0.9445671364665031,
+    0.9412434262533983,
+    0.9354149575034777,
+    0.9351377226412296,
+    0.934997615714868,
+    0.926267488549153,
+    0.9270699682335058,
+    0.923389750222365,
+    0.923362884670496,
+    0.9221336618065834
+  ],
+  "checkpoint_sha256": "c66c6c1c6fed0671bfd3eaa41c8c424bed0417c65fb05a892110b4922048e7fa",
+  "per_user_sha256": "d20ecf4dd2ba706c91c5bfb0b1a05cfe33b115d6508bdf9dd7337bef760259da"
+}

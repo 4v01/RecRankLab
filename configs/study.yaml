@@ -1,0 +1,23 @@
+# Freeze before any v2 validation/final run. Extensions have a larger declared budget.
+seeds: [17, 29, 43]
+experiments:
+  popularity: {model: popularity, config: configs/base.yaml, trials: 1}
+  biasmf: {model: biasmf, config: configs/biasmf.yaml, trials: 2}
+  autorec: {model: autorec, config: configs/autorec.yaml, trials: 2}
+  bpr_mf: {model: bpr_mf, config: configs/bpr_mf.yaml, trials: 2}
+  lightgcn: {model: lightgcn, config: configs/lightgcn.yaml, trials: 2}
+  bpr_positives_only: {model: bpr_mf, config: configs/bpr_positives_only.yaml, trials: 2}
+  autorec_item: {model: autorec, config: configs/autorec_item.yaml, trials: 4}
+  bpr_optimized: {model: bpr_mf, config: configs/bpr_optimized.yaml, trials: 4}
+  lightgcn_optimized: {model: lightgcn, config: configs/lightgcn_optimized.yaml, trials: 4}
+  ease: {model: ease, config: configs/ease.yaml, trials: 4}
+  ease_selfopt: {model: ease, config: configs/ease_selfopt.yaml, trials: 4}
+comparisons:
+  - [bpr_mf, popularity]
+  - [lightgcn, bpr_mf]
+  - [autorec_item, autorec]
+  - [bpr_optimized, bpr_mf]
+  - [lightgcn_optimized, lightgcn]
+  - [ease, lightgcn_optimized]
+  - [ease_selfopt, ease]
+  - [bpr_positives_only, bpr_mf]

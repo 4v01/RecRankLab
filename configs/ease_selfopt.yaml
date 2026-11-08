@@ -1,0 +1,5 @@
+experiment: ease_selfopt
+search: ridge_evolution
+search_budget: 4
+anchors: [100.0, 1000.0]
+hypothesis: Validation memory can route a fixed four-fit budget toward a useful ridge scale.

@@ -1,0 +1,10 @@
+experiment: bpr_optimized
+dim: 64
+epochs: 80
+ranking_batch_size: 8192
+hypothesis: More optimizer steps and larger embeddings can improve the undertrained BPR baseline.
+trials:
+  - {lr: 0.003, reg: 0.0001}
+  - {lr: 0.01, reg: 0.0001}
+  - {lr: 0.003, reg: 0.001}
+  - {lr: 0.01, reg: 0.001}

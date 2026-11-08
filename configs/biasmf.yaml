@@ -1,0 +1,4 @@
+experiment: biasmf
+trials:
+  - {lr: 0.003}
+  - {lr: 0.01}

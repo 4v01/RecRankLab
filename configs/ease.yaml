@@ -1,0 +1,7 @@
+experiment: ease
+hypothesis: Zero-diagonal linear item regression can capture collaborative signal without stochastic optimization.
+trials:
+  - {ridge: 30.0}
+  - {ridge: 100.0}
+  - {ridge: 300.0}
+  - {ridge: 1000.0}

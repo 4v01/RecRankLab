@@ -1,0 +1,2582 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-11-08T10:28:55.000067+00:00",
+  "report_generator_environment": {
+    "git_commit": "fe4aa6816afb236efb6d3e36eef6913a889b1842",
+    "git_dirty": true,
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cpus": 9,
+    "device": "cpu",
+    "packages": {
+      "torch": "2.5.1+cpu",
+      "numpy": "2.3.5",
+      "pandas": "2.2.3",
+      "scipy": "1.17.0",
+      "scikit-learn": "1.8.0",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.10.8",
+      "pytest": "9.2.0"
+    }
+  },
+  "status": {
+    "complete": true,
+    "expected_seeds": [
+      17,
+      29,
+      43
+    ],
+    "completed_seeds": {
+      "popularity": [
+        17,
+        29,
+        43
+      ],
+      "biasmf": [
+        17,
+        29,
+        43
+      ],
+      "autorec": [
+        17,
+        29,
+        43
+      ],
+      "bpr_mf": [
+        17,
+        29,
+        43
+      ],
+      "lightgcn": [
+        17,
+        29,
+        43
+      ],
+      "bpr_positives_only": [
+        17,
+        29,
+        43
+      ]
+    },
+    "missing_or_mismatched": {}
+  },
+  "runs": {
+    "autorec_seed17": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.001,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.001
+          },
+          {
+            "lr": 0.003
+          }
+        ],
+        "experiment": "autorec",
+        "seed": 17,
+        "model": "autorec"
+      },
+      "seed": 17,
+      "date": "2026-11-07T16:31:29.663810+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/autorec_seed17.json"
+    },
+    "autorec_seed29": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.003,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.001
+          },
+          {
+            "lr": 0.003
+          }
+        ],
+        "experiment": "autorec",
+        "seed": 29,
+        "model": "autorec"
+      },
+      "seed": 29,
+      "date": "2026-11-07T16:32:29.658240+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/autorec_seed29.json"
+    },
+    "autorec_seed43": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.003,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.001
+          },
+          {
+            "lr": 0.003
+          }
+        ],
+        "experiment": "autorec",
+        "seed": 43,
+        "model": "autorec"
+      },
+      "seed": 43,
+      "date": "2026-11-07T16:33:30.531331+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/autorec_seed43.json"
+    },
+    "biasmf_seed17": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.003,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.003
+          },
+          {
+            "lr": 0.01
+          }
+        ],
+        "experiment": "biasmf",
+        "seed": 17,
+        "model": "biasmf"
+      },
+      "seed": 17,
+      "date": "2026-11-07T16:27:30.672491+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/biasmf_seed17.json"
+    },
+    "biasmf_seed29": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.003,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.003
+          },
+          {
+            "lr": 0.01
+          }
+        ],
+        "experiment": "biasmf",
+        "seed": 29,
+        "model": "biasmf"
+      },
+      "seed": 29,
+      "date": "2026-11-07T16:28:52.121502+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/biasmf_seed29.json"
+    },
+    "biasmf_seed43": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.003,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.003
+          },
+          {
+            "lr": 0.01
+          }
+        ],
+        "experiment": "biasmf",
+        "seed": 43,
+        "model": "biasmf"
+      },
+      "seed": 43,
+      "date": "2026-11-07T16:30:17.174601+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/biasmf_seed43.json"
+    },
+    "bpr_mf_seed17": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "experiment": "bpr_mf",
+        "seed": 17,
+        "model": "bpr_mf"
+      },
+      "seed": 17,
+      "date": "2026-11-07T16:34:41.872084+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/bpr_mf_seed17.json"
+    },
+    "bpr_mf_seed29": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "experiment": "bpr_mf",
+        "seed": 29,
+        "model": "bpr_mf"
+      },
+      "seed": 29,
+      "date": "2026-11-07T16:35:40.374619+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/bpr_mf_seed29.json"
+    },
+    "bpr_mf_seed43": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "experiment": "bpr_mf",
+        "seed": 43,
+        "model": "bpr_mf"
+      },
+      "seed": 43,
+      "date": "2026-11-07T16:36:37.601987+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/bpr_mf_seed43.json"
+    },
+    "bpr_positives_only_seed17": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "positives_only",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "experiment": "bpr_positives_only",
+        "seed": 17,
+        "model": "bpr_mf"
+      },
+      "seed": 17,
+      "date": "2026-11-07T16:49:07.698980+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/bpr_positives_only_seed17.json"
+    },
+    "bpr_positives_only_seed29": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "positives_only",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "experiment": "bpr_positives_only",
+        "seed": 29,
+        "model": "bpr_mf"
+      },
+      "seed": 29,
+      "date": "2026-11-07T16:50:05.822140+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/bpr_positives_only_seed29.json"
+    },
+    "bpr_positives_only_seed43": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "positives_only",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "experiment": "bpr_positives_only",
+        "seed": 43,
+        "model": "bpr_mf"
+      },
+      "seed": 43,
+      "date": "2026-11-07T16:51:06.094241+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/bpr_positives_only_seed43.json"
+    },
+    "lightgcn_seed17": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.03,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "experiment": "lightgcn",
+        "seed": 17,
+        "model": "lightgcn"
+      },
+      "seed": 17,
+      "date": "2026-11-07T16:40:34.106963+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/lightgcn_seed17.json"
+    },
+    "lightgcn_seed29": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.03,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "experiment": "lightgcn",
+        "seed": 29,
+        "model": "lightgcn"
+      },
+      "seed": 29,
+      "date": "2026-11-07T16:44:20.053949+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/lightgcn_seed29.json"
+    },
+    "lightgcn_seed43": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.03,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "experiment": "lightgcn",
+        "seed": 43,
+        "model": "lightgcn"
+      },
+      "seed": 43,
+      "date": "2026-11-07T16:48:05.745293+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/lightgcn_seed43.json"
+    },
+    "popularity_seed17": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "seed": 17,
+        "model": "popularity"
+      },
+      "seed": 17,
+      "date": "2026-11-07T16:25:15.612899+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/popularity_seed17.json"
+    },
+    "popularity_seed29": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "seed": 29,
+        "model": "popularity"
+      },
+      "seed": 29,
+      "date": "2026-11-07T16:25:36.317462+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/popularity_seed29.json"
+    },
+    "popularity_seed43": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/main",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 20,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          },
+          {
+            "lr": 0.03
+          }
+        ],
+        "seed": 43,
+        "model": "popularity"
+      },
+      "seed": 43,
+      "date": "2026-11-07T16:25:57.746007+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/popularity_seed43.json"
+    },
+    "smoke_autorec_seed17": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-100k",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-100k.zip",
+        "archive_sha256": "50d2a982c66986937beb9ffb3aa76efe955bf3d5c6b761f4e3a7cd717c6a3229",
+        "ratings_member_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 943,
+        "n_items": 1682,
+        "n_ratings": 100000,
+        "split_counts": {
+          "train": 79619,
+          "val": 9942,
+          "test": 10439
+        },
+        "split_index_sha256": {
+          "train": "2d0d95a7bf6d9e22eab4ff66c321dcac2dfd81b6b61393e76b0974f216025f6c",
+          "val": "d58997c4dc0b55092bf0aa3c1bceec5b583d3e5233b576e13568f2a04d91fd39",
+          "test": "5916698df4d79afa5d0dde03b7152cb98cf19cbc80e17d931fe321a8e3e42da0"
+        },
+        "files": {
+          "id_maps.npz": "23df1d92d9b64d6cd279a7bcce42835ebcf1a83544c0bcf74afe4f300315ae96",
+          "splits.npz": "26c346447df9ad856fd84e903d6dc258562fd475d5299fba5c4b99fc3d1a9a4c",
+          "ratings.csv": "d46796edc685056e27e1abd9dd7ae00651005e98f60a78acdcecff1eb6c81b60"
+        },
+        "fingerprint": "19b811588e15b409603cf505918b2825ccc4c505e2ff72bc2f84e0455111336f"
+      },
+      "config": {
+        "dataset": "ml-100k",
+        "data_root": "data",
+        "output_root": "outputs/smoke",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 1,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.001,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.001
+          }
+        ],
+        "experiment": "autorec",
+        "seed": 17,
+        "model": "autorec"
+      },
+      "seed": 17,
+      "date": "2026-11-07T16:30:24.290283+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/smoke_autorec_seed17.json"
+    },
+    "smoke_biasmf_seed17": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-100k",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-100k.zip",
+        "archive_sha256": "50d2a982c66986937beb9ffb3aa76efe955bf3d5c6b761f4e3a7cd717c6a3229",
+        "ratings_member_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 943,
+        "n_items": 1682,
+        "n_ratings": 100000,
+        "split_counts": {
+          "train": 79619,
+          "val": 9942,
+          "test": 10439
+        },
+        "split_index_sha256": {
+          "train": "2d0d95a7bf6d9e22eab4ff66c321dcac2dfd81b6b61393e76b0974f216025f6c",
+          "val": "d58997c4dc0b55092bf0aa3c1bceec5b583d3e5233b576e13568f2a04d91fd39",
+          "test": "5916698df4d79afa5d0dde03b7152cb98cf19cbc80e17d931fe321a8e3e42da0"
+        },
+        "files": {
+          "id_maps.npz": "23df1d92d9b64d6cd279a7bcce42835ebcf1a83544c0bcf74afe4f300315ae96",
+          "splits.npz": "26c346447df9ad856fd84e903d6dc258562fd475d5299fba5c4b99fc3d1a9a4c",
+          "ratings.csv": "d46796edc685056e27e1abd9dd7ae00651005e98f60a78acdcecff1eb6c81b60"
+        },
+        "fingerprint": "19b811588e15b409603cf505918b2825ccc4c505e2ff72bc2f84e0455111336f"
+      },
+      "config": {
+        "dataset": "ml-100k",
+        "data_root": "data",
+        "output_root": "outputs/smoke",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 1,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.003,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.003
+          }
+        ],
+        "experiment": "biasmf",
+        "seed": 17,
+        "model": "biasmf"
+      },
+      "seed": 17,
+      "date": "2026-11-07T16:26:04.139350+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/smoke_biasmf_seed17.json"
+    },
+    "smoke_bpr_mf_seed17": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-100k",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-100k.zip",
+        "archive_sha256": "50d2a982c66986937beb9ffb3aa76efe955bf3d5c6b761f4e3a7cd717c6a3229",
+        "ratings_member_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 943,
+        "n_items": 1682,
+        "n_ratings": 100000,
+        "split_counts": {
+          "train": 79619,
+          "val": 9942,
+          "test": 10439
+        },
+        "split_index_sha256": {
+          "train": "2d0d95a7bf6d9e22eab4ff66c321dcac2dfd81b6b61393e76b0974f216025f6c",
+          "val": "d58997c4dc0b55092bf0aa3c1bceec5b583d3e5233b576e13568f2a04d91fd39",
+          "test": "5916698df4d79afa5d0dde03b7152cb98cf19cbc80e17d931fe321a8e3e42da0"
+        },
+        "files": {
+          "id_maps.npz": "23df1d92d9b64d6cd279a7bcce42835ebcf1a83544c0bcf74afe4f300315ae96",
+          "splits.npz": "26c346447df9ad856fd84e903d6dc258562fd475d5299fba5c4b99fc3d1a9a4c",
+          "ratings.csv": "d46796edc685056e27e1abd9dd7ae00651005e98f60a78acdcecff1eb6c81b60"
+        },
+        "fingerprint": "19b811588e15b409603cf505918b2825ccc4c505e2ff72bc2f84e0455111336f"
+      },
+      "config": {
+        "dataset": "ml-100k",
+        "data_root": "data",
+        "output_root": "outputs/smoke",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 1,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          }
+        ],
+        "experiment": "bpr_mf",
+        "seed": 17,
+        "model": "bpr_mf"
+      },
+      "seed": 17,
+      "date": "2026-11-07T16:33:36.352362+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/smoke_bpr_mf_seed17.json"
+    },
+    "smoke_lightgcn_seed17": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-100k",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-100k.zip",
+        "archive_sha256": "50d2a982c66986937beb9ffb3aa76efe955bf3d5c6b761f4e3a7cd717c6a3229",
+        "ratings_member_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 943,
+        "n_items": 1682,
+        "n_ratings": 100000,
+        "split_counts": {
+          "train": 79619,
+          "val": 9942,
+          "test": 10439
+        },
+        "split_index_sha256": {
+          "train": "2d0d95a7bf6d9e22eab4ff66c321dcac2dfd81b6b61393e76b0974f216025f6c",
+          "val": "d58997c4dc0b55092bf0aa3c1bceec5b583d3e5233b576e13568f2a04d91fd39",
+          "test": "5916698df4d79afa5d0dde03b7152cb98cf19cbc80e17d931fe321a8e3e42da0"
+        },
+        "files": {
+          "id_maps.npz": "23df1d92d9b64d6cd279a7bcce42835ebcf1a83544c0bcf74afe4f300315ae96",
+          "splits.npz": "26c346447df9ad856fd84e903d6dc258562fd475d5299fba5c4b99fc3d1a9a4c",
+          "ratings.csv": "d46796edc685056e27e1abd9dd7ae00651005e98f60a78acdcecff1eb6c81b60"
+        },
+        "fingerprint": "19b811588e15b409603cf505918b2825ccc4c505e2ff72bc2f84e0455111336f"
+      },
+      "config": {
+        "dataset": "ml-100k",
+        "data_root": "data",
+        "output_root": "outputs/smoke",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 1,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          }
+        ],
+        "experiment": "lightgcn",
+        "seed": 17,
+        "model": "lightgcn"
+      },
+      "seed": 17,
+      "date": "2026-11-07T16:36:42.832602+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/smoke_lightgcn_seed17.json"
+    },
+    "smoke_popularity_seed17": {
+      "code_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+      "dataset": {
+        "dataset": "ml-100k",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-100k.zip",
+        "archive_sha256": "50d2a982c66986937beb9ffb3aa76efe955bf3d5c6b761f4e3a7cd717c6a3229",
+        "ratings_member_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 943,
+        "n_items": 1682,
+        "n_ratings": 100000,
+        "split_counts": {
+          "train": 79619,
+          "val": 9942,
+          "test": 10439
+        },
+        "split_index_sha256": {
+          "train": "2d0d95a7bf6d9e22eab4ff66c321dcac2dfd81b6b61393e76b0974f216025f6c",
+          "val": "d58997c4dc0b55092bf0aa3c1bceec5b583d3e5233b576e13568f2a04d91fd39",
+          "test": "5916698df4d79afa5d0dde03b7152cb98cf19cbc80e17d931fe321a8e3e42da0"
+        },
+        "files": {
+          "id_maps.npz": "23df1d92d9b64d6cd279a7bcce42835ebcf1a83544c0bcf74afe4f300315ae96",
+          "splits.npz": "26c346447df9ad856fd84e903d6dc258562fd475d5299fba5c4b99fc3d1a9a4c",
+          "ratings.csv": "d46796edc685056e27e1abd9dd7ae00651005e98f60a78acdcecff1eb6c81b60"
+        },
+        "fingerprint": "19b811588e15b409603cf505918b2825ccc4c505e2ff72bc2f84e0455111336f"
+      },
+      "config": {
+        "dataset": "ml-100k",
+        "data_root": "data",
+        "output_root": "outputs/smoke",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 1,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "lr": 0.01
+          }
+        ],
+        "seed": 17,
+        "model": "popularity"
+      },
+      "seed": 17,
+      "date": "2026-11-07T16:24:52.206356+00:00",
+      "environment": {
+        "git_commit": "b2f8ba09b09db7754ab92eecaa9ebfdfa901ed11",
+        "git_dirty": false,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "logical_cpus": 9,
+        "device": "cpu",
+        "packages": {
+          "torch": "2.5.1+cpu",
+          "numpy": "2.3.5",
+          "pandas": "2.2.3",
+          "scipy": "1.17.0",
+          "scikit-learn": "1.8.0",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.10.8",
+          "pytest": "9.2.0"
+        }
+      },
+      "evidence": "evidence/smoke_popularity_seed17.json"
+    }
+  },
+  "artifacts": {
+    "ablations.csv": {
+      "sha256": "eab1b7a1c0c66b3e161d1638dfc67b0deeae0314e20a097d0759b1a36a32f885",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "completion_status.json": {
+      "sha256": "95e6f8b09563d107315ff008808e24c8f4f955169875d49913b1a4d001bc01a9",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "data_audit.json": {
+      "sha256": "668c33116d717e83a749c5095d0e2e06d875309feb856b2733dd051f9d37c7c1",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "evidence/autorec_seed17.json": {
+      "sha256": "e5e46f52397c679b65a2f9efe6cb3bbf5fc3774d1ebd8fd07358916e978c8aa9",
+      "source_runs": [
+        "autorec_seed17"
+      ]
+    },
+    "evidence/autorec_seed17_users.csv": {
+      "sha256": "d20ecf4dd2ba706c91c5bfb0b1a05cfe33b115d6508bdf9dd7337bef760259da",
+      "source_runs": [
+        "autorec_seed17"
+      ]
+    },
+    "evidence/autorec_seed29.json": {
+      "sha256": "09f4a0f8ff5f89800e2d2854406706344ad6fb21d0d735aee81538ea5e8d05f9",
+      "source_runs": [
+        "autorec_seed29"
+      ]
+    },
+    "evidence/autorec_seed29_users.csv": {
+      "sha256": "a5874ce826892f1b282dfa53e51d2b76dc41e72c1b93689176df8ffb1f775cea",
+      "source_runs": [
+        "autorec_seed29"
+      ]
+    },
+    "evidence/autorec_seed43.json": {
+      "sha256": "a26bd748e1d3379c59c090f4f8afb62cbe5ffa985c8ba1dddaee17cc62d4f6b8",
+      "source_runs": [
+        "autorec_seed43"
+      ]
+    },
+    "evidence/autorec_seed43_users.csv": {
+      "sha256": "8190cd41c1b6dd725af230cc71be84ce0ff1206cac66a3a7d9e2db7bf4a46688",
+      "source_runs": [
+        "autorec_seed43"
+      ]
+    },
+    "evidence/biasmf_seed17.json": {
+      "sha256": "a599328a410a30b20843e753f4d9054bc4355ffd4223c004d32d50cdff5c7df4",
+      "source_runs": [
+        "biasmf_seed17"
+      ]
+    },
+    "evidence/biasmf_seed17_users.csv": {
+      "sha256": "a63adb7abdb98eac0f4fde3243432f298af758809fae9d761210c253e9befdcc",
+      "source_runs": [
+        "biasmf_seed17"
+      ]
+    },
+    "evidence/biasmf_seed29.json": {
+      "sha256": "45f7b826b6f156fe30617928dc5721e9c444886d481b9dd3c6e12e13dfcc7f05",
+      "source_runs": [
+        "biasmf_seed29"
+      ]
+    },
+    "evidence/biasmf_seed29_users.csv": {
+      "sha256": "5a4e3370d7ad820d869aac375b380c2875f6eb7e78b61f4c1a70f07e4bb2ba45",
+      "source_runs": [
+        "biasmf_seed29"
+      ]
+    },
+    "evidence/biasmf_seed43.json": {
+      "sha256": "41eb3b8acab0bc9d7e8acefb7a7e7620cf6e1e65952cf2280e1be517ff4031e1",
+      "source_runs": [
+        "biasmf_seed43"
+      ]
+    },
+    "evidence/biasmf_seed43_users.csv": {
+      "sha256": "49963ac3e7b6e6b240dbdfefcecc89eb94388b28da295a85da7b58fa36344fc7",
+      "source_runs": [
+        "biasmf_seed43"
+      ]
+    },
+    "evidence/bpr_mf_seed17.json": {
+      "sha256": "270aed359a354fd07ddf7e600e25d10707c185f8ea6a428eaef5aab527239172",
+      "source_runs": [
+        "bpr_mf_seed17"
+      ]
+    },
+    "evidence/bpr_mf_seed17_users.csv": {
+      "sha256": "20f5dcc6bbe838abd294163d6eb96f0583021520e6f905451f92ad75b5b61f96",
+      "source_runs": [
+        "bpr_mf_seed17"
+      ]
+    },
+    "evidence/bpr_mf_seed29.json": {
+      "sha256": "651f84e40c663748323cce6633880ec4bbe15b28785891d3bfc616e6b8988ce2",
+      "source_runs": [
+        "bpr_mf_seed29"
+      ]
+    },
+    "evidence/bpr_mf_seed29_users.csv": {
+      "sha256": "8639f4030cb8b4f0fc32de44bcbf94a85d7cc6c6aea18db447fdfa83fb5924cb",
+      "source_runs": [
+        "bpr_mf_seed29"
+      ]
+    },
+    "evidence/bpr_mf_seed43.json": {
+      "sha256": "6ef54ac305e8e559fc26f3cef92593958c899026446e54276f7418569c76a8bb",
+      "source_runs": [
+        "bpr_mf_seed43"
+      ]
+    },
+    "evidence/bpr_mf_seed43_users.csv": {
+      "sha256": "0b1039ef0ce3c4a8f5d7f79889062368e0a04ae72004fc672fd8623e87bba0df",
+      "source_runs": [
+        "bpr_mf_seed43"
+      ]
+    },
+    "evidence/bpr_positives_only_seed17.json": {
+      "sha256": "69e5499645ff4c6ff1d90c891a594f0e80dbff90e28573678535c4e5d1f71b7f",
+      "source_runs": [
+        "bpr_positives_only_seed17"
+      ]
+    },
+    "evidence/bpr_positives_only_seed17_users.csv": {
+      "sha256": "4dbe26becf626385d178a97a8f418a2efccbc0aaf699c09882894d55b0b49910",
+      "source_runs": [
+        "bpr_positives_only_seed17"
+      ]
+    },
+    "evidence/bpr_positives_only_seed29.json": {
+      "sha256": "d42177260991c530488601fef62833780ddbaa82831b68aeb4e3a41c36a662d9",
+      "source_runs": [
+        "bpr_positives_only_seed29"
+      ]
+    },
+    "evidence/bpr_positives_only_seed29_users.csv": {
+      "sha256": "5fcc0991433d73f5d74652f9cecfb3d295ae5b1b654c26a874cabb85972dc3cf",
+      "source_runs": [
+        "bpr_positives_only_seed29"
+      ]
+    },
+    "evidence/bpr_positives_only_seed43.json": {
+      "sha256": "0e20318d044af174086088961c934ce11d0a5576ce10f05f059cc631053eea23",
+      "source_runs": [
+        "bpr_positives_only_seed43"
+      ]
+    },
+    "evidence/bpr_positives_only_seed43_users.csv": {
+      "sha256": "2b41bebd797d30cba56668584e3ad64d892ad8a0a59d8d02d4069427723a6642",
+      "source_runs": [
+        "bpr_positives_only_seed43"
+      ]
+    },
+    "evidence/lightgcn_seed17.json": {
+      "sha256": "56b795bc50c4853743f6dd9250714d39fc7ace0d821f92f05aff1833f1cfb82d",
+      "source_runs": [
+        "lightgcn_seed17"
+      ]
+    },
+    "evidence/lightgcn_seed17_users.csv": {
+      "sha256": "44eb3ebe659490054bb03f1b60f8c4ffce7dc315b1f9a15d6710d0751b4e68b8",
+      "source_runs": [
+        "lightgcn_seed17"
+      ]
+    },
+    "evidence/lightgcn_seed29.json": {
+      "sha256": "7ae6f72185da4f7f04a6cf6a909c9b3333f7be9f158b4d919cfc088abdc64656",
+      "source_runs": [
+        "lightgcn_seed29"
+      ]
+    },
+    "evidence/lightgcn_seed29_users.csv": {
+      "sha256": "f419a2d2b4596e0ccfd1266d242daa3e6c8b670f002ed44350d21719f4e80fde",
+      "source_runs": [
+        "lightgcn_seed29"
+      ]
+    },
+    "evidence/lightgcn_seed43.json": {
+      "sha256": "9b163aec403bcf489c850d0e36599c0dbd959fe47202bf004eb40fb548d6f6eb",
+      "source_runs": [
+        "lightgcn_seed43"
+      ]
+    },
+    "evidence/lightgcn_seed43_users.csv": {
+      "sha256": "3095dddff2127ff9e05cb2896fa0ae1ea989f6480d5e75e371c6639e706c27c9",
+      "source_runs": [
+        "lightgcn_seed43"
+      ]
+    },
+    "evidence/popularity_seed17.json": {
+      "sha256": "5a7b3e92862da92500ae8e18204bb5f528bab188c902e050822c34f57106463e",
+      "source_runs": [
+        "popularity_seed17"
+      ]
+    },
+    "evidence/popularity_seed17_users.csv": {
+      "sha256": "b07431604591b46e8d6760e11d2ec26331a408fdc79c742728a420f42dd1d58c",
+      "source_runs": [
+        "popularity_seed17"
+      ]
+    },
+    "evidence/popularity_seed29.json": {
+      "sha256": "7878cfca0f32ab34032c4a38a08e1c0208911abd7ce31da787013ae49625dde9",
+      "source_runs": [
+        "popularity_seed29"
+      ]
+    },
+    "evidence/popularity_seed29_users.csv": {
+      "sha256": "b07431604591b46e8d6760e11d2ec26331a408fdc79c742728a420f42dd1d58c",
+      "source_runs": [
+        "popularity_seed29"
+      ]
+    },
+    "evidence/popularity_seed43.json": {
+      "sha256": "a0b648087006ae1f8882fe8b57cab959f52a3d7fe2ce7fb9f9d5ee5bc3b3a102",
+      "source_runs": [
+        "popularity_seed43"
+      ]
+    },
+    "evidence/popularity_seed43_users.csv": {
+      "sha256": "b07431604591b46e8d6760e11d2ec26331a408fdc79c742728a420f42dd1d58c",
+      "source_runs": [
+        "popularity_seed43"
+      ]
+    },
+    "evidence/smoke_autorec_seed17.json": {
+      "sha256": "4bd2b7359486b81b315d3924f044ea64323f5db64a5440ab1b20bfebe7f79f9f",
+      "source_runs": [
+        "smoke_autorec_seed17"
+      ]
+    },
+    "evidence/smoke_biasmf_seed17.json": {
+      "sha256": "81b89e22663aae979586e060b775815890af2acfdc309409d9e34e8cb4fcf671",
+      "source_runs": [
+        "smoke_biasmf_seed17"
+      ]
+    },
+    "evidence/smoke_bpr_mf_seed17.json": {
+      "sha256": "3b201aa057fc753be9740b561ae9a3d06fc17cb5b57a761407ceb8d42d9fdcdf",
+      "source_runs": [
+        "smoke_bpr_mf_seed17"
+      ]
+    },
+    "evidence/smoke_lightgcn_seed17.json": {
+      "sha256": "dfb8702d82bcb4c5ecc46df236b16e46393e90c475302271b8c8ec3f66a3b915",
+      "source_runs": [
+        "smoke_lightgcn_seed17"
+      ]
+    },
+    "evidence/smoke_popularity_seed17.json": {
+      "sha256": "9fa03479319b30168d199bb9a9a2f60c26e302e901cc852205219256c05ac4ae",
+      "source_runs": [
+        "smoke_popularity_seed17"
+      ]
+    },
+    "figures/ranking_comparison.png": {
+      "sha256": "6740d70814bcdd3c667c96ee260f50f49c780081ee755d19995d821111680b34",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "figures/rating_vs_ranking.png": {
+      "sha256": "b8bdf9a8da08d4d7960f30ede55ac8a16f0651cad1c370f041d53c6a170b27e2",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "figures/training_curves.png": {
+      "sha256": "fec8e13c2f353e316750daa2c8bc11d3b5d9f75d97038ca0890248d993575592",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "findings.md": {
+      "sha256": "ff910139a532114e104e04e0eb7602ba6e917a604f174afcdc8292939757b977",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "limitations.md": {
+      "sha256": "64512357029144f8c73a5a0a5a5e29e519090a5e1427b5f402b4e96fcdaece3e",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "methodology.md": {
+      "sha256": "3328a73da7c8d37b4bcf34f6647950b66e781bc194fdbf40f3704a0b922409ca",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "paired_differences.csv": {
+      "sha256": "04981f8a690c78c654ed2f0c1cee90810761f26bddc9a71a2727e237bc7e9c19",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "per_seed_results.csv": {
+      "sha256": "8fdf6d49a07958e6da403fb75bda96200dbf88cb870bcf60d6006c482ab6513c",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "results.csv": {
+      "sha256": "202d3212dbfb772169395af36f4fa30275b1aca957e1b359eaf4a2800680b923",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "smoke_summary.csv": {
+      "sha256": "96eff393d22ef9ae267f4ede569e27af2739736642e5b3d0faad233af109100f",
+      "source_runs": [
+        "smoke_autorec_seed17",
+        "smoke_biasmf_seed17",
+        "smoke_bpr_mf_seed17",
+        "smoke_lightgcn_seed17",
+        "smoke_popularity_seed17"
+      ]
+    },
+    "technical_report.md": {
+      "sha256": "94716e26f38d2f2b3c923c6a3fd37421c29e2eb87ff58d0f9c76aaa0c444455e",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "test_output.txt": {
+      "sha256": "d6500e0a9d26fcc2ba2c40ab69abc7275fc8a51cafbb8aee470a97d59e7726fa",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "validation.md": {
+      "sha256": "5b60ae22cbd86bfa4ccb0c3f86784f0e8d83309ec70ef64147bade40b08d600a",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    },
+    "validation_trials.csv": {
+      "sha256": "54de3122f0cf8c2f83f91df14ffa4109f55683b9e16c586175399a8838c4c688",
+      "source_runs": [
+        "autorec_seed17",
+        "autorec_seed29",
+        "autorec_seed43",
+        "biasmf_seed17",
+        "biasmf_seed29",
+        "biasmf_seed43",
+        "bpr_mf_seed17",
+        "bpr_mf_seed29",
+        "bpr_mf_seed43",
+        "bpr_positives_only_seed17",
+        "bpr_positives_only_seed29",
+        "bpr_positives_only_seed43",
+        "lightgcn_seed17",
+        "lightgcn_seed29",
+        "lightgcn_seed43",
+        "popularity_seed17",
+        "popularity_seed29",
+        "popularity_seed43"
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+experiment: lightgcn_optimized
+dim: 64
+epochs: 60
+ranking_batch_size: 131072
+hypothesis: Longer training and graph depth search can improve the small fixed-depth baseline.
+trials:
+  - {lr: 0.03, reg: 0.0001, layers: 1}
+  - {lr: 0.01, reg: 0.0001, layers: 1}
+  - {lr: 0.03, reg: 0.0001, layers: 2}
+  - {lr: 0.01, reg: 0.0001, layers: 2}
