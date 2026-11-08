@@ -1,0 +1,1 @@
+PASS: 11 experiments × 3 seeds; hashes, selection, means/SD, paired differences, source history, shared populations and data exclusions.

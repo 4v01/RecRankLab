@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "signature": "1379a7cfc297c6638fb05890eef2a0fd4e3a7c2976782505c704c433491e5276",
+  "dataset": "ml-1m",
+  "experiment": "biasmf",
+  "model": "biasmf",
+  "seed": 17,
+  "completed_at_utc": "2026-11-08T20:57:35.458887+00:00",
+  "config": {
+    "dataset": "ml-1m",
+    "data_root": "data",
+    "output_root": "outputs/main",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 2,
+    "epochs": 20,
+    "dim": 32,
+    "hidden": 64,
+    "layers": 2,
+    "reg": 0.0001,
+    "lr": 0.01,
+    "rating_batch_size": 8192,
+    "ranking_batch_size": 32768,
+    "auto_batch_size": 128,
+    "negative_policy": "all_history",
+    "trials": [
+      {
+        "lr": 0.003
+      },
+      {
+        "lr": 0.01
+      }
+    ],
+    "experiment": "biasmf",
+    "model": "biasmf"
+  },
+  "config_sha256": "d847eb1ed9ec81c1dc4dff733e57d84329c7b649219a476b14529d978d0988a4",
+  "selected_config": {
+    "dataset": "ml-1m",
+    "data_root": "data",
+    "output_root": "outputs/main",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 2,
+    "epochs": 20,
+    "dim": 32,
+    "hidden": 64,
+    "layers": 2,
+    "reg": 0.0001,
+    "lr": 0.003,
+    "rating_batch_size": 8192,
+    "ranking_batch_size": 32768,
+    "auto_batch_size": 128,
+    "negative_policy": "all_history",
+    "trials": [
+      {
+        "lr": 0.003
+      },
+      {
+        "lr": 0.01
+      }
+    ],
+    "experiment": "biasmf",
+    "model": "biasmf",
+    "seed": 17
+  },
+  "selected_trial": 0,
+  "validation_trials": [
+    {
+      "trial_id": 0,
+      "overrides": {
+        "lr": 0.003
+      },
+      "metrics": {
+        "recall@10": 0.014202890038609918,
+        "ndcg@10": 0.017365502914073492,
+        "recall@20": 0.025570870609812113,
+        "ndcg@20": 0.020504667377365626,
+        "coverage@10": 0.7076629397327515,
+        "coverage@20": 0.813198800109081,
+        "eligible_users": 5789,
+        "total_users": 6040,
+        "excluded_users": 251,
+        "users_without_heldout_positives": 251,
+        "cold_start_positive_targets": 5,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 53006,
+        "catalog_size": 3667,
+        "unsupported_catalog_items": 39,
+        "eligible_user_sha256": "69670af93a3240bf9a53ceea86193bf5b8c9d9aa572f7669c4b7fee954533abd",
+        "candidate_catalog_sha256": "e1d356d8da48299dc2ccc7b0b77b8855b66725055214a21ea637473d3d678850",
+        "rmse": 0.9582237350654564,
+        "mae": 0.744543543480585,
+        "rating_count": 99692,
+        "cold_item_ratings": 17,
+        "cold_user_ratings": 0
+      },
+      "fit_seconds": 10.049216193999996,
+      "loss_history": [
+        1.12175206103537,
+        0.8983631633247263,
+        0.751096508858987,
+        0.6754551618233563,
+        0.6209138054844537,
+        0.5789408133789337,
+        0.5464855460606278,
+        0.5212886586791928,
+        0.5014785780823451,
+        0.4855671348878385,
+        0.47267934582608734,
+        0.4619339286187654,
+        0.4529394986430421,
+        0.44507032681108716,
+        0.43842620646215186,
+        0.43244298490676086,
+        0.4271732367928067,
+        0.4224863315146736,
+        0.41828999971787506,
+        0.414452187665837
+      ],
+      "hypothesis": {
+        "policy": "grid",
+        "parent_trial": null,
+        "mechanism": "Predeclared finite model comparison",
+        "candidate": {
+          "lr": 0.003
+        },
+        "feedback_partition": "validation",
+        "budget": 2
+      }
+    },
+    {
+      "trial_id": 1,
+      "overrides": {
+        "lr": 0.01
+      },
+      "metrics": {
+        "recall@10": 0.002313684558768551,
+        "ndcg@10": 0.0029078003629710377,
+        "recall@20": 0.006102160237805714,
+        "ndcg@20": 0.004412895948218543,
+        "coverage@10": 0.5988546495773112,
+        "coverage@20": 0.7395691300790838,
+        "eligible_users": 5789,
+        "total_users": 6040,
+        "excluded_users": 251,
+        "users_without_heldout_positives": 251,
+        "cold_start_positive_targets": 5,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 53006,
+        "catalog_size": 3667,
+        "unsupported_catalog_items": 39,
+        "eligible_user_sha256": "69670af93a3240bf9a53ceea86193bf5b8c9d9aa572f7669c4b7fee954533abd",
+        "candidate_catalog_sha256": "e1d356d8da48299dc2ccc7b0b77b8855b66725055214a21ea637473d3d678850",
+        "rmse": 1.0467519263148426,
+        "mae": 0.8024024483878756,
+        "rating_count": 99692,
+        "cold_item_ratings": 17,
+        "cold_user_ratings": 0
+      },
+      "fit_seconds": 10.097843688000012,
+      "loss_history": [
+        0.9638780645868467,
+        0.6985501955741146,
+        0.5870320842236489,
+        0.5279173880713968,
+        0.49498700166079196,
+        0.4743631656104638,
+        0.4599505415884999,
+        0.44907288187942757,
+        0.4409508767790093,
+        0.4341418399016276,
+        0.4288824404578015,
+        0.42433640093546077,
+        0.42063410379170624,
+        0.41720735830830785,
+        0.4146302509773905,
+        0.41202209850569893,
+        0.4099616322046056,
+        0.4079937705638809,
+        0.4064181878917312,
+        0.4048799378192476
+      ],
+      "hypothesis": {
+        "policy": "grid",
+        "parent_trial": 0,
+        "mechanism": "Predeclared finite model comparison",
+        "candidate": {
+          "lr": 0.01
+        },
+        "feedback_partition": "validation",
+        "budget": 2
+      }
+    }
+  ],
+  "test_metrics": {
+    "recall@10": 0.014684296568323877,
+    "ndcg@10": 0.017711632603961566,
+    "recall@20": 0.026662210068607438,
+    "ndcg@20": 0.021162724294962923,
+    "coverage@10": 0.7197936464838447,
+    "coverage@20": 0.8183546022264458,
+    "eligible_users": 5820,
+    "total_users": 6040,
+    "excluded_users": 220,
+    "users_without_heldout_positives": 219,
+    "cold_start_positive_targets": 9,
+    "prior_positive_targets": 0,
+    "heldout_positive_targets": 53025,
+    "catalog_size": 3683,
+    "unsupported_catalog_items": 23,
+    "eligible_user_sha256": "6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b",
+    "candidate_catalog_sha256": "53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9",
+    "rmse": 0.9621728356970172,
+    "mae": 0.7482701545898125,
+    "rating_count": 102759,
+    "cold_item_ratings": 30,
+    "cold_user_ratings": 0
+  },
+  "data": {
+    "dataset": "ml-1m",
+    "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+    "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+    "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+    "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+    "n_users": 6040,
+    "n_items": 3706,
+    "n_ratings": 1000209,
+    "split_counts": {
+      "train": 797758,
+      "val": 99692,
+      "test": 102759
+    },
+    "split_index_sha256": {
+      "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+      "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+      "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+    },
+    "files": {
+      "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+      "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+      "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+    },
+    "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+  },
+  "environment": {
+    "git_commit": "ab7798096d563205153f632d1029c59559cd10aa",
+    "git_dirty": false,
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cpus": 3,
+    "device": "cpu",
+    "blas": [
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 3,
+        "prefix": "libscipy_openblas",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+        "version": "0.3.34.106.0",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      },
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 3,
+        "prefix": "libscipy_openblas",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+        "version": "0.3.31.dev",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      },
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 3,
+        "prefix": "libgomp",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+        "version": null
+      }
+    ],
+    "packages": {
+      "torch": "2.15.0+cpu",
+      "numpy": "2.5.4",
+      "pandas": "2.2.3",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.11.2",
+      "pytest": "9.2.0"
+    }
+  },
+  "trainable_parameters": 321618,
+  "final_fit_seconds": 11.390449758000045,
+  "evaluation_seconds": 3.4170490120000068,
+  "total_seconds": 42.75985124499999,
+  "peak_rss_mib": 1244.28515625,
+  "peak_rss_scope": "process lifetime high-water mark, including earlier seeds",
+  "final_loss_history": [
+    1.1126464964342062,
+    0.8676986242857568,
+    0.7346218262019479,
+    0.6672732936016291,
+    0.6176124622034252,
+    0.5791424409590947,
+    0.5494912677728019,
+    0.5267050771688284,
+    0.5088245483970727,
+    0.4946033765328044,
+    0.4830033802137354,
+    0.47335967113217364,
+    0.46514089526894487,
+    0.45817289920475923,
+    0.45201975346508183,
+    0.44670076969354106,
+    0.44193326365456914,
+    0.437688899465481,
+    0.4338439433355771,
+    0.4303031175419098
+  ],
+  "checkpoint_sha256": "d2fe5450f263938b2633a395f06a1ff5db09b03979d00828936bd789285a0535",
+  "per_user_sha256": "a63adb7abdb98eac0f4fde3243432f298af758809fae9d761210c253e9befdcc"
+}

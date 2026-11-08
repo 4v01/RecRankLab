@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "signature": "d76053f2365606993bbc8c0fee19f17984a431b11a1b6408e8bce012d4d668dd",
+  "dataset": "ml-100k",
+  "experiment": "lightgcn",
+  "model": "lightgcn",
+  "seed": 17,
+  "completed_at_utc": "2026-11-08T22:00:31.736392+00:00",
+  "config": {
+    "dataset": "ml-100k",
+    "data_root": "data",
+    "output_root": "outputs/smoke",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 2,
+    "epochs": 1,
+    "dim": 32,
+    "hidden": 64,
+    "layers": 2,
+    "reg": 0.0001,
+    "lr": 0.01,
+    "rating_batch_size": 8192,
+    "ranking_batch_size": 32768,
+    "auto_batch_size": 128,
+    "negative_policy": "all_history",
+    "trials": [
+      {
+        "lr": 0.01
+      }
+    ],
+    "experiment": "lightgcn",
+    "model": "lightgcn"
+  },
+  "config_sha256": "0ca182f469ad2be59f97e1460b661d931ec76c449cd6f72d999f63ddab2ba990",
+  "selected_config": {
+    "dataset": "ml-100k",
+    "data_root": "data",
+    "output_root": "outputs/smoke",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 2,
+    "epochs": 1,
+    "dim": 32,
+    "hidden": 64,
+    "layers": 2,
+    "reg": 0.0001,
+    "lr": 0.01,
+    "rating_batch_size": 8192,
+    "ranking_batch_size": 32768,
+    "auto_batch_size": 128,
+    "negative_policy": "all_history",
+    "trials": [
+      {
+        "lr": 0.01
+      }
+    ],
+    "experiment": "lightgcn",
+    "model": "lightgcn",
+    "seed": 17
+  },
+  "selected_trial": 0,
+  "validation_trials": [
+    {
+      "trial_id": 0,
+      "overrides": {
+        "lr": 0.01
+      },
+      "metrics": {
+        "recall@10": 0.022995182347001826,
+        "ndcg@10": 0.01961708254909388,
+        "recall@20": 0.04124613510760891,
+        "ndcg@20": 0.026084383721338117,
+        "coverage@10": 0.7138423339540658,
+        "coverage@20": 0.8739913097454997,
+        "eligible_users": 852,
+        "total_users": 943,
+        "excluded_users": 91,
+        "users_without_heldout_positives": 91,
+        "cold_start_positive_targets": 4,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 4798,
+        "catalog_size": 1611,
+        "unsupported_catalog_items": 71,
+        "eligible_user_sha256": "4bd1a7547ed88f5b110e5167acddbc2419f68e12952d31d03be6ec50c58941f9",
+        "candidate_catalog_sha256": "f6f41ab375a7d5a3b0404937f575d0878d54eec81dbc072b59a70ec5901aa511"
+      },
+      "fit_seconds": 0.10399021400007769,
+      "loss_history": [
+        0.6923097535777649
+      ],
+      "hypothesis": {
+        "policy": "grid",
+        "parent_trial": null,
+        "mechanism": "Predeclared finite model comparison",
+        "candidate": {
+          "lr": 0.01
+        },
+        "feedback_partition": "validation",
+        "budget": 1
+      }
+    }
+  ],
+  "test_metrics": {
+    "recall@10": 0.01951395804198437,
+    "ndcg@10": 0.020097535466860265,
+    "recall@20": 0.037038918711674876,
+    "ndcg@20": 0.02601912098329598,
+    "coverage@10": 0.7171532846715328,
+    "coverage@20": 0.878345498783455,
+    "eligible_users": 855,
+    "total_users": 943,
+    "excluded_users": 88,
+    "users_without_heldout_positives": 87,
+    "cold_start_positive_targets": 12,
+    "prior_positive_targets": 0,
+    "heldout_positive_targets": 4975,
+    "catalog_size": 1644,
+    "unsupported_catalog_items": 38,
+    "eligible_user_sha256": "65803e25273623757454dd4bf6c569cbd686cb798e73fc26ed3ca0ba567bb788",
+    "candidate_catalog_sha256": "3a4ac504dba95a29f7f03b2cb48daeab5c3e5ab63cb8cac69b5c30c80ebe04cd"
+  },
+  "data": {
+    "dataset": "ml-100k",
+    "source_url": "https://files.grouplens.org/datasets/movielens/ml-100k.zip",
+    "archive_sha256": "50d2a982c66986937beb9ffb3aa76efe955bf3d5c6b761f4e3a7cd717c6a3229",
+    "ratings_member_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+    "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+    "n_users": 943,
+    "n_items": 1682,
+    "n_ratings": 100000,
+    "split_counts": {
+      "train": 79619,
+      "val": 9942,
+      "test": 10439
+    },
+    "split_index_sha256": {
+      "train": "2d0d95a7bf6d9e22eab4ff66c321dcac2dfd81b6b61393e76b0974f216025f6c",
+      "val": "d58997c4dc0b55092bf0aa3c1bceec5b583d3e5233b576e13568f2a04d91fd39",
+      "test": "5916698df4d79afa5d0dde03b7152cb98cf19cbc80e17d931fe321a8e3e42da0"
+    },
+    "files": {
+      "id_maps.npz": "23df1d92d9b64d6cd279a7bcce42835ebcf1a83544c0bcf74afe4f300315ae96",
+      "splits.npz": "26c346447df9ad856fd84e903d6dc258562fd475d5299fba5c4b99fc3d1a9a4c",
+      "ratings.csv": "d46796edc685056e27e1abd9dd7ae00651005e98f60a78acdcecff1eb6c81b60"
+    },
+    "fingerprint": "19b811588e15b409603cf505918b2825ccc4c505e2ff72bc2f84e0455111336f"
+  },
+  "environment": {
+    "git_commit": "ab7798096d563205153f632d1029c59559cd10aa",
+    "git_dirty": false,
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cpus": 3,
+    "device": "cpu",
+    "blas": [
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 3,
+        "prefix": "libscipy_openblas",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+        "version": "0.3.31.dev",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      },
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 3,
+        "prefix": "libgomp",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+        "version": null
+      },
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 3,
+        "prefix": "libscipy_openblas",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+        "version": "0.3.34.106.0",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      }
+    ],
+    "packages": {
+      "torch": "2.15.0+cpu",
+      "numpy": "2.5.4",
+      "pandas": "2.2.3",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.11.2",
+      "pytest": "9.2.0"
+    }
+  },
+  "trainable_parameters": 84000,
+  "final_fit_seconds": 0.09690463100014313,
+  "evaluation_seconds": 0.2522419560000344,
+  "total_seconds": 2.1446565730002476,
+  "peak_rss_mib": 477.62890625,
+  "peak_rss_scope": "process lifetime high-water mark, including earlier seeds",
+  "final_loss_history": [
+    0.6922980767204648
+  ],
+  "checkpoint_sha256": "1b980c2672558b3d36130974b7715e7154c81b123d833405131e70843dfccc55",
+  "per_user_sha256": "17905972f0170215ccb748517e9148c3f5cb64c40ee6e4b05d62bbd3b510c11e"
+}

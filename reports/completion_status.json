@@ -1,0 +1,66 @@
+{
+  "complete": true,
+  "expected_seeds": [
+    17,
+    29,
+    43
+  ],
+  "completed_seeds": {
+    "popularity": [
+      17,
+      29,
+      43
+    ],
+    "biasmf": [
+      17,
+      29,
+      43
+    ],
+    "autorec": [
+      17,
+      29,
+      43
+    ],
+    "bpr_mf": [
+      17,
+      29,
+      43
+    ],
+    "lightgcn": [
+      17,
+      29,
+      43
+    ],
+    "bpr_positives_only": [
+      17,
+      29,
+      43
+    ],
+    "autorec_item": [
+      17,
+      29,
+      43
+    ],
+    "bpr_optimized": [
+      17,
+      29,
+      43
+    ],
+    "lightgcn_optimized": [
+      17,
+      29,
+      43
+    ],
+    "ease": [
+      17,
+      29,
+      43
+    ],
+    "ease_selfopt": [
+      17,
+      29,
+      43
+    ]
+  },
+  "missing_or_mismatched": {}
+}

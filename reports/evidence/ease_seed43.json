@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "signature": "fd8fd756bc5d14a991c50fe90ea2f0e75f56da178755ffa83d4a87368fd2a6a8",
+  "dataset": "ml-1m",
+  "experiment": "ease",
+  "model": "ease",
+  "seed": 43,
+  "completed_at_utc": "2026-11-08T21:58:22.226486+00:00",
+  "config": {
+    "dataset": "ml-1m",
+    "data_root": "data",
+    "output_root": "outputs/main",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 2,
+    "epochs": 20,
+    "dim": 32,
+    "hidden": 64,
+    "layers": 2,
+    "reg": 0.0001,
+    "lr": 0.01,
+    "rating_batch_size": 8192,
+    "ranking_batch_size": 32768,
+    "auto_batch_size": 128,
+    "negative_policy": "all_history",
+    "trials": [
+      {
+        "ridge": 30.0
+      },
+      {
+        "ridge": 100.0
+      },
+      {
+        "ridge": 300.0
+      },
+      {
+        "ridge": 1000.0
+      }
+    ],
+    "experiment": "ease",
+    "hypothesis": "Zero-diagonal linear item regression can capture collaborative signal without stochastic optimization.",
+    "model": "ease"
+  },
+  "config_sha256": "e1c5c5ed4dda8b59484bbda7c24c4e6367b4209633e7317abdf34136cd8b2e8a",
+  "selected_config": {
+    "dataset": "ml-1m",
+    "data_root": "data",
+    "output_root": "outputs/main",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 2,
+    "epochs": 20,
+    "dim": 32,
+    "hidden": 64,
+    "layers": 2,
+    "reg": 0.0001,
+    "lr": 0.01,
+    "rating_batch_size": 8192,
+    "ranking_batch_size": 32768,
+    "auto_batch_size": 128,
+    "negative_policy": "all_history",
+    "trials": [
+      {
+        "ridge": 30.0
+      },
+      {
+        "ridge": 100.0
+      },
+      {
+        "ridge": 300.0
+      },
+      {
+        "ridge": 1000.0
+      }
+    ],
+    "experiment": "ease",
+    "hypothesis": "Zero-diagonal linear item regression can capture collaborative signal without stochastic optimization.",
+    "model": "ease",
+    "ridge": 1000.0,
+    "seed": 43
+  },
+  "selected_trial": 3,
+  "validation_trials": [
+    {
+      "trial_id": 0,
+      "overrides": {
+        "ridge": 30.0
+      },
+      "metrics": {
+        "recall@10": 0.09858660313170409,
+        "ndcg@10": 0.08900384330524735,
+        "recall@20": 0.1589333302036931,
+        "ndcg@20": 0.10800213275966628,
+        "coverage@10": 0.31224434142350693,
+        "coverage@20": 0.38423779656394874,
+        "eligible_users": 5789,
+        "total_users": 6040,
+        "excluded_users": 251,
+        "users_without_heldout_positives": 251,
+        "cold_start_positive_targets": 5,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 53006,
+        "catalog_size": 3667,
+        "unsupported_catalog_items": 39,
+        "eligible_user_sha256": "69670af93a3240bf9a53ceea86193bf5b8c9d9aa572f7669c4b7fee954533abd",
+        "candidate_catalog_sha256": "e1d356d8da48299dc2ccc7b0b77b8855b66725055214a21ea637473d3d678850"
+      },
+      "fit_seconds": 3.367760881999857,
+      "loss_history": [],
+      "hypothesis": {
+        "policy": "grid",
+        "parent_trial": null,
+        "mechanism": "Zero-diagonal linear item regression can capture collaborative signal without stochastic optimization.",
+        "candidate": {
+          "ridge": 30.0
+        },
+        "feedback_partition": "validation",
+        "budget": 4
+      }
+    },
+    {
+      "trial_id": 1,
+      "overrides": {
+        "ridge": 100.0
+      },
+      "metrics": {
+        "recall@10": 0.10308906031866978,
+        "ndcg@10": 0.09412280101601539,
+        "recall@20": 0.17160428844839437,
+        "ndcg@20": 0.11585966953779901,
+        "coverage@10": 0.28961003545132263,
+        "coverage@20": 0.35833106081265337,
+        "eligible_users": 5789,
+        "total_users": 6040,
+        "excluded_users": 251,
+        "users_without_heldout_positives": 251,
+        "cold_start_positive_targets": 5,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 53006,
+        "catalog_size": 3667,
+        "unsupported_catalog_items": 39,
+        "eligible_user_sha256": "69670af93a3240bf9a53ceea86193bf5b8c9d9aa572f7669c4b7fee954533abd",
+        "candidate_catalog_sha256": "e1d356d8da48299dc2ccc7b0b77b8855b66725055214a21ea637473d3d678850"
+      },
+      "fit_seconds": 3.758310555999742,
+      "loss_history": [],
+      "hypothesis": {
+        "policy": "grid",
+        "parent_trial": 0,
+        "mechanism": "Zero-diagonal linear item regression can capture collaborative signal without stochastic optimization.",
+        "candidate": {
+          "ridge": 100.0
+        },
+        "feedback_partition": "validation",
+        "budget": 4
+      }
+    },
+    {
+      "trial_id": 2,
+      "overrides": {
+        "ridge": 300.0
+      },
+      "metrics": {
+        "recall@10": 0.10731767432148655,
+        "ndcg@10": 0.09875987085332609,
+        "recall@20": 0.179168626145557,
+        "ndcg@20": 0.12105247821846132,
+        "coverage@10": 0.25415871284428687,
+        "coverage@20": 0.32206163076083993,
+        "eligible_users": 5789,
+        "total_users": 6040,
+        "excluded_users": 251,
+        "users_without_heldout_positives": 251,
+        "cold_start_positive_targets": 5,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 53006,
+        "catalog_size": 3667,
+        "unsupported_catalog_items": 39,
+        "eligible_user_sha256": "69670af93a3240bf9a53ceea86193bf5b8c9d9aa572f7669c4b7fee954533abd",
+        "candidate_catalog_sha256": "e1d356d8da48299dc2ccc7b0b77b8855b66725055214a21ea637473d3d678850"
+      },
+      "fit_seconds": 3.2496186849994046,
+      "loss_history": [],
+      "hypothesis": {
+        "policy": "grid",
+        "parent_trial": 1,
+        "mechanism": "Zero-diagonal linear item regression can capture collaborative signal without stochastic optimization.",
+        "candidate": {
+          "ridge": 300.0
+        },
+        "feedback_partition": "validation",
+        "budget": 4
+      }
+    },
+    {
+      "trial_id": 3,
+      "overrides": {
+        "ridge": 1000.0
+      },
+      "metrics": {
+        "recall@10": 0.10764710651620422,
+        "ndcg@10": 0.1002952631943748,
+        "recall@20": 0.1787541857997492,
+        "ndcg@20": 0.1219608896447771,
+        "coverage@10": 0.2088901008999182,
+        "coverage@20": 0.2713389691846196,
+        "eligible_users": 5789,
+        "total_users": 6040,
+        "excluded_users": 251,
+        "users_without_heldout_positives": 251,
+        "cold_start_positive_targets": 5,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 53006,
+        "catalog_size": 3667,
+        "unsupported_catalog_items": 39,
+        "eligible_user_sha256": "69670af93a3240bf9a53ceea86193bf5b8c9d9aa572f7669c4b7fee954533abd",
+        "candidate_catalog_sha256": "e1d356d8da48299dc2ccc7b0b77b8855b66725055214a21ea637473d3d678850"
+      },
+      "fit_seconds": 4.236499126999661,
+      "loss_history": [],
+      "hypothesis": {
+        "policy": "grid",
+        "parent_trial": 2,
+        "mechanism": "Zero-diagonal linear item regression can capture collaborative signal without stochastic optimization.",
+        "candidate": {
+          "ridge": 1000.0
+        },
+        "feedback_partition": "validation",
+        "budget": 4
+      }
+    }
+  ],
+  "test_metrics": {
+    "recall@10": 0.10247729540905982,
+    "ndcg@10": 0.10170125508160067,
+    "recall@20": 0.1703775739631766,
+    "ndcg@20": 0.12176219196507976,
+    "coverage@10": 0.21286994298126527,
+    "coverage@20": 0.27749117567200654,
+    "eligible_users": 5820,
+    "total_users": 6040,
+    "excluded_users": 220,
+    "users_without_heldout_positives": 219,
+    "cold_start_positive_targets": 9,
+    "prior_positive_targets": 0,
+    "heldout_positive_targets": 53025,
+    "catalog_size": 3683,
+    "unsupported_catalog_items": 23,
+    "eligible_user_sha256": "6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b",
+    "candidate_catalog_sha256": "53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9"
+  },
+  "data": {
+    "dataset": "ml-1m",
+    "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+    "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+    "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+    "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+    "n_users": 6040,
+    "n_items": 3706,
+    "n_ratings": 1000209,
+    "split_counts": {
+      "train": 797758,
+      "val": 99692,
+      "test": 102759
+    },
+    "split_index_sha256": {
+      "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+      "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+      "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+    },
+    "files": {
+      "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+      "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+      "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+    },
+    "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+  },
+  "environment": {
+    "git_commit": "ab7798096d563205153f632d1029c59559cd10aa",
+    "git_dirty": false,
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cpus": 3,
+    "device": "cpu",
+    "blas": [
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 2,
+        "prefix": "libscipy_openblas",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+        "version": "0.3.31.dev",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      },
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 2,
+        "prefix": "libgomp",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+        "version": null
+      },
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 2,
+        "prefix": "libscipy_openblas",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+        "version": "0.3.34.106.0",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      }
+    ],
+    "packages": {
+      "torch": "2.15.0+cpu",
+      "numpy": "2.5.4",
+      "pandas": "2.2.3",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.11.2",
+      "pytest": "9.2.0"
+    }
+  },
+  "trainable_parameters": 0,
+  "final_fit_seconds": 3.5548564789996817,
+  "evaluation_seconds": 3.481053339999562,
+  "total_seconds": 35.184389712000666,
+  "peak_rss_mib": 1809.046875,
+  "peak_rss_scope": "process lifetime high-water mark, including earlier seeds",
+  "final_loss_history": [],
+  "checkpoint_sha256": "85163a6f23d1685cb3ae5d3b49c6197aaea7a34f8a7b235610d7fc34fb6328a7",
+  "per_user_sha256": "1ea57dbc4b8ab4a8ef9b81d85c4374b4bcf39c711d2fab4e9fb92e8170a87d5a"
+}
