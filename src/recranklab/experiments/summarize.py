@@ -45,7 +45,7 @@ def summarize(root, output):
         row.update(run['test_metrics'])
         row.update(git_commit=run['environment']['git_commit'],data_fingerprint=run['data']['fingerprint'],
                    config_sha256=run['config_sha256'],validation_fits=len(run['validation_trials']),
-                   epochs=run['selected_config']['epochs'])
+                   epochs=run['selected_config']['epochs'] if run['model'] not in ('popularity','ease') else None)
         rows.append(row)
     frame=pd.DataFrame(rows)
     for field in ['data_fingerprint','eligible_user_sha256','candidate_catalog_sha256','eligible_users']:
@@ -123,7 +123,12 @@ def summarize(root, output):
             '', '| Comparison | NDCG@10 difference | 95% interval |','|---|---:|---:|']
     for p in paired:
         if p['metric']=='ndcg@10': lines.append(f"| {p['comparison']} | {p['mean_difference']:.6f} | [{p['ci_low']:.6f}, {p['ci_high']:.6f}] |")
-    lines+=['','## Interpretation and limits','',
+    first=next(iter(originals.values()))
+    env=first['environment']
+    lines+=['', '## Hardware and software', '',
+            f"Runs used {env['cpu']}; {env['logical_cpus']} visible logical CPUs, two configured PyTorch/BLAS threads, CPU only. The container was observed with a two-CPU quota and 8 GiB memory limit. Python {env['python']}, PyTorch {env['packages']['torch']}, NumPy {env['packages']['numpy']}, pandas {env['packages']['pandas']}, SciPy {env['packages']['scipy']}. These are shared-cloud wall times, not isolated hardware performance measurements.",
+            '', 'EASE stores a 3706×3706 float32 coefficient matrix (52.39 MiB; 13,730,730 off-diagonal entries), in addition to inputs and cached scores. Its zero gradient-parameter count does not mean zero learned storage.',
+            '', '## Interpretation and limits','',
             'Original-budget core baselines have two validation trials and 20 epochs. Improvement variants have four trials and longer training; their differences combine architecture, optimizer and budget. Do not describe them as equal-compute causal comparisons. EASE has four analytical fits; its learned dense matrix is not counted as gradient-trained parameters and scales quadratically in item count.',
             '', 'The negative-policy contrast and equal-four-fit EASE grid/memory-search comparison are reported in ablations.csv. The self-optimizer uses validation hypotheses and elite memory; a lower or tied test result remains in the report. It is not a CogAlpha/XALPHA reproduction or LLM system. Deterministic EASE seeds are duplicate checks, not independent uncertainty draws.',
             '', 'The explicit RMSE and ranking scatter compares different targets/populations and is descriptive. No universal relation or universal superiority follows. All unsupported targets and users follow the shared evaluator.',
@@ -139,7 +144,7 @@ def summarize(root, output):
     pd.DataFrame(smoke).to_csv(report/'smoke_summary.csv',index=False)
     artifacts={}
     for path in sorted(report.rglob('*')):
-        if not path.is_file() or path.name=='experiment_manifest.json' or 'legacy_v1' in path.parts: continue
+        if not path.is_file() or path.name=='experiment_manifest.json' or any(p in path.parts for p in ('legacy_v1','external_benchmark')): continue
         key=path.stem.removesuffix('_users')
         artifacts[str(path.relative_to(report))]={'sha256':digest(path),'source_runs':[key] if key in runs else list(originals)}
     manifest={'schema_version':2,'generated_at_utc':datetime.now(timezone.utc).isoformat(),

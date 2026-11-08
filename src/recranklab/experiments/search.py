@@ -39,4 +39,4 @@ def hypothesis(config, memory, candidate):
     return {'policy': config.get('search', 'grid'), 'parent_trial': parent,
             'mechanism': config.get('hypothesis', 'Predeclared finite model comparison'),
             'candidate': candidate, 'feedback_partition': 'validation',
-            'budget': config.get('search_budget', len(config.get('trials', [])))}
+            'budget': 1 if config.get('model') == 'popularity' else config.get('search_budget', len(config.get('trials', [])))}

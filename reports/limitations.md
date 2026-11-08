@@ -11,3 +11,7 @@
 - Uploaded v1 evidence is preserved separately in reports/legacy_v1. Its original Git history was absent from the ZIP and its provenance cannot be independently established here. New headline tables include only new locally executed v2 runs.
 - Exact numerical agreement is tied to the locked CPU environment, not arbitrary CPUs, GPUs or dependency versions. RSS is process-lifetime high-water memory.
 - Optional LLM reranking, a global-forward sensitivity experiment and new-dataset confirmation are not implemented in this study.
+
+## Historical descriptive metadata errata
+
+The immutable v2 evidence was generated at source `ab7798096d563205153f632d1029c59559cd10aa`. Its Popularity hypothesis descriptor inherits a budget of 2 from the base config, although the actual validation trial list, study plan and reported fit count correctly show 1. Its BLAS environment snapshot precedes per-fit thread setup, so the first seed may list startup thread counts; `seed_all` actually sets both BLAS and PyTorch to the configured two threads before each fit. Future runner snapshots and Popularity descriptors are corrected in the later reporting commit. Raw records are preserved, not rewritten. Neither correction changes scores, selection or the evaluated population.

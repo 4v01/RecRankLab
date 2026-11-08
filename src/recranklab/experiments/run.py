@@ -19,6 +19,7 @@ from recranklab.experiments.search import propose, hypothesis
 def run_one(model_name, config, seed, allow_dirty=False):
     config = {**config, "model": model_name}
     started = time.perf_counter()
+    seed_all(seed, config["threads"])
     env = provenance(require_clean=not allow_dirty)
     parts, data_manifest = load(config["dataset"], config["data_root"])
     tag = config.get("experiment", model_name)
