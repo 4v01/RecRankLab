@@ -1,0 +1,29 @@
+{
+  "kind": "synthetic arithmetic examples, not measured model performance",
+  "ndcg": {
+    "truth_positives": 10,
+    "k": 10,
+    "hits": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "truth_based_idcg": 4.543559338088346,
+    "recranklab_definition": 0.22009176629808017,
+    "returned_hits_only_idcg_definition": 1.0
+  },
+  "recall": {
+    "truth_positives": 40,
+    "k": 20,
+    "hits": 10,
+    "recranklab_definition": 0.25,
+    "min_k_truth_denominator_definition": 0.5
+  }
+}

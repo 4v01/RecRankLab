@@ -17,6 +17,7 @@ jobs:
       - run: pip install --no-deps -e .
       - run: PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest -q
       - run: python scripts/audit_results.py
+      - run: python reports/external_benchmark/verify.py
   movielens-smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 20

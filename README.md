@@ -43,8 +43,11 @@ The original small-budget core comparison has two validation learning rates and 
 - [Ablations](reports/ablations.csv), [all validation candidates](reports/validation_trials.csv), [paired bootstrap](reports/paired_differences.csv)
 - [Manifest](reports/experiment_manifest.json), [completion status](reports/completion_status.json), [data audit](reports/data_audit.json), [local/CI validation](reports/validation.md)
 - [Historical v1 package](reports/legacy_v1): preserved as supplied, excluded from all new result tables; its original Git history is unavailable and not independently attested.
+- [Chinese review handoff](reports/handoff_zh.md), [GitHub data/method/result benchmark](reports/external_benchmark/README.md), [v3 upgrade plan](reports/external_benchmark/upgrade_plan.md)
 
 Each new result includes source SHA, configs, data/split checksums, seed, timestamp, hardware/software and anonymous user-level metrics. Report-generation provenance is separate. Raw/processed data and model checkpoints remain ignored. `scripts/audit_results.py` independently verifies evidence hashes, selection, numerical aggregates and source history. GitHub Actions runs unit tests, the artifact audit and real-data CPU smoke checks without paid APIs/GPU; it uploads only JSON smoke metrics.
+
+The external review covers six pinned source snapshots and 30 source-reported values. These are not local reproductions and are not pooled with our experimental table. Its separate manifest records citation/file hashes; `python reports/external_benchmark/verify.py` audits its bookkeeping and synthetic metric counterexamples. The original run commits behind upstream notebook/paper claims are not established by pinning a review snapshot.
 
 ## Bounded self-optimization
 

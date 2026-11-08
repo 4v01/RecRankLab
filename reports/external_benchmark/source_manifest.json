@@ -1,0 +1,204 @@
+{
+  "reviewed_at_utc": "2026-11-08T22:09:17.773284+00:00",
+  "user_facing_review_date": "2026-11-09 Asia/Shanghai",
+  "scope": "External reported claims and source inspection, not local reproductions. Snapshot commit pins citation, not original experimental provenance.",
+  "sources": {
+    "S1": {
+      "repository": "recommenders-team/recommenders",
+      "review_snapshot_commit": "cc47866b0599721f8544d1cc850a5a1db091acb3",
+      "original_result_generation_commit": "not established",
+      "local_folder": "recommenders",
+      "license_observation": "MIT",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "c1aa8025098719446d02e43f16b4545a3283d872b57de8d25b8202fe44bc6b8b",
+          "citation_url": "https://github.com/recommenders-team/recommenders/blob/cc47866b0599721f8544d1cc850a5a1db091acb3/LICENSE"
+        },
+        {
+          "path": "README.md",
+          "sha256": "6d9355186167ededb5681dcd2b0e865d38d63865d406f3b4f09146a23c134bc9",
+          "citation_url": "https://github.com/recommenders-team/recommenders/blob/cc47866b0599721f8544d1cc850a5a1db091acb3/README.md"
+        },
+        {
+          "path": "examples/06_benchmarks/README.md",
+          "sha256": "d4273161a6ac35df1302c4778b36f657e4d0a05b6571ce6c7ba53dc6038b77d5",
+          "citation_url": "https://github.com/recommenders-team/recommenders/blob/cc47866b0599721f8544d1cc850a5a1db091acb3/examples/06_benchmarks/README.md"
+        },
+        {
+          "path": "examples/06_benchmarks/benchmark_utils.py",
+          "sha256": "d679396334637c9bee925693a4e134ff1b95cbc8dc040cb0d6e94f319d4d507b",
+          "citation_url": "https://github.com/recommenders-team/recommenders/blob/cc47866b0599721f8544d1cc850a5a1db091acb3/examples/06_benchmarks/benchmark_utils.py"
+        },
+        {
+          "path": "examples/06_benchmarks/movielens.ipynb",
+          "sha256": "14e196b38d3ae4aaa44d62504f876c86d3259b2277f36ed772df2e9232d34c0d",
+          "citation_url": "https://github.com/recommenders-team/recommenders/blob/cc47866b0599721f8544d1cc850a5a1db091acb3/examples/06_benchmarks/movielens.ipynb"
+        },
+        {
+          "path": "recommenders/datasets/python_splitters.py",
+          "sha256": "eadccfa59945b374bcddc7f305ac8f09fde559ba9f9a1faf63db1f999d1885c2",
+          "citation_url": "https://github.com/recommenders-team/recommenders/blob/cc47866b0599721f8544d1cc850a5a1db091acb3/recommenders/datasets/python_splitters.py"
+        }
+      ]
+    },
+    "S2": {
+      "repository": "RUCAIBox/RecBole",
+      "review_snapshot_commit": "7b02be5ec80a88310f2d04a27a82adfcbb5dc211",
+      "original_result_generation_commit": "not established",
+      "local_folder": "recbole",
+      "license_observation": "MIT; README separately restricts academic use",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "2c33dad5fede86236b54db22e0be64e72095d151f324bcadd354ab88f40c52fe",
+          "citation_url": "https://github.com/RUCAIBox/RecBole/blob/7b02be5ec80a88310f2d04a27a82adfcbb5dc211/LICENSE"
+        },
+        {
+          "path": "asset/hyper_tune_configs/general/ml-1m_general.md",
+          "sha256": "391553bf4f095b7c93d567b31584e1efaa95c71954d25f8a7d05d83c4c763318",
+          "citation_url": "https://github.com/RUCAIBox/RecBole/blob/7b02be5ec80a88310f2d04a27a82adfcbb5dc211/asset/hyper_tune_configs/general/ml-1m_general.md"
+        },
+        {
+          "path": "asset/time_test_result/General_recommendation.md",
+          "sha256": "51121db2a5eeb2ae11d3aa3f899ba63d592ffbd2491b99a2b35c448aea623e3a",
+          "citation_url": "https://github.com/RUCAIBox/RecBole/blob/7b02be5ec80a88310f2d04a27a82adfcbb5dc211/asset/time_test_result/General_recommendation.md"
+        },
+        {
+          "path": "recbole/properties/model/EASE.yaml",
+          "sha256": "553b2db2576edfd844717ad79a28ec900efacb78f0c22a7ca5d36b0cb5b80013",
+          "citation_url": "https://github.com/RUCAIBox/RecBole/blob/7b02be5ec80a88310f2d04a27a82adfcbb5dc211/recbole/properties/model/EASE.yaml"
+        },
+        {
+          "path": "recbole/properties/model/MultiVAE.yaml",
+          "sha256": "cfbe85ed83a6d21c292da6c6e9a77903b5ec0a5f6489df9e6a5084ab82945d3d",
+          "citation_url": "https://github.com/RUCAIBox/RecBole/blob/7b02be5ec80a88310f2d04a27a82adfcbb5dc211/recbole/properties/model/MultiVAE.yaml"
+        },
+        {
+          "path": "recbole/properties/overall.yaml",
+          "sha256": "d82f7ace4ee4a2548d801b268f339d6e355ff63fa3fe9fb6fd25f41b380e87bc",
+          "citation_url": "https://github.com/RUCAIBox/RecBole/blob/7b02be5ec80a88310f2d04a27a82adfcbb5dc211/recbole/properties/overall.yaml"
+        }
+      ]
+    },
+    "S3": {
+      "repository": "kuandeng/LightGCN",
+      "review_snapshot_commit": "b067ec05f16a24e0e1efe63cd82385f0c469af20",
+      "original_result_generation_commit": "not established",
+      "local_folder": "lightgcn",
+      "license_observation": "No root LICENSE found in reviewed tree; do not assume permission to copy",
+      "files": [
+        {
+          "path": "LightGCN.py",
+          "sha256": "16829afe3cf6a9d00fa209adbe833e3f247735126f456a162a6785131dea84ea",
+          "citation_url": "https://github.com/kuandeng/LightGCN/blob/b067ec05f16a24e0e1efe63cd82385f0c469af20/LightGCN.py"
+        },
+        {
+          "path": "README.md",
+          "sha256": "be7d130e751d061525ac6527b6ea5cc2eab411b56770b289972b6cbe7ad7859c",
+          "citation_url": "https://github.com/kuandeng/LightGCN/blob/b067ec05f16a24e0e1efe63cd82385f0c469af20/README.md"
+        },
+        {
+          "path": "utility/batch_test.py",
+          "sha256": "49bb1e98854fcea6ca2ada93952a3305fb72bb8749b56d6835f2e04b708282c7",
+          "citation_url": "https://github.com/kuandeng/LightGCN/blob/b067ec05f16a24e0e1efe63cd82385f0c469af20/utility/batch_test.py"
+        },
+        {
+          "path": "utility/parser.py",
+          "sha256": "6764927275969093a92d99b2abc6a656e6883c70482976d722e45fd1caa5b73c",
+          "citation_url": "https://github.com/kuandeng/LightGCN/blob/b067ec05f16a24e0e1efe63cd82385f0c469af20/utility/parser.py"
+        }
+      ]
+    },
+    "S4": {
+      "repository": "dawenl/vae_cf",
+      "review_snapshot_commit": "ad103c506c8897a853968e1b98c30f31cf5e30f6",
+      "original_result_generation_commit": "not established",
+      "local_folder": "vae",
+      "license_observation": "Apache-2.0",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "citation_url": "https://github.com/dawenl/vae_cf/blob/ad103c506c8897a853968e1b98c30f31cf5e30f6/LICENSE"
+        },
+        {
+          "path": "VAE_ML20M_WWW2018.ipynb",
+          "sha256": "8423ae39c88d57216efefb84594dd03d5db9c6feb4b364710a21e0e10df932d8",
+          "citation_url": "https://github.com/dawenl/vae_cf/blob/ad103c506c8897a853968e1b98c30f31cf5e30f6/VAE_ML20M_WWW2018.ipynb"
+        }
+      ]
+    },
+    "S5": {
+      "repository": "MaurizioFD/RecSys2019_DeepLearning_Evaluation",
+      "review_snapshot_commit": "0fb6b7f5c396f8525316ed66cf9c9fdb03a5fa9b",
+      "original_result_generation_commit": "not established",
+      "local_folder": "evaluation",
+      "license_observation": "AGPL-3.0; embedded upstream subprojects can differ",
+      "files": [
+        {
+          "path": "Conferences/RecSys/SpectralCF_our_interface/Movielens1M/Movielens1MReader.py",
+          "sha256": "2ad7df26663db2b04df048b698ef4bece12ccc6c0e8935710f25636a4479cfb9",
+          "citation_url": "https://github.com/MaurizioFD/RecSys2019_DeepLearning_Evaluation/blob/0fb6b7f5c396f8525316ed66cf9c9fdb03a5fa9b/Conferences/RecSys/SpectralCF_our_interface/Movielens1M/Movielens1MReader.py"
+        },
+        {
+          "path": "Conferences/WWW/NeuMF_our_interface/Movielens1M/Movielens1MReader.py",
+          "sha256": "21224c4677c132db3b3219110ad98c11abf6bbb0f1f86a919d4c93d427f1f61e",
+          "citation_url": "https://github.com/MaurizioFD/RecSys2019_DeepLearning_Evaluation/blob/0fb6b7f5c396f8525316ed66cf9c9fdb03a5fa9b/Conferences/WWW/NeuMF_our_interface/Movielens1M/Movielens1MReader.py"
+        },
+        {
+          "path": "DL_Evaluation_TOIS_Additional_material.pdf",
+          "sha256": "88004486c87c963e7e4b3f1f840b2a00d1a5270d94196a2fc6d06cf2756c14b7",
+          "citation_url": "https://github.com/MaurizioFD/RecSys2019_DeepLearning_Evaluation/blob/0fb6b7f5c396f8525316ed66cf9c9fdb03a5fa9b/DL_Evaluation_TOIS_Additional_material.pdf"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+          "citation_url": "https://github.com/MaurizioFD/RecSys2019_DeepLearning_Evaluation/blob/0fb6b7f5c396f8525316ed66cf9c9fdb03a5fa9b/LICENSE"
+        }
+      ]
+    },
+    "S6": {
+      "repository": "recsys-benchmark/DaisyRec-v2.0",
+      "review_snapshot_commit": "88b0a32faa1144033e969882781a8b0354958cf6",
+      "original_result_generation_commit": "not established",
+      "local_folder": "daisy_benchmark",
+      "license_observation": "Not independently checked for this mirror; related yudi-mars/daisyRec has MIT",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "e1d2eea482a271308f7ae3386450ab535fe62baae8d4da2f2d7db5e7b5ac6c14",
+          "citation_url": "https://github.com/recsys-benchmark/DaisyRec-v2.0/blob/88b0a32faa1144033e969882781a8b0354958cf6/README.md"
+        },
+        {
+          "path": "appendix.pdf",
+          "sha256": "5bc292ffad45f7301bbc303c7a7e94c3c610450a9b6466b88213b4458c19fa80",
+          "citation_url": "https://github.com/recsys-benchmark/DaisyRec-v2.0/blob/88b0a32faa1144033e969882781a8b0354958cf6/appendix.pdf"
+        },
+        {
+          "path": "daisy/utils/config.py",
+          "sha256": "9538ac2e64033dcf0cd5f6174cca3dbbaed9c50080a4844182176613f8add298",
+          "citation_url": "https://github.com/recsys-benchmark/DaisyRec-v2.0/blob/88b0a32faa1144033e969882781a8b0354958cf6/daisy/utils/config.py"
+        },
+        {
+          "path": "daisy/utils/loader.py",
+          "sha256": "fa52d7519885e9821b37c3c49d3fdfdb5171f701cd9befb5e7eac4219dc918b2",
+          "citation_url": "https://github.com/recsys-benchmark/DaisyRec-v2.0/blob/88b0a32faa1144033e969882781a8b0354958cf6/daisy/utils/loader.py"
+        },
+        {
+          "path": "daisy/utils/metrics.py",
+          "sha256": "aa1793497a16d43df97e701f2e6175e000bd57b79ce4517ec619051fa9972d2f",
+          "citation_url": "https://github.com/recsys-benchmark/DaisyRec-v2.0/blob/88b0a32faa1144033e969882781a8b0354958cf6/daisy/utils/metrics.py"
+        }
+      ]
+    }
+  },
+  "artifacts": {
+    "README.md": "44f55da7a4743075986428d706fa81f846beeea60df698847596d83ecc1dfc78",
+    "metric_diagnostic.json": "318f2775ac5eb93e176ab99afc2c58e5ac90154c7c984765652d2b0ec016ae03",
+    "protocol_comparison.csv": "1072ddf231e1d54e8717a6f4e6f6782fed0769fb9a4f0792018d76954f29ad9e",
+    "reported_results.csv": "470a452dbe19ae1c21145f4308d38c4d3c519fd69c7107661dd466d2d899430a",
+    "upgrade_plan.md": "6f6db875717ba4584329f0e99b023476e67dc4dea58534861efec625e0ef8ab0",
+    "verify.py": "a2275c4b9ab6777252ad0bf17758f3afb65eb5e7efa3ed474b7135e7f7f4fd98"
+  }
+}
