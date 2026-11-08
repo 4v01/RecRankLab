@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
-  "generated_at_utc": "2026-11-08T22:02:30.786737+00:00",
+  "generated_at_utc": "2026-11-08T22:12:26.514197+00:00",
   "report_generator_environment": {
-    "git_commit": "b2cc9538476fe3ec91e0b863b2ef13e6153ab2c4",
-    "git_dirty": true,
+    "git_commit": "2e5efc35b6a7992503730472428dbea2a18af993",
+    "git_dirty": false,
     "python": "3.12.14",
     "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
     "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
@@ -7183,7 +7183,7 @@
       ]
     },
     "validation.md": {
-      "sha256": "9ff9ec7fa6024d8bfc4ce496face360328fb0d1b540a4143717c4d5d18bc06ca",
+      "sha256": "d313606c9fa2507b77925f0b57c882d052b2cd24fbef6ff7080bfd20f15537ad",
       "source_runs": [
         "autorec_seed17",
         "autorec_seed29",
