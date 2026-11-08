@@ -10,9 +10,11 @@ from pathlib import Path
 import numpy as np
 import torch
 import yaml
+from threadpoolctl import threadpool_limits, threadpool_info
 
 
 def seed_all(seed, threads=2):
+    threadpool_limits(limits=threads)
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -37,5 +39,5 @@ def provenance(require_clean=True):
         raise RuntimeError("Commit code/config changes before running experiments")
     return {"git_commit": sha, "git_dirty": bool(dirty), "python": platform.python_version(),
             "platform": platform.platform(), "cpu": next((x.split(':', 1)[1].strip() for x in Path('/proc/cpuinfo').read_text().splitlines() if x.startswith('model name')), platform.processor()),
-            "logical_cpus": os.cpu_count(), "device": "cpu",
+            "logical_cpus": os.cpu_count(), "device": "cpu", "blas": threadpool_info(),
             "packages": {p: importlib.metadata.version(p) for p in ("torch", "numpy", "pandas", "scipy", "scikit-learn", "PyYAML", "matplotlib", "pytest")}}

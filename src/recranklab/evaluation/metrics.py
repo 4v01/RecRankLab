@@ -21,6 +21,8 @@ class RankingProtocol:
             if valid and u in self.history:
                 self.targets[int(u)] = valid
         self.users = np.array(sorted(self.targets), dtype=np.int64)
+        self.candidates = {int(u): self.catalog[~np.isin(self.catalog, list(self.history[int(u)]))]
+                           for u in self.users}
         self.audit = {"eligible_users": len(self.users), "total_users": n_users,
                       "excluded_users": n_users - len(self.users),
                       "users_without_heldout_positives": n_users - positives.user.nunique(),
@@ -34,7 +36,7 @@ class RankingProtocol:
         rows = []
         recommended = {k: set() for k in ks}
         for u in self.users:
-            candidates = np.array([i for i in self.catalog if i not in self.history[int(u)]], dtype=int)
+            candidates = self.candidates[int(u)]
             scores = model.predict_scores([u], candidates)[0]
             if not np.isfinite(scores).all():
                 raise ValueError("Nonfinite ranking scores")
