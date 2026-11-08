@@ -125,9 +125,10 @@ def summarize(root, output):
         if p['metric']=='ndcg@10': lines.append(f"| {p['comparison']} | {p['mean_difference']:.6f} | [{p['ci_low']:.6f}, {p['ci_high']:.6f}] |")
     first=next(iter(originals.values()))
     env=first['environment']
+    item_count=first['data']['n_items']
     lines+=['', '## Hardware and software', '',
             f"Runs used {env['cpu']}; {env['logical_cpus']} visible logical CPUs, two configured PyTorch/BLAS threads, CPU only. The container was observed with a two-CPU quota and 8 GiB memory limit. Python {env['python']}, PyTorch {env['packages']['torch']}, NumPy {env['packages']['numpy']}, pandas {env['packages']['pandas']}, SciPy {env['packages']['scipy']}. These are shared-cloud wall times, not isolated hardware performance measurements.",
-            '', 'EASE stores a 3706×3706 float32 coefficient matrix (52.39 MiB; 13,730,730 off-diagonal entries), in addition to inputs and cached scores. Its zero gradient-parameter count does not mean zero learned storage.',
+            '', f'EASE stores a {item_count}×{item_count} float32 coefficient matrix ({item_count**2*4/1024**2:.2f} MiB; {item_count*(item_count-1):,} off-diagonal entries), in addition to inputs and cached scores. Its zero gradient-parameter count does not mean zero learned storage.',
             '', '## Interpretation and limits','',
             'Original-budget core baselines have two validation trials and 20 epochs. Improvement variants have four trials and longer training; their differences combine architecture, optimizer and budget. Do not describe them as equal-compute causal comparisons. EASE has four analytical fits; its learned dense matrix is not counted as gradient-trained parameters and scales quadratically in item count.',
             '', 'The negative-policy contrast and equal-four-fit EASE grid/memory-search comparison are reported in ablations.csv. The self-optimizer uses validation hypotheses and elite memory; a lower or tied test result remains in the report. It is not a CogAlpha/XALPHA reproduction or LLM system. Deterministic EASE seeds are duplicate checks, not independent uncertainty draws.',
