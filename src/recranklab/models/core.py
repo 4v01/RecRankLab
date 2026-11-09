@@ -175,7 +175,9 @@ class SVDPP(BiasMF):
         self.setup(train);self.cache=None
         optimizer=torch.optim.Adam(self.parameters(),lr=self.config['lr'])
         user_np=train.user.to_numpy();item_np=train.item.to_numpy();rating_np=train.rating.to_numpy()
-        row_indices=[np.flatnonzero(user_np==u) for u in range(self.n_users)]
+        order=np.argsort(user_np,kind='stable')
+        boundaries=np.cumsum(np.bincount(user_np,minlength=self.n_users))[:-1]
+        row_indices=np.split(order,boundaries)
         active=np.flatnonzero(self.user_support)
         batch=self.config.get('user_batch_size',128)
         for _ in range(self.config['epochs']):
