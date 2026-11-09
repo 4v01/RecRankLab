@@ -60,7 +60,7 @@ class RankingProtocol:
 
 def rating_metrics(model, target):
     if not len(target):
-        return {"rmse": None, "mae": None, "rating_count": 0}
+        return {"rmse": None, "mae": None, "r2":None, "rating_count": 0}
     predictions = np.array([model.predict_scores([u], g.item.to_numpy())[0] for u, g in target.groupby("user")], dtype=object)
     prediction = np.concatenate([np.asarray(x, dtype=float) for x in predictions])
     truth = np.concatenate([g.rating.to_numpy() for _, g in target.groupby("user")])
@@ -68,7 +68,10 @@ def rating_metrics(model, target):
         raise ValueError("Nonfinite rating predictions")
     error = prediction - truth
     clipped_error=np.clip(prediction,1.,5.)-truth
+    sst=float(np.square(truth-truth.mean()).sum())
+    r2=float(1-np.square(error).sum()/sst) if len(truth)>=2 and sst>0 else None
     return {"rmse": float(np.sqrt(np.mean(error**2))), "mae": float(np.mean(abs(error))),
+            "r2":r2,
             "rmse_clipped_aux":float(np.sqrt(np.mean(clipped_error**2))),
             "mae_clipped_aux":float(np.mean(np.abs(clipped_error))),
             "rating_count": len(truth), "cold_item_ratings": int((~model.item_support[target.item]).sum()),

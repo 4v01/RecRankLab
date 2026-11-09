@@ -196,3 +196,16 @@ def test_svdpp_zero_implicit_factors_reduces_to_biasmf_algebra(ratings):
         expected=m.mean+m.ub.weight+m.ib.weight.T+m.users.weight@m.items.weight.T
         expected[:,~m.item_support]=m.mean
         torch.testing.assert_close(m.all_scores(),expected)
+
+
+def test_observed_rating_r2_perfect_mean_negative_and_constant():
+    class Predictions:
+        item_support=np.ones(3,dtype=bool);user_support=np.ones(1,dtype=bool)
+        def __init__(self,values):self.values=np.asarray(values,dtype=float)
+        def predict_scores(self,users,items):return self.values[np.asarray(items)][None,:]
+    target=pd.DataFrame({'user':[0,0,0],'item':[0,1,2],'rating':[1.,3.,5.]})
+    assert rating_metrics(Predictions([1,3,5]),target)['r2']==1.
+    assert rating_metrics(Predictions([3,3,3]),target)['r2']==0.
+    assert rating_metrics(Predictions([5,5,1]),target)['r2']==pytest.approx(-3.5)
+    assert rating_metrics(Predictions([3,3,3]),target.assign(rating=3.))['r2'] is None
+    assert rating_metrics(Predictions([1,3,5]),target.iloc[:1])['r2'] is None
