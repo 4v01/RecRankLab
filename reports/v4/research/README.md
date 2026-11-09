@@ -6,3 +6,5 @@
 - 官方[ML-10M数据](https://grouplens.org/datasets/movielens/10m/)提供更大的独立benchmark；版本、量表、用户/电影集合与ML-1M不同。跨数据集结果不是“只增加样本”的因果对照。采用相同用户内时间80/10/10及完整目录评估，不用随机划分/采样候选抬高数字。
 
 source_manifest.json记录固定源码快照与所读文件的SHA256。只参考公开架构，未复制第三方模型代码。没有将外部业务指标或论文数字当作本地实验结果。
+
+下一轮可预注册的采样修正依据：[Google Research 的 Sampling-Bias-Corrected Neural Modeling](https://research.google/pubs/sampling-bias-corrected-neural-modeling-for-large-corpus-item-recommendations/)讨论双塔批内采样偏差。当前HistoryTower的非均匀负例与快速验证退化提示应检验LogQ修正，但本轮没有实现该修正，也不能仅凭外部论文断言它能解决当前误差。完整目录评估继续保留；[On Sampled Metrics](https://research.google/pubs/on-sampled-metrics-for-item-recommendation/)说明采样指标可能改变模型比较。

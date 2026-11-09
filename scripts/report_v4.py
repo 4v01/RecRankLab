@@ -34,7 +34,7 @@ def collect(study):
                 files[filename]={'path':str(target.relative_to(ROOT)),'sha256':digest(target)}
         runs[key]={'kind':kind,'evidence':str(copy.relative_to(ROOT)),'evidence_sha256':digest(copy),'source_commit':r['environment']['git_commit'],'signature':r['signature'],'dataset':r['data'],'files':files}
         score=r['test_metrics'];selection=spec.get('objective',r['config'].get('selection_metric'))
-        row={'dataset':dataset,'experiment':name,'seed':seed,'kind':kind,'selection_metric':selection,'source_commit':r['environment']['git_commit'],**score,'total_seconds':r['total_seconds']}
+        row={'dataset':dataset,'experiment':name,'seed':seed,'kind':kind,'selection_metric':selection,'validation_objective_value':r['validation_trials'][r['selected_trial']]['metrics'][selection],'source_commit':r['environment']['git_commit'],**score,'total_seconds':r['total_seconds']}
         if kind=='base':
             row.update(selected_epoch=r['selected_config'].get('epochs'),selected_trial=r['selected_trial'],final_fit_seconds=r['final_fit_seconds'],peak_rss_mib=r['peak_rss_mib'])
         else:row.update(weight_first=r['weight_first'],selected_trial=r['selected_trial'])
@@ -59,7 +59,9 @@ def collect(study):
     summary=pd.DataFrame(aggregate);summary.to_csv(ROOT/'results.csv',index=False)
     summary[summary.selection_metric=='rmse'].to_csv(ROOT/'rating_results.csv',index=False)
     summary[summary.selection_metric=='ndcg@10'].to_csv(ROOT/'ranking_results.csv',index=False)
-    status={'complete':not missing,'completed':len(rows),'expected':len(list(expected_runs(study))),'missing':missing}
+    blocked_set={(b['dataset'],name,seed) for b in study['resource_blocks']['final_records'] for name in b['experiments'] for seed in b['seeds']}
+    blocked=[x for x in missing if tuple(x) in blocked_set];pending=[x for x in missing if tuple(x) not in blocked_set]
+    status={'complete':not missing,'feasible_complete':not pending,'completed':len(rows),'expected':len(list(expected_runs(study))),'resource_blocked':blocked,'pending':pending,'missing':missing}
     (ROOT/'completion_status.json').write_text(json.dumps(status,indent=2))
     return runs,summary,status
 
@@ -97,7 +99,7 @@ def uncertainty(runs):
 
 def diagnostics(runs):
     from recranklab.models.core import Recommender
-    data_refs={};random_refs=[];cohorts=[];branch=[];dependencies={}
+    data_refs={};random_refs=[];cohorts=[];branch=[];dependencies={};diversity=[]
     for dataset in ('ml-1m','ml-10m'):
         parts,data=load(dataset);train,val,test=parts['train'],parts['val'],parts['test']
         data_refs[dataset]={'manifest':data,'partitions':{}}
@@ -114,6 +116,7 @@ def diagnostics(runs):
         uc=val.user.map(train.user.value_counts()).fillna(0).to_numpy();ic=val.item.map(train.item.value_counts()).fillna(0).to_numpy()
         gap=(val.timestamp.to_numpy()-val.user.map(train.groupby('user').timestamp.max()).to_numpy())/86400.
         masks={'user_1_to_49':uc<50,'user_50_to_199':(uc>=50)&(uc<200),'user_200plus':uc>=200,'item_cold':ic==0,'item_1_to_19':(ic>=1)&(ic<20),'item_20_to_99':(ic>=20)&(ic<100),'item_100plus':ic>=100,'gap_0_to_7d':gap<=7,'gap_7_to_30d':(gap>7)&(gap<=30),'gap_30_to_180d':(gap>30)&(gap<=180),'gap_180plus_d':gap>180}
+        residuals={}
         for name in ('sgdmf_v4','mf_dcn_v4','sparse_autorec_v4'):
             key=f'{dataset}_{name}_seed17'
             path=Path('outputs/v4_validation_components')/dataset/name/'17'/'model.pt'
@@ -121,6 +124,7 @@ def diagnostics(runs):
             meta=path.with_name('metadata.json');metadata=json.loads(meta.read_text());assert digest(path)==metadata['checkpoint_sha256']
             dependencies[str(path)]={'checkpoint_sha256':digest(path),'metadata':metadata}
             model=Recommender.load(path);prediction=model.predict_pairs(val.user.to_numpy(),val.item.to_numpy());truth_values=val.rating.to_numpy(dtype=float)
+            residuals[name]=prediction-truth_values
             for label,mask in masks.items():
                 if not mask.any():continue
                 error=prediction[mask]-truth_values[mask];sst=np.square(truth_values[mask]-truth_values[mask].mean()).sum()
@@ -132,12 +136,17 @@ def diagnostics(runs):
                 reduced=model.predict_pairs(val.user.to_numpy(),val.item.to_numpy())
                 branch.append({'dataset':dataset,'seed':17,'partition':'validation','diagnostic':'posthoc_cross_and_deep_head_suppression_no_retraining','full_rmse':ordinary,'suppressed_rmse':float(np.sqrt(np.square(reduced-truth_values).mean())),'causal_retraining_ablation':False})
             del model,prediction;gc.collect()
-        del parts,train,val,test;gc.collect()
+        for first,second in [('sparse_autorec_v4','sgdmf_v4'),('sgdmf_v4','mf_dcn_v4')]:
+            if first not in residuals or second not in residuals:continue
+            a,b=residuals[first],residuals[second]
+            diversity.append({'dataset':dataset,'first':first,'second':second,'seed':17,'partition':'validation','count':len(a),'first_rmse':float(np.sqrt(np.square(a).mean())),'second_rmse':float(np.sqrt(np.square(b).mean())),'residual_correlation':float(np.corrcoef(a,b)[0,1]),'mean_residual_product':float(np.mean(a*b)),'half_blend_rmse':float(np.sqrt(np.square((a+b)/2).mean())),'first_bias':float(a.mean()),'second_bias':float(b.mean())})
+        del parts,train,val,test,residuals;gc.collect()
     (ROOT/'rating_reference.json').write_text(json.dumps(data_refs,indent=2))
     (ROOT/'diagnostic_model_dependencies.json').write_text(json.dumps(dependencies,indent=2))
     pd.DataFrame(random_refs).to_csv(ROOT/'random_reference.csv',index=False)
     pd.DataFrame(cohorts).to_csv(ROOT/'validation_cohorts.csv',index=False)
     pd.DataFrame(branch).to_csv(ROOT/'dcn_branch_diagnostic.csv',index=False)
+    pd.DataFrame(diversity).to_csv(ROOT/'validation_error_complementarity.csv',index=False)
 
 
 def report(summary,status):
@@ -152,7 +161,7 @@ def report(summary,status):
             ax.set_yticks(np.arange(len(g)),g.experiment.str.replace('_v4',''));ax.set_title(dataset+' '+metric);ax.grid(axis='x',alpha=.3)
     fig.tight_layout();(ROOT/'figures').mkdir(exist_ok=True);fig.savefig(ROOT/'figures/results.png',dpi=150);plt.close(fig)
     diagnosis=json.loads((ROOT/'diagnosis.json').read_text())
-    lines=['# RecRankLab V4：原因排查与跨数据集实验','','本轮为同一benchmark反复探索后的研究扩展；保留既有测试协议。所有数字来自实际完成记录，外部方法不等于上游生产模型复现。',f"完成状态：{status['complete']}；{status['completed']}/{status['expected']} 条最终记录（基础模型拟合＋复用组件的融合评估）。",'','## 原因排查','',
+    lines=['# RecRankLab V4：原因排查与跨数据集实验','','本轮为同一benchmark反复探索后的研究扩展；保留既有测试协议。所有数字来自实际完成记录，外部方法不等于上游生产模型复现。',f"原计划全部完成：{status['complete']}；本次可行范围完成：{status['feasible_complete']}；实际{status['completed']}/{status['expected']}条最终记录（基础拟合＋复用组件的融合评估），资源受限{len(status['resource_blocked'])}条，待完成{len(status['pending'])}条。缺失项不填数。",'','## 原因排查','',
         '1. **任务难度与指标方向**：RMSE越低越好，NDCG/R²越高越好。完整目录排序、屏蔽全部历史的结果不能与随机采样少量候选的文献数字直接比较。random_reference.csv给出同协议验证集随机排序期望，不冒充实测模型。',
         '2. **冷启动不是总体评分误差的主要解释**：验证集冷物品评分占比ML-1M约0.017%、ML-10M约0.007%。长尾与活跃度异质性另见validation_cohorts.csv，不能仅凭总体均值定位瓶颈。',
         '3. **训练和模型受限**：历史部分最佳轮次命中训练上限，另有MF候选在首次检查轮次即最优；这提示预算/检查频率需要诊断，并不能证明全部模型都是欠拟合。V4补充逐观测SGD、偏置热启动和更细评分验证；SGD与旧Adam差异包含多个因素，不是优化器单因素结论。',
@@ -161,14 +170,15 @@ def report(summary,status):
         '', '## 数据与适用边界','','| 数据集 | 评分数 | 用户 | 有评分电影 | 密度 | 训练偏置基线验证RMSE |','|---|---:|---:|---:|---:|---:|']
     for dataset,v in diagnosis['datasets'].items():
         m=v['manifest'];lines.append(f"| {dataset} | {m['n_ratings']} | {m['n_users']} | {m['n_items']} | {v['density']:.2%} | {v['validation_baseline_rmse']:.6f} |")
-    lines+=['','两个数据集来自不同人群、目录、时间和评分量表；跨数据集绝对数字的差异不能归因为增加样本。ML-10M主评分量表0.5–5；主指标始终未裁剪。','', '## 真实评分结果','','三种子均值±样本SD；确定性BiasBaseline仅seed17，不将重复拟合作为独立样本。基础模型按验证RMSE选型，融合额外搜索五个冻结权重。','','| 数据集 | 方法 | 种子数 | RMSE↓ | R²↑ | MAE↓ |','|---|---|---:|---:|---:|---:|']
+    lines+=['','ML-10M AutoRec完整预算及其融合共6条记录资源受限，未当作已完成；完整训练计时证据与执行迁移说明见resource_adaptation.md和train_only_timing_pilot.json。其他ML-10M方法均用完整数据。两个数据集来自不同人群、目录、时间和评分量表；跨数据集绝对数字的差异不能归因为增加样本。ML-10M主评分量表0.5–5；主指标始终未裁剪。','', '## 真实评分结果','','三种子均值±样本SD；确定性BiasBaseline仅seed17，不将重复拟合作为独立样本。基础模型按验证RMSE选型，融合额外搜索五个冻结权重。','','| 数据集 | 方法 | 种子数 | RMSE↓ | R²↑ | MAE↓ |','|---|---|---:|---:|---:|---:|']
     for _,r in summary[summary.selection_metric=='rmse'].sort_values(['dataset','rmse_mean']).iterrows():lines.append(f"| {r.dataset} | {r.experiment} | {r.seeds} | {r.rmse_mean:.6f} ± {r.rmse_std:.6f} | {r.r2_mean:.6f} ± {r.r2_std:.6f} | {r.mae_mean:.6f} |")
     lines+=['','ML-1M第三版最佳AutoRec RMSE0.869547/R²0.424549为历史描述性参照；选型网格、方法与预算不同。R²=1−SSE/SST，不是因果或机制解释；同一测试集上它是平方误差的另一尺度。','','## 真实排序结果','','完整目录，正例≥4，屏蔽全部历史；确定性SparseEASE仅seed17。','','| 数据集 | 方法 | 种子数 | NDCG@10↑ | Recall@10↑ | NDCG@20↑ |','|---|---|---:|---:|---:|---:|']
     for _,r in summary[summary.selection_metric=='ndcg@10'].sort_values(['dataset','ndcg@10_mean'],ascending=[True,False]).iterrows():lines.append(f"| {r.dataset} | {r.experiment} | {r.seeds} | {r['ndcg@10_mean']:.6f} ± {r['ndcg@10_std']:.6f} | {r['recall@10_mean']:.6f} | {r['ndcg@20_mean']:.6f} |")
     lines+=['','## 组合、诊断与不确定性','',
-        'validation_trials.csv包含全部候选、轮次与融合权重。端点权重表示退回单模型，也是结果；不因未改善删去某种方法。paired_differences.csv提供同一数据集内用户配对bootstrap；区间条件于给定划分和模型，不包含新数据、搜索和研究者方向不确定性。',
+        'validation_error_complementarity.csv量化训练单折模型在验证集上的残差相关性与固定半权重融合误差，用于解释互补性，不以测试残差确定权重。validation_trials.csv包含全部候选、轮次与融合权重。端点权重表示退回单模型，也是结果；不因未改善删去某种方法。paired_differences.csv提供同一数据集内用户配对bootstrap；区间条件于给定划分和模型，不包含新数据、搜索和研究者方向不确定性。',
         'fit_diagnostics.csv保留每个候选的训练损失、首个检查/上限命中和验证退化，训练损失在不同目标间不可直接横比。validation_cohorts.csv按训练用户活跃度、物品支持度、时间间隔报告seed17验证表现。dcn_branch_diagnostic.csv是在选定验证模型上临时置零交互输出头的诊断，未重训，不能当作严格架构消融或测试结果。',
         '', '## 复现、局限和下一步','',
+        'context_stress.csv是固定参数的推理上下文缺失压力测试：0/20/50/80%四档、seed17模型、扰动seed2026，保留原目录与全历史屏蔽。数据可用范围20/24项；ML-10M AutoRec的4项不可用。它不等同于训练数据损坏、新用户冷启动或系统整体容错；详见robustness_prospectus.md。',
         '研究来源见research/README.md；主阶段方法与预算见methodology.md和configs/v4/study.yaml；额外AutoRec对照与融合阶段见anchor_prospectus.md和configs/v4/anchor_study.yaml；manifest绑定每条结果的代码SHA、完整配置、数据版本、种子和组件依赖。旧报告完全保留。评分模型仅做真实观测评分评估，未将排序logit当评分。',
         '候选预算、验证次数、最大轮次和损失不同；融合还使用额外验证选权与组件重训预算。后续阶段发生在已有版本测试结果已知后，属于探索，不宣称未触碰测试集的确认性结论。官方数据/模型checkpoint不随仓库分发；可按对应源SHA完整重训。',
         '历史双塔的批内负例分布非均匀；原始对比目标可能学习偏好相对采样频率的比值，而非直接的相关性。这是需进一步检验的目标匹配假设，不能从当前结果断言为唯一原因。下一轮应预注册LogQ采样修正、严格时间前缀上下文与更密集的早期验证，配合相同预算对照。下一步也应由验证诊断决定：对真正命中预算边界的模型预先扩展预算；对时间间隔差异检验时间偏置；对长尾优先引入可用元数据与严格冷启动留出；组合只用训练折外或验证预测。新的确认性改进应在预先冻结的新留出集/外部数据上验证。不能为提高数字切换主测试划分、采样候选或输入测试目标。']

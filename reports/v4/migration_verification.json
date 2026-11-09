@@ -1,0 +1,21 @@
+{
+  "scope": "AST-identical numerical definitions and byte-identical kernel/training/data files; storage/provenance changes are separate; not a hardware bitwise guarantee",
+  "local_source": "4e531a0e016f563375794138aec34123244f8b4a",
+  "hosted_source": "a2b7dd8c05849a23afd34a0a90c71243cf06789f",
+  "checks": {
+    "src/recranklab/models/scalable.py:StreamingMF": "14ceb7f0891479b24b8c9aaff85d612caf53782c5579b46f86b04820cbaf1979",
+    "src/recranklab/models/scalable.py:SGDMF": "5a7f9f2484e2950c6c6a63d4f46e785666d25334aec8c657351273a850fcecde",
+    "src/recranklab/models/scalable.py:MFDCN": "2d7e027531718a30dfd7871f6f6ac6c78a86f0c89cf0b0d685ee12220a327ead",
+    "src/recranklab/models/scalable.py:SparseEASE": "7e0eea0b3def75f3eb2b0d08ae493010e0db02bb381ea5341ae141f965d9fffd",
+    "src/recranklab/models/scalable.py:HistoryTower": "d105f7275a44b5773a2d8fb56763524817a586657b7270b8bdf2fe6fb2a670b5",
+    "src/recranklab/models/core.py:BiasMF": "8c6eb59ae23c6b68a28211a34058d0cdfe3c79b21d04422b54cd25c0d80f1eaf",
+    "src/recranklab/experiments/run.py:run_one": "5dd574db16a89a87a510aa129e54c1c69a9e8cdc20a530a58445c102401d654c",
+    "src/recranklab/evaluation/metrics.py:RankingProtocol": "a0c760c432a31451b266d7a80270079ebb930b93110ed9184e223f2f88123092",
+    "src/recranklab/evaluation/metrics.py:rating_metrics": "e58b55b257a89e94b7109c5c5e01a4efc36e3bc4be0a0954a553bfb5248a486b",
+    "src/recranklab/evaluation/metrics.py:rating_user_errors": "19b773b26347e9a22406b8d125c45522cc1316e4c4b80489fea9b01300f8a290",
+    "src/recranklab/evaluation/metrics.py:stable_top_indices": "174474493233cd4baa706a8530aed56155eb7683ed127263871ca23c7bc26e5e",
+    "src/recranklab/models/sgd_kernel.cpp": "fef79a87ab82f7a993ad9d3975e098f1fd058c3a56b3684451ef9fd524baf6ed",
+    "src/recranklab/experiments/training.py": "e9cc0c37e533cafc68f42ec2649720bf21abc48016c0feb18a5907c56bf633c6",
+    "src/recranklab/data/prepare.py": "63b37fb97f143de3176550ebc799b52342966dbaf45463dc9180cb0a9f458dd0"
+  }
+}

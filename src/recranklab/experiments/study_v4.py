@@ -13,4 +13,5 @@ def load_study_v4():
         for key in ('experiments','hybrids'):
             if set(study[key])&set(plan[key]):raise ValueError('Overlapping phase variants')
             study[key].update(plan[key])
+    study['resource_blocks']=yaml.safe_load(Path('configs/v4/resource_blocks.yaml').read_text())
     return study

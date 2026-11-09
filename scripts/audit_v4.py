@@ -16,8 +16,11 @@ def close(a,b):assert np.isclose(a,b,atol=1e-11,rtol=0),(a,b)
 
 def main():
     manifest=json.loads((ROOT/'experiment_manifest.json').read_text());study=load_study_v4()
-    assert manifest['schema_version']==4 and manifest['study']==study and manifest['status']['complete']
-    assert len(manifest['runs'])==46 and manifest['status']['completed']==46
+    assert manifest['schema_version']==4 and manifest['study']==study and manifest['status']['feasible_complete']
+    assert len(manifest['runs'])==40 and manifest['status']['completed']==40
+    assert not manifest['status']['complete'] and len(manifest['status']['resource_blocked'])==6 and not manifest['status']['pending']
+    blocked={(b['dataset'],name,seed) for b in study['resource_blocks']['final_records'] for name in b['experiments'] for seed in b['seeds']}
+    assert {tuple(x) for x in manifest['status']['resource_blocked']}==blocked
     for name,meta in manifest['artifacts'].items():assert digest(ROOT/name)==meta['sha256'],name
     for name,sha in manifest['immutable_historical'].items():assert digest(name)==sha,name
     data={};targets={};catalogs={};eligible={};sst={};counts={}
@@ -32,12 +35,21 @@ def main():
         users=np.sort(y[(y.rating>=4)&y.item.isin(catalog)].user.unique());eligible[dataset]=hashlib.sha256(users.astype('<i8').tobytes()).hexdigest()
         targets[dataset]=(len(y),len(users),len(catalog))
         del parts,y
+    expected=set()
+    for dataset in study['datasets']:
+        for name,spec in study['experiments'].items():
+            expected.update(f'{dataset}_{name}_seed{seed}' for seed in spec.get('seeds',study['seeds']) if (dataset,name,seed) not in blocked)
+        for name in study['hybrids']:
+            expected.update(f'{dataset}_{name}_seed{seed}' for seed in study['seeds'] if (dataset,name,seed) not in blocked)
+    assert set(manifest['runs'])==expected
+    from verify_v4_migration import verify
+    assert json.loads((ROOT/'migration_verification.json').read_text())==verify()
     rows=[];stats={};raw={};by_signature={}
     for key,entry in manifest['runs'].items():
         path=ROOT/entry['evidence'];assert digest(path)==entry['evidence_sha256'];r=json.loads(path.read_text());raw[key]=r;by_signature[r['signature']]=r
         env=r['environment'];sha=env['git_commit'];assert sha==entry['source_commit'] and not env['git_dirty']
         subprocess.run(['git','cat-file','-e',sha+'^{commit}'],check=True)
-        assert r['signature']==entry['signature'];dataset=r['dataset'];name=r['experiment'];seed=r['seed'];assert r['data']==data[dataset]==entry['dataset']
+        assert r['signature']==entry['signature'];dataset=r['dataset'];name=r['experiment'];seed=r['seed'];assert key==f'{dataset}_{name}_seed{seed}';assert r['data']==data[dataset]==entry['dataset']
         config=r['config'];metric=r.get('selection_metric',config.get('selection_metric'));trials=r['validation_trials']
         if entry['kind']=='base':
             spec=study['experiments'][name];expected=source_yaml(sha,'configs/base.yaml');expected.update(source_yaml(sha,spec['config']))
@@ -106,7 +118,7 @@ def main():
             assert cache['dependency_run_signature']==base['signature'] and cache['config']==base['selected_config']
             assert cache['signature']==fingerprint({'config':base['selected_config'],'source_commit':base['environment']['git_commit'],'data':base['data']['fingerprint']})
     frame=pd.DataFrame(rows);summary=pd.read_csv(ROOT/'results.csv').set_index(['dataset','experiment']);seeds=pd.read_csv(ROOT/'per_seed_results.csv')
-    assert len(seeds)==46
+    assert len(seeds)==40
     for (dataset,name),group in frame.groupby(['dataset','experiment']):
         spec=study['experiments'].get(name,{});assert sorted(group.seed)==spec.get('seeds',study['seeds'])
         assert summary.loc[(dataset,name),'seeds']==len(group)
@@ -124,7 +136,20 @@ def main():
             else:differences.append((a[p.metric]-b[p.metric]).mean())
         close(np.mean(differences),p.mean_difference);assert p.ci_low<=p.ci_high and p.bootstrap_replicates==2000 and p.bootstrap_seed==2026
     assert len(json.loads((ROOT/'smoke_summary.json').read_text()))==10
+    stress=pd.read_csv(ROOT/'context_stress.csv');stress_meta=json.loads((ROOT/'context_stress_manifest.json').read_text())
+    assert len(stress)==20 and stress_meta['completed']==20 and stress_meta['expected']==24
+    assert len(stress_meta['resource_blocked'])==1
+    stress_source=stress_meta['evaluation_source']['git_commit']
+    assert hashlib.sha256(subprocess.check_output(['git','show',stress_source+':scripts/stress_v4.py'])).hexdigest()==stress_meta['evaluation_script_sha256']
+    for (dataset,name),group in stress.groupby(['dataset','experiment']):
+        group=group.sort_values('nominal_context_drop');assert group.nominal_context_drop.tolist()==[0.,.2,.5,.8]
+        assert group.remaining_context_entries.is_monotonic_decreasing
+        assert (group.model_seed==17).all() and (group.perturbation_seed==2026).all()
+        base=raw[f'{dataset}_{name}_seed17'];dependency=stress_meta['dependencies'][f'{dataset}/{name}']
+        assert dependency['result_signature']==base['signature'] and dependency['checkpoint_sha256']==base['checkpoint_sha256']
+        for _,row in group.iterrows():close(1-row.remaining_context_entries/row.original_context_entries,row.actual_context_drop)
+        close(group.iloc[0].primary_value,base['test_metrics'][group.iloc[0].primary_metric])
     tracked=subprocess.check_output(['git','ls-files','data','outputs'],text=True);assert not tracked
-    print('PASS: 46 V4 records across complete ML-1M/ML-10M; clean source/config/seed/data signatures, immutable history, stopping/refit, blend dependencies, official SST/R², per-user arithmetic, cohorts, aggregates and paired points.')
+    print('PASS: 40 V4 final records on complete datasets; six declared CPU-resource-blocked records remain explicitly missing; clean source/config/seed/data signatures, immutable history, stopping/refit, blend dependencies, official SST/R², per-user arithmetic, cohorts, aggregates and paired points.')
 
 if __name__=='__main__':main()
