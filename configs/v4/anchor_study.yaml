@@ -1,0 +1,6 @@
+datasets: [ml-1m, ml-10m]
+seeds: [17, 29, 43]
+experiments:
+  sparse_autorec_v4: {model: sparse_autorec, config: configs/v4/sparse_autorec.yaml}
+hybrids:
+  anchor_blend_v4: {components: [sparse_autorec_v4, sgdmf_v4], objective: rmse, weights: [0.0, 0.25, 0.5, 0.75, 1.0]}

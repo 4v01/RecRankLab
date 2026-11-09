@@ -120,3 +120,17 @@ def test_half_star_auxiliary_clip_has_dataset_bound():
         def predict_pairs(self,u,i):return np.array([.5,5.])
     target=pd.DataFrame({'user':[0,0],'item':[0,1],'rating':[.5,5.]})
     assert rating_metrics(Predictions(),target)['rmse_clipped_aux']==0.
+
+
+@pytest.mark.parametrize('variant',['user','item'])
+def test_sparse_autorec_matches_dense_training_and_compact_context(variant,tmp_path):
+    cfg=dict(seed=17,epochs=3,hidden=4,lr=.001,reg=.0001,input_dropout=.2,auto_variant=variant,auto_batch_size=2,compact_checkpoint=True)
+    seed_all(17,1);dense=create('autorec',4,6,cfg).fit(frame())
+    seed_all(17,1);model=create('sparse_autorec',4,6,cfg).fit(frame())
+    np.testing.assert_allclose(dense.loss_history,model.loss_history,atol=1e-7)
+    expected=dense.predict_scores([0,1,2,3])
+    np.testing.assert_allclose(model.predict_scores([0,1,2,3]),expected,atol=1e-6)
+    np.testing.assert_allclose(model.predict_pairs([0,1,2,3],[2,3,4,5]),expected[np.arange(4),[2,3,4,5]],atol=1e-6)
+    assert model.cache.shape[1]==cfg['hidden']
+    model.save(tmp_path/'m.pt');loaded=Recommender.load(tmp_path/'m.pt')
+    np.testing.assert_allclose(loaded.predict_scores([0,1,2,3]),expected,atol=1e-6)

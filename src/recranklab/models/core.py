@@ -72,7 +72,7 @@ class Recommender(nn.Module):
                 if sparse.issparse(value):
                     value=value.tocsr()
                     context["sparse"][name]={"data":torch.from_numpy(value.data),
-                        "indices":torch.from_numpy(value.indices),"indptr":torch.from_numpy(value.indptr)}
+                        "indices":torch.from_numpy(value.indices),"indptr":torch.from_numpy(value.indptr),"shape":list(value.shape)}
             payload["compact_context"]=context
         else:payload["training"]=torch.as_tensor(self.train_frame.to_numpy())
         if self.config["model"]=="history_tower":payload["history_ids"]=self.history_ids
@@ -87,7 +87,7 @@ class Recommender(nn.Module):
             model.user_support=context["user_support"].numpy();model.item_support=context["item_support"].numpy()
             model.train_frame=pd.DataFrame(columns=["user","item","rating"])
             for name,value in context["sparse"].items():
-                setattr(model,name,sparse.csr_matrix((value["data"].numpy(),value["indices"].numpy(),value["indptr"].numpy()),shape=(model.n_users,model.n_items)))
+                setattr(model,name,sparse.csr_matrix((value["data"].numpy(),value["indices"].numpy(),value["indptr"].numpy()),shape=tuple(value.get("shape",[model.n_users,model.n_items]))))
         else:
             frame = pd.DataFrame(payload["training"].numpy(), columns=["user", "item", "rating"])
             frame[["user", "item"]] = frame[["user", "item"]].astype(int)

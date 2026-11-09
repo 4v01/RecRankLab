@@ -256,3 +256,58 @@ class HistoryTower(Recommender):
         u=torch.as_tensor(np.atleast_1d(user_ids),dtype=torch.long)
         i=torch.arange(self.n_items) if item_ids is None else torch.as_tensor(np.atleast_1d(item_ids),dtype=torch.long)
         return (self.cache[0][u]@self.cache[1][i].T).numpy()
+
+
+from .core import AutoRec
+
+class SparseAutoRec(AutoRec):
+    """Same observed-only denoising AutoRec objective, CSR inputs/hidden cache.
+
+    This is an infrastructure port/control, not a novel architecture. No dense
+    all-user predictions are retained; pair scoring selects decoder rows.
+    """
+    def setup(self,frame):
+        Recommender.setup(self,frame)
+        if self.config.get('center_ratings',False):raise ValueError('Sparse control is plain AutoRec only')
+        matrix=sparse.csr_matrix((frame.rating.to_numpy(dtype=np.float32),(frame.user,frame.item)),shape=(self.n_users,self.n_items))
+        self.inputs=matrix.T.tocsr() if self.config.get('auto_variant','user')=='item' else matrix
+    def fit(self,frame):
+        self.setup(frame);optimizer=torch.optim.Adam(self.parameters(),lr=self.config['lr'],weight_decay=self.config['reg'])
+        for _ in range(self.config['epochs']):
+            self.train();losses=[]
+            for ids in torch.randperm(self.inputs.shape[0]).split(self.config.get('auto_batch_size',128)):
+                target=torch.from_numpy(self.inputs[ids.numpy()].toarray());mask=target!=0
+                x=F.dropout(target,p=self.config.get('input_dropout',0.),training=True) if self.config.get('input_dropout',0.) else target
+                prediction=self(x)
+                if not mask.any():continue
+                loss=(prediction-target).square()[mask].mean()
+                optimizer.zero_grad();loss.backward();optimizer.step();losses.append(loss.item())
+            self.loss_history.append(float(np.mean(losses)))
+            if self.finish_epoch():break
+        return self
+    @torch.no_grad()
+    def encoded(self):
+        self.eval()
+        if self.cache is None:
+            self.cache=torch.cat([torch.sigmoid(self.encoder(torch.from_numpy(self.inputs[start:start+128].toarray()))) for start in range(0,self.inputs.shape[0],128)])
+        return self.cache
+    @torch.no_grad()
+    def predict_pairs(self,user_ids,item_ids):
+        users=np.asarray(user_ids);items=np.asarray(item_ids);out=np.empty(len(users),dtype=float);encoded=self.encoded()
+        rows,columns=(items,users) if self.config.get('auto_variant','user')=='item' else (users,items)
+        for start in range(0,len(users),32768):
+            rr=torch.as_tensor(rows[start:start+32768],dtype=torch.long);cc=torch.as_tensor(columns[start:start+32768],dtype=torch.long)
+            value=(encoded[rr]*self.decoder.weight[cc]).sum(1)+self.decoder.bias[cc]
+            cold=~self.user_support[users[start:start+32768]]|~self.item_support[items[start:start+32768]]
+            value[torch.as_tensor(cold)]=self.mean;out[start:start+len(rr)]=value.numpy()
+        return out
+    @torch.no_grad()
+    def predict_scores(self,user_ids,item_ids=None):
+        users=np.atleast_1d(user_ids).astype(int);items=np.arange(self.n_items) if item_ids is None else np.atleast_1d(item_ids).astype(int)
+        encoded=self.encoded()
+        if self.config.get('auto_variant','user')=='item':
+            result=(encoded[items]@self.decoder.weight[users].T+self.decoder.bias[users]).T
+        else:result=encoded[users]@self.decoder.weight[items].T+self.decoder.bias[items]
+        result[~torch.as_tensor(self.user_support)[users],:]=self.mean
+        result[:,~torch.as_tensor(self.item_support)[items]]=self.mean
+        return result.numpy()

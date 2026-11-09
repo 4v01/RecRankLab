@@ -5,8 +5,8 @@ import yaml
 from recranklab.experiments.run import run_one
 from recranklab.utils.repro import config_load
 
-p=argparse.ArgumentParser();p.add_argument('--dataset',choices=['ml-1m','ml-10m']);p.add_argument('--model');p.add_argument('--smoke',action='store_true');a=p.parse_args()
-study=yaml.safe_load(Path('configs/v4/study.yaml').read_text())
+p=argparse.ArgumentParser();p.add_argument('--dataset',choices=['ml-1m','ml-10m']);p.add_argument('--model');p.add_argument('--smoke',action='store_true');p.add_argument('--plan',default='configs/v4/study.yaml');a=p.parse_args()
+study=yaml.safe_load(Path(a.plan).read_text())
 for dataset in ([a.dataset] if a.dataset else study['datasets']):
     for name,spec in study['experiments'].items():
         if a.model and a.model!=spec['model']:continue

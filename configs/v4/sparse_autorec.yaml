@@ -1,0 +1,19 @@
+experiment: sparse_autorec_v4
+study_phase: anchored_rating_followup
+output_root: outputs/v4
+selection_metric: rmse
+evaluate_ranking: false
+early_stopping: true
+epochs: 120
+eval_interval: 5
+patience: 3
+min_delta: 0.00001
+auto_variant: item
+lr: 0.001
+input_dropout: 0.2
+reg: 0.0001
+auto_batch_size: 128
+compact_checkpoint: true
+trials:
+  - {hidden: 128}
+  - {hidden: 256}

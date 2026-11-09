@@ -1,0 +1,11 @@
+# Separately frozen anchored-rating phase
+
+Declared after primary ML-1M SGD final results and some DCN results were visible, and before inspecting any new ML-10M final metric. SGD's validation objective had not surpassed historical AutoRec validation. This is disclosed additional search/compute/researcher-direction budget; primary configs and results remain unchanged.
+
+The original five-model primary phase retains22 base final fits and12 hybrid evaluations. This phase adds six SparseAutoRec final fits (two hidden-size candidates, three seeds, two complete datasets), and six validation-selected SparseAutoRec/SGD blend evaluations. All combined:28 base fits+18 blend evaluations=46 records. Follow-up failure or non-improvement is retained.
+
+SparseAutoRec is a bounded-memory implementation of the original plain denoising item AutoRec: same sigmoid encoder, linear decoder, observed-only MSE, Adam, dropout0.2, weight decay1e-4, batch128. Tests compare both variants' training losses and scores to dense AutoRec on identical seeds, not just self-consistency. CSR rows are densified only per batch; evaluation caches hidden vectors only and selects decoder rows for requested rating pairs. Sparse CSR shape is explicitly saved; old compact checkpoints remain readable.
+
+Use hidden128/256, max120 epochs (additional budget versus v3's80), validation every5, patience3/min_delta1e-5, clean train+validation refit for selected epochs. This is a controlled scalability port plus longer training, not a new architectural claim or isolated causal test of memory representation. Fixed two-candidate grid omits previously poor1e-3 decay; this choice uses prior validation/benchmark knowledge and is not blind confirmation.
+
+Blend first SparseAutoRec with second SGD MF at weights0/.25/.5/.75/1 using validation RMSE only. Reproduce train-only selected components and reuse final fit checkpoints as in the primary hybrid pipeline. The blend includes additional five-weight selection and retraining budget and will be evaluated once per seed/dataset after persisting selection. No historical or primary final record is overwritten. Full configurations: configs/v4/anchor_study.yaml and sparse_autorec.yaml.
