@@ -1,0 +1,10 @@
+experiment: rp3beta_v3
+output_root: outputs/v3
+epochs: 1
+top_k: 200
+normalize_similarity: true
+trials:
+  - {alpha: 0.5, beta: 0.3}
+  - {alpha: 0.5, beta: 0.6}
+  - {alpha: 1.0, beta: 0.3}
+  - {alpha: 1.0, beta: 0.6}

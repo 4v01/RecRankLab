@@ -145,7 +145,7 @@ def summarize(root, output):
     pd.DataFrame(smoke).to_csv(report/'smoke_summary.csv',index=False)
     artifacts={}
     for path in sorted(report.rglob('*')):
-        if not path.is_file() or path.name=='experiment_manifest.json' or any(p in path.parts for p in ('legacy_v1','external_benchmark')): continue
+        if not path.is_file() or path.name=='experiment_manifest.json' or any(p in path.parts for p in ('legacy_v1','external_benchmark','v3')): continue
         key=path.stem.removesuffix('_users')
         artifacts[str(path.relative_to(report))]={'sha256':digest(path),'source_runs':[key] if key in runs else list(originals)}
     manifest={'schema_version':2,'generated_at_utc':datetime.now(timezone.utc).isoformat(),

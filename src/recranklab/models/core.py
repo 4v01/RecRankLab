@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 import torch
 from scipy import linalg
+from scipy import sparse
+from sklearn.linear_model import ElasticNet
 from torch import nn
 from torch.nn import functional as F
 
@@ -78,6 +80,12 @@ class Recommender(nn.Module):
     def parameter_count(self):
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
 
+    def finish_epoch(self):
+        """An optional observer receives current weights; only runner supplies validation."""
+        self.cache = None
+        callback = getattr(self, "epoch_callback", None)
+        return bool(callback(self, len(self.loss_history))) if callback else False
+
 
 class Popularity(Recommender):
     def setup(self, train):
@@ -126,6 +134,8 @@ class BiasMF(Recommender):
                 opt.zero_grad(); loss.backward(); opt.step()
                 losses.append((loss.item(), len(idx)))
             self.loss_history.append(sum(v*n for v,n in losses) / len(rows))
+            if self.finish_epoch():
+                break
         return self
 
     def all_scores(self):
@@ -150,6 +160,18 @@ class AutoRec(Recommender):
         self.inputs = torch.zeros(self.n_users, self.n_items)
         self.inputs[train.user.to_numpy(), train.item.to_numpy()] = torch.tensor(train.rating.to_numpy(), dtype=torch.float32)
         self.mask = self.inputs != 0
+        self.rating_baseline = None
+        if self.config.get("center_ratings", False):
+            # Fit regularized additive biases on OBSERVED FIT ratings only.
+            u, i = train.user.to_numpy(), train.item.to_numpy()
+            residual = train.rating.to_numpy(dtype=float) - self.mean
+            bu, bi = np.zeros(self.n_users), np.zeros(self.n_items)
+            strength = self.config.get("baseline_reg", 10.)
+            for _ in range(10):
+                bu = np.bincount(u, weights=residual-bi[i], minlength=self.n_users) / (np.bincount(u, minlength=self.n_users)+strength)
+                bi = np.bincount(i, weights=residual-bu[u], minlength=self.n_items) / (np.bincount(i, minlength=self.n_items)+strength)
+            self.rating_baseline = torch.tensor(self.mean+bu[:,None]+bi[None,:], dtype=torch.float32)
+            self.inputs = torch.where(self.mask, self.inputs-self.rating_baseline, 0.)
         if self.config.get("auto_variant", "user") == "item":
             self.inputs = self.inputs.T.contiguous()
             self.mask = self.mask.T.contiguous()
@@ -162,6 +184,7 @@ class AutoRec(Recommender):
         self.cache = None
         opt = torch.optim.Adam(self.parameters(), lr=self.config["lr"], weight_decay=self.config["reg"])
         for _ in range(self.config["epochs"]):
+            self.train()
             losses = []
             for users in torch.randperm(len(self.inputs)).split(self.config.get("auto_batch_size", 128)):
                 inputs = self.inputs[users]
@@ -177,12 +200,16 @@ class AutoRec(Recommender):
                 opt.zero_grad(); loss.backward(); opt.step()
                 losses.append(loss.item())
             self.loss_history.append(float(np.mean(losses)))
+            if self.finish_epoch():
+                break
         return self
 
     def all_scores(self):
         scores = torch.cat([self(x) for x in self.inputs.split(256)])
         if self.config.get("auto_variant", "user") == "item":
             scores = scores.T.contiguous()
+        if self.rating_baseline is not None:
+            scores = scores + self.rating_baseline
         scores[~self.user_support, :] = self.mean
         scores[:, ~self.item_support] = self.mean
         return scores
@@ -220,6 +247,8 @@ class BPRMF(Recommender):
                 opt.zero_grad(); loss.backward(); opt.step()
                 losses.append((loss.item(), len(idx)))
             self.loss_history.append(sum(v*n for v,n in losses) / len(rows))
+            if self.finish_epoch():
+                break
         return self
 
     def all_scores(self):
@@ -285,7 +314,170 @@ class EASE(Recommender):
         return self.inputs @ self.coefficients
 
 
-MODELS = {"popularity": Popularity, "biasmf": BiasMF, "autorec": AutoRec, "bpr_mf": BPRMF, "lightgcn": LightGCN, "ease": EASE}
+def retain_neighbors(coefficients, top_k):
+    """Stable source-neighbor selection per target column, never keep diagonal."""
+    if top_k < 1:
+        raise ValueError("top_k must be positive")
+    result = np.array(coefficients, copy=True)
+    np.fill_diagonal(result, 0.)
+    if top_k < len(result):
+        order = np.argsort(-result, axis=0, kind="stable")
+        result[order[top_k:], np.arange(len(result))[None, :]] = 0.
+    return result
+
+
+class ItemKNN(EASE):
+    """Positive-only cosine item similarities with shrinkage and top-K sparsity."""
+    def fit(self, train):
+        self.setup(train)
+        self.cache = None
+        x = self.inputs.numpy().astype(np.float64)
+        gram = x.T @ x
+        norm = np.sqrt(np.diag(gram))
+        denominator = norm[:,None]*norm[None,:] + self.config.get("shrink", 10.)
+        similarity = np.divide(gram, denominator, out=np.zeros_like(gram), where=denominator>0)
+        self.coefficients = torch.tensor(retain_neighbors(similarity, self.config.get("top_k",200)), dtype=torch.float32)
+        return self
+
+
+class RP3Beta(EASE):
+    """User→item→user→item walk, alpha powers, target popularity^-beta.
+
+    Keep top-K source neighbors for each target. Optional row-L1 normalization
+    applies after sparsification; this precise variant is declared in the study.
+    """
+    def fit(self, train):
+        self.setup(train)
+        self.cache = None
+        x = self.inputs.numpy().astype(np.float64)
+        ud, item_degree = x.sum(1).clip(min=1), x.sum(0).clip(min=1)
+        alpha, beta = self.config.get("alpha",1.), self.config.get("beta",.6)
+        if alpha <= 0 or beta < 0:
+            raise ValueError("Invalid walk powers")
+        transition = (x.T/item_degree[:,None])**alpha @ (x/ud[:,None])**alpha
+        transition /= item_degree[None,:]**beta
+        transition = retain_neighbors(transition, self.config.get("top_k",200))
+        if self.config.get("normalize_similarity",True):
+            transition /= np.abs(transition).sum(1,keepdims=True).clip(min=1e-12)
+        self.coefficients = torch.tensor(transition, dtype=torch.float32)
+        return self
+
+
+class SLIM(EASE):
+    """Independent positive ElasticNet regressions; zero self coefficient.
+
+    Each worker owns its CSC copy, so zeroing a target column cannot race with
+    another worker. Nonconvergence is an explicit failed trial, not a score.
+    """
+    def fit(self, train):
+        from concurrent.futures import ThreadPoolExecutor
+        import warnings
+        from sklearn.exceptions import ConvergenceWarning
+        self.setup(train)
+        self.cache = None
+        x = sparse.csc_matrix(self.inputs.numpy().astype(np.float64))
+        workers = int(self.config.get("slim_workers", 2))
+        if workers < 1:
+            raise ValueError("slim_workers must be positive")
+        def solve(indices):
+            local = x.copy()
+            fitted=[]; failures=0; maximum_ratio=0.
+            estimator=ElasticNet(alpha=self.config.get("elastic_alpha",.001),
+                                 l1_ratio=self.config.get("l1_ratio",.1),positive=True,
+                                 fit_intercept=False,copy_X=False,selection="cyclic",
+                                 max_iter=self.config.get("slim_max_iter",1000),
+                                 tol=self.config.get("slim_tol",.001))
+            for target in indices:
+                lo,hi=local.indptr[target:target+2]
+                values=local.data[lo:hi].copy()
+                if not len(values):
+                    continue
+                y=np.asarray(local[:,target].toarray()).ravel()
+                local.data[lo:hi]=0.
+                try:
+                    estimator.fit(local,y)
+                finally:
+                    local.data[lo:hi]=values
+                coef=estimator.coef_.copy();coef[target]=0.
+                tolerance=estimator.tol*np.mean(y*y)
+                ratio=float(estimator.dual_gap_)/max(tolerance,1e-15)
+                maximum_ratio=max(maximum_ratio,ratio)
+                failures+=int(ratio>1.001)
+                fitted.append((int(target),coef))
+            return fitted,failures,maximum_ratio
+        coefficients=np.zeros((self.n_items,self.n_items),dtype=np.float32)
+        failures=0;max_ratio=0.
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore",ConvergenceWarning)
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                for fitted,failed,ratio in pool.map(solve,np.array_split(np.arange(self.n_items),workers)):
+                    failures+=failed;max_ratio=max(max_ratio,ratio)
+                    for item,coef in fitted:
+                        coefficients[:,item]=coef
+        self.solver_diagnostics={"nonconverged_columns":failures,"max_dual_gap_over_tolerance":max_ratio,
+                                 "max_iter":self.config.get("slim_max_iter",1000)}
+        if failures:
+            raise RuntimeError(f"SLIM failed convergence on {failures} columns")
+        self.coefficients=torch.from_numpy(coefficients)
+        return self
+
+
+class MultiVAE(Recommender):
+    """Binary-fit-positive multinomial VAE; posterior mean at evaluation."""
+    def __init__(self,n_users,n_items,config):
+        super().__init__(n_users,n_items,config)
+        hidden,latent=config.get("hidden",200),config.get("latent",128)
+        self.encoder=nn.Sequential(nn.Linear(n_items,hidden),nn.Tanh(),nn.Linear(hidden,2*latent))
+        self.decoder=nn.Sequential(nn.Linear(latent,hidden),nn.Tanh(),nn.Linear(hidden,n_items))
+        for layer in self.modules():
+            if isinstance(layer,nn.Linear):
+                nn.init.xavier_normal_(layer.weight);nn.init.normal_(layer.bias,std=.001)
+
+    def setup(self,train):
+        super().setup(train)
+        self.inputs=torch.zeros(self.n_users,self.n_items)
+        positive=train[train.rating>=4]
+        self.inputs[positive.user.to_numpy(),positive.item.to_numpy()]=1.
+
+    def forward(self,x):
+        normalized=F.normalize(x,p=2,dim=1)
+        corrupted=F.dropout(normalized,p=self.config.get("input_dropout",.5),training=self.training)
+        mu,logvar=self.encoder(corrupted).chunk(2,dim=1)
+        logvar=logvar.clamp(-10,10)
+        z=mu+torch.randn_like(mu)*torch.exp(.5*logvar) if self.training else mu
+        return self.decoder(z),mu,logvar
+
+    def fit(self,train):
+        self.setup(train);self.cache=None
+        optimizer=torch.optim.Adam(self.parameters(),lr=self.config["lr"],weight_decay=self.config.get("reg",0.))
+        supported=torch.where(self.inputs.sum(1)>0)[0]
+        if not len(supported):raise ValueError("No positive histories for MultiVAE")
+        batch=self.config.get("auto_batch_size",256)
+        steps_per_epoch=int(np.ceil(len(supported)/batch))
+        anneal_steps=max(1,self.config.get("anneal_epochs",20)*steps_per_epoch)
+        updates=0
+        for _ in range(self.config["epochs"]):
+            self.train();losses=[]
+            for ids in supported[torch.randperm(len(supported))].split(batch):
+                x=self.inputs[ids]
+                logits,mu,logvar=self(x)
+                reconstruction=-(F.log_softmax(logits,dim=1)*x).sum(1).mean()
+                kl=-.5*(1+logvar-mu.square()-logvar.exp()).sum(1).mean()
+                anneal=self.config.get("anneal_cap",.2)*min(1.,updates/anneal_steps)
+                loss=reconstruction+anneal*kl
+                optimizer.zero_grad();loss.backward();optimizer.step()
+                updates+=1;losses.append((float(loss.item()),len(ids)))
+            self.loss_history.append(sum(v*n for v,n in losses)/len(supported))
+            if self.finish_epoch():break
+        return self
+
+    def all_scores(self):
+        self.eval()
+        return torch.cat([self(x)[0] for x in self.inputs.split(256)])
+
+
+MODELS = {"popularity": Popularity, "biasmf": BiasMF, "autorec": AutoRec, "bpr_mf": BPRMF, "lightgcn": LightGCN, "ease": EASE,
+          "itemknn":ItemKNN,"rp3beta":RP3Beta,"slim":SLIM,"multivae":MultiVAE}
 
 
 def create(name, n_users, n_items, config):

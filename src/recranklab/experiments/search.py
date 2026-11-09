@@ -35,7 +35,10 @@ def propose(config, memory):
 
 
 def hypothesis(config, memory, candidate):
-    parent = max(memory, key=lambda r: r['metrics']['ndcg@10'])['trial_id'] if memory else None
+    metric=config.get('selection_metric','ndcg@10')
+    valid=[r for r in memory if metric in r.get('metrics',{})]
+    select=min if metric=='rmse' else max
+    parent = select(valid, key=lambda r: r['metrics'][metric])['trial_id'] if valid else None
     return {'policy': config.get('search', 'grid'), 'parent_trial': parent,
             'mechanism': config.get('hypothesis', 'Predeclared finite model comparison'),
             'candidate': candidate, 'feedback_partition': 'validation',

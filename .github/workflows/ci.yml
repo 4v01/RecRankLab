@@ -18,6 +18,7 @@ jobs:
       - run: PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest -q
       - run: python scripts/audit_results.py
       - run: python reports/external_benchmark/verify.py
+      - run: python scripts/audit_v3.py
   movielens-smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -41,10 +42,14 @@ jobs:
             if [[ "$model" == popularity ]]; then config=configs/base.yaml; fi
             python -m recranklab.experiments.run --model "$model" --config "$config" --smoke --seeds 17
           done
+      - name: V3 rating stopping and new ranking models on ML-100K
+        run: python scripts/smoke_v3.py
       - uses: actions/upload-artifact@v4
         with:
           name: smoke-metrics-only
           path: |
             outputs/smoke/**/result.json
             outputs/smoke/**/validation.json
+            outputs/v3_smoke/**/result.json
+            outputs/v3_smoke/**/validation.json
           retention-days: 14

@@ -67,9 +67,23 @@ def rating_metrics(model, target):
     if not np.isfinite(prediction).all():
         raise ValueError("Nonfinite rating predictions")
     error = prediction - truth
+    clipped_error=np.clip(prediction,1.,5.)-truth
     return {"rmse": float(np.sqrt(np.mean(error**2))), "mae": float(np.mean(abs(error))),
+            "rmse_clipped_aux":float(np.sqrt(np.mean(clipped_error**2))),
+            "mae_clipped_aux":float(np.mean(np.abs(clipped_error))),
             "rating_count": len(truth), "cold_item_ratings": int((~model.item_support[target.item]).sum()),
             "cold_user_ratings": int((~model.user_support[target.user]).sum())}
+
+
+def rating_user_errors(model,target):
+    """Observed-only sufficient statistics; never export ratings/prediction pairs."""
+    rows=[]
+    for user,group in target.groupby('user',sort=True):
+        prediction=model.predict_scores([user],group.item.to_numpy())[0]
+        error=prediction-group.rating.to_numpy()
+        if not np.isfinite(error).all():raise ValueError('Nonfinite rating predictions')
+        rows.append({'user':int(user),'count':len(error),'sse':float(np.square(error).sum()),'sae':float(np.abs(error).sum())})
+    return pd.DataFrame(rows)
 
 
 def paired_bootstrap(differences, seed=2026, n_boot=2000):

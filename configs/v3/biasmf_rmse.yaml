@@ -1,0 +1,15 @@
+experiment: biasmf_rmse_v3
+output_root: outputs/v3
+selection_metric: rmse
+early_stopping: true
+epochs: 60
+eval_interval: 5
+patience: 3
+min_delta: 0.00001
+dim: 64
+rating_batch_size: 8192
+trials:
+  - {lr: 0.001, reg: 0.005}
+  - {lr: 0.003, reg: 0.005}
+  - {lr: 0.001, reg: 0.02}
+  - {lr: 0.003, reg: 0.02}

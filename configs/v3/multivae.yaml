@@ -1,0 +1,19 @@
+experiment: multivae_v3
+output_root: outputs/v3
+selection_metric: ndcg@10
+early_stopping: true
+epochs: 60
+eval_interval: 5
+patience: 3
+min_delta: 0.00001
+latent: 128
+lr: 0.001
+reg: 0.0
+input_dropout: 0.5
+auto_batch_size: 256
+anneal_epochs: 20
+trials:
+  - {hidden: 200, anneal_cap: 0.05}
+  - {hidden: 200, anneal_cap: 0.2}
+  - {hidden: 600, anneal_cap: 0.05}
+  - {hidden: 600, anneal_cap: 0.2}

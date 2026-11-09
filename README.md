@@ -58,3 +58,16 @@ The EASE extension fits binary positive histories with zero-diagonal ridge item 
 `create(name, n_users, n_items, config)` returns `fit(training_frame)`, `predict_scores(user_ids, item_ids=None)` (Cartesian scores, higher better), `save(path)`, `Recommender.load(path)` with weights-only deserialization. Fit frames contain only user/item/rating. Item/user variants and samplers reconstruct training-only context from local checkpoints. EASE has no gradient-trained parameters but stores O(items²) coefficients; dense scoring and histories also limit scale.
 
 Original code uses MIT; MovieLens has separate terms. References: [AutoRec](https://doi.org/10.1145/2740908.2742726), [BPR](https://proceedings.mlr.press/r7/rendle09a.html), [LightGCN](https://arxiv.org/abs/2002.02126), [EASE](https://doi.org/10.1145/3308558.3313710). No RecRanker code or historical AutoRec RMSE 0.13 claim is used.
+
+## V3: rating-oriented selection and strong ranking baselines
+
+V3 separates validation-RMSE-selected rating models from validation-NDCG-selected ranking models. It adds five-epoch checkpoint checks, patience3, clean reinitialization/refit at the selected epoch, stronger MF regularization, observed-only bias-residual AutoRec, cosine ItemKNN, RP3beta, positive ElasticNet SLIM and multinomial MultiVAE. All retain the original temporal split, full-catalog evaluator and unclipped primary rating metrics. Source/configuration is committed before the v3 study. Historical v2 evidence remains unchanged.
+
+```bash
+python scripts/run_v3.py
+python scripts/smoke_v3.py
+python scripts/report_v3.py
+python scripts/audit_v3.py
+```
+
+Use the exact source commit in the [v3 manifest](reports/v3/experiment_manifest.json) when reproducing existing signatures. The [frozen methodology](reports/v3/methodology.md), [new rating-source inspection](reports/v3/research/README.md) and [v3 actual-results report](reports/v3/technical_report.md) distinguish rating accuracy, ranking and external reports. In particular, some lower external RMSE values use random splits/clipped predictions, and an inspected AutoRec implementation reconstructs its test input; none of these changes are imported as a shortcut to lower primary RMSE.

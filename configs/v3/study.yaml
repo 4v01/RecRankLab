@@ -1,0 +1,17 @@
+seeds: [17, 29, 43]
+experiments:
+  biasmf_rmse_v3: {model: biasmf, config: configs/v3/biasmf_rmse.yaml, objective: rmse, trials: 4}
+  itemknn_v3: {model: itemknn, config: configs/v3/itemknn.yaml, objective: ndcg@10, trials: 4}
+  rp3beta_v3: {model: rp3beta, config: configs/v3/rp3beta.yaml, objective: ndcg@10, trials: 4}
+  slim_v3: {model: slim, config: configs/v3/slim.yaml, objective: ndcg@10, trials: 4}
+  multivae_v3: {model: multivae, config: configs/v3/multivae.yaml, objective: ndcg@10, trials: 4}
+  autorec_rmse_v3: {model: autorec, config: configs/v3/autorec_rmse.yaml, objective: rmse, trials: 4}
+  autorec_residual_v3: {model: autorec, config: configs/v3/autorec_residual.yaml, objective: rmse, trials: 4}
+  ease_v3: {model: ease, config: configs/v3/ease.yaml, objective: ndcg@10, trials: 4}
+comparisons:
+  - [itemknn_v3, ease_v3]
+  - [rp3beta_v3, ease_v3]
+  - [slim_v3, ease_v3]
+  - [multivae_v3, ease_v3]
+  - [autorec_residual_v3, autorec_rmse_v3]
+  - [autorec_rmse_v3, biasmf_rmse_v3]

@@ -1,0 +1,7 @@
+dataset: ml-1m
+data_root: data
+output_root: outputs/v3
+seeds: [17, 29, 43]
+threads: 2
+selection_metric: ndcg@10
+continue_failed_trials: true

@@ -1,0 +1,8 @@
+experiment: ease_v3
+output_root: outputs/v3
+epochs: 1
+trials:
+  - {ridge: 30.0}
+  - {ridge: 100.0}
+  - {ridge: 300.0}
+  - {ridge: 1000.0}

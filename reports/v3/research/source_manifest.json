@@ -1,0 +1,62 @@
+{
+  "scope": "external source inspection and reported values, not local reproduction",
+  "sources": {
+    "NicolasHug/Surprise": {
+      "review_snapshot_commit": "93e1c30f3b2d15bdd0f2c4c816fbfce59f000fad",
+      "original_experiment_commit": "not established",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "439dfc9d40b4927429050b9d43e9e1516c21d6bf0637794c944e2af50f09e6b6",
+          "url": "https://github.com/NicolasHug/Surprise/blob/93e1c30f3b2d15bdd0f2c4c816fbfce59f000fad/README.md"
+        },
+        {
+          "path": "examples/benchmark.py",
+          "sha256": "01b2fbd7feaa5b030ee82aa77a27933bb85d68f2567234e92b30a05e64e2e730",
+          "url": "https://github.com/NicolasHug/Surprise/blob/93e1c30f3b2d15bdd0f2c4c816fbfce59f000fad/examples/benchmark.py"
+        },
+        {
+          "path": "surprise/prediction_algorithms/algo_base.py",
+          "sha256": "f35c5abd8df80cc7b45027913f21049fef34eeec0a91104812fc2c47598db429",
+          "url": "https://github.com/NicolasHug/Surprise/blob/93e1c30f3b2d15bdd0f2c4c816fbfce59f000fad/surprise/prediction_algorithms/algo_base.py"
+        }
+      ]
+    },
+    "gtshs2/Autorec": {
+      "review_snapshot_commit": "bca30ff948b916a3748b3c10f11c00e2027df2ef",
+      "original_experiment_commit": "not established",
+      "files": [
+        {
+          "path": "AutoRec.py",
+          "sha256": "84423c3eff055361be776fc2d8a256846298ca903396428966903aaf9bfba569",
+          "url": "https://github.com/gtshs2/Autorec/blob/bca30ff948b916a3748b3c10f11c00e2027df2ef/AutoRec.py"
+        },
+        {
+          "path": "README",
+          "sha256": "78d6c1d0f164303e1ef6842e62dafd70a401a3e4712af3850351441d1e66e00f",
+          "url": "https://github.com/gtshs2/Autorec/blob/bca30ff948b916a3748b3c10f11c00e2027df2ef/README"
+        },
+        {
+          "path": "data_preprocessor.py",
+          "sha256": "42feea138b3d7b858fd1e29ed62b41d081101b1d167e305621b662e5bbc7d288",
+          "url": "https://github.com/gtshs2/Autorec/blob/bca30ff948b916a3748b3c10f11c00e2027df2ef/data_preprocessor.py"
+        },
+        {
+          "path": "main.py",
+          "sha256": "c4726c2549249bca04eb0acd4be2be325515fbda4012e9011928784f8cbce356",
+          "url": "https://github.com/gtshs2/Autorec/blob/bca30ff948b916a3748b3c10f11c00e2027df2ef/main.py"
+        },
+        {
+          "path": "results/ml-1m/1000_Adam_0.001_1528637652.7423024/basic_info.txt",
+          "sha256": "0462476781ddae49a8c92f0a56c6da19633f6f0541aa3ebeff54886ee92ba310",
+          "url": "https://github.com/gtshs2/Autorec/blob/bca30ff948b916a3748b3c10f11c00e2027df2ef/results/ml-1m/1000_Adam_0.001_1528637652.7423024/basic_info.txt"
+        },
+        {
+          "path": "results/ml-1m/1000_Adam_0.001_1528639677.2329633/basic_info.txt",
+          "sha256": "0462476781ddae49a8c92f0a56c6da19633f6f0541aa3ebeff54886ee92ba310",
+          "url": "https://github.com/gtshs2/Autorec/blob/bca30ff948b916a3748b3c10f11c00e2027df2ef/results/ml-1m/1000_Adam_0.001_1528639677.2329633/basic_info.txt"
+        }
+      ]
+    }
+  }
+}
