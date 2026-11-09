@@ -26,12 +26,18 @@ def main():
         y=parts[stage].rating.to_numpy(dtype=float)
         assert reference['reference'][stage]['count']==len(y)
         assert np.isclose(reference['reference'][stage]['sst'],np.square(y-y.mean()).sum(),atol=1e-9,rtol=0)
+        assert np.isclose(reference['reference'][stage]['mean'],y.mean(),atol=1e-12,rtol=0)
+        assert reference['reference'][stage]['split_index_sha256']==data['split_index_sha256'][stage]
     sst=reference['reference']['test']['sst']
     for key,entry in m['runs'].items():
         r=json.loads((root/entry['evidence']).read_text());name=r['experiment'];seed=r['seed']
         assert r['environment']==entry['environment'] and not r['environment']['git_dirty']
         sha=r['environment']['git_commit'];assert sha==entry['source_commit']
         subprocess.run(['git','cat-file','-e',sha+'^{commit}'],check=True)
+        source_cfg=yaml.safe_load(subprocess.check_output(['git','show',sha+':configs/base.yaml'],text=True))
+        source_cfg.update(yaml.safe_load(subprocess.check_output(['git','show',sha+':'+plan['experiments'][name]['config']],text=True)))
+        source_cfg['model']=r['model']
+        assert source_cfg==r['config'],f'Configuration differs from source snapshot: {key}'
         assert fingerprint(r['config'])==r['config_sha256']
         assert fingerprint({'config':r['config'],'seed':seed,'model':r['model'],'commit':sha,'data':r['data']['fingerprint']})==r['signature']
         assert r['selected_config']==entry['selected_config'] and r['data']==entry['dataset']
@@ -89,6 +95,11 @@ def main():
         assert np.isclose(np.mean(values),results.loc[name,'r2_mean'],atol=1e-12,rtol=0)
         assert np.isclose(np.std(values,ddof=1),results.loc[name,'r2_std'],atol=1e-12,rtol=0)
     old=pd.read_csv('reports/results.csv').set_index('experiment')
+    for row in pd.read_csv(root/'historical_rating_reference.csv').to_dict('records'):
+        historical=json.loads(Path(row['evidence_path']).read_text());score=historical['test_metrics']
+        assert historical['data']['fingerprint']==data['fingerprint']
+        assert historical['environment']['git_commit']==row['source_commit']
+        assert np.isclose(row['r2'],1-score['rmse']**2*score['rating_count']/sst,atol=1e-12,rtol=0)
     assert np.isclose(results.loc['ease_v3','ndcg@10_mean'],old.loc['ease','ndcg@10_mean'],atol=1e-12,rtol=0)
     comparisons=pd.read_csv(root/'paired_differences.csv')
     for row in comparisons.to_dict('records'):

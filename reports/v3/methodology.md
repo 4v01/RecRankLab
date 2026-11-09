@@ -1,6 +1,6 @@
 # V3 frozen study: rating accuracy and full-catalog ranking
 
-The study/configuration is committed before running ML-1M v3 final tests. Prior v1/v2 test results were known and prompted this follow-up; it is not an untouched benchmark. No v3 test result is supplied to training, epoch selection, tuning or model proposals.
+The primary study/configuration is committed before running its ML-1M v3 final tests. Prior v1/v2 results were known; later, separately declared phases also occurred after earlier-phase results were visible. This is exploratory benchmark reuse, not untouched confirmation. Each phase freezes parameter candidates before its own final tests. Test observations are never supplied to model fitting, epoch selection or hyperparameter selection; researcher-level direction and added budgets remain disclosed limitations.
 
 The original per-user temporal split, official GroupLens archive, processed data hashes, supported catalog, cold handling, all-history masking, K=10/20 and metric definitions remain unchanged. Raw data and checkpoints remain ignored. Main rating RMSE/MAE stay **unclipped**, on all observed held-out ratings. Explicitly labeled clipped auxiliary RMSE/MAE provide a diagnostic of a common external convention; they are never selected on and do not replace the primary estimand.
 

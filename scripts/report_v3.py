@@ -113,8 +113,8 @@ def main():
     pd.DataFrame(paired).to_csv(REPORT/'paired_differences.csv',index=False)
     figures=REPORT/'figures';figures.mkdir(exist_ok=True)
     fig,axes=plt.subplots(1,3,figsize=(17,4.5))
-    for ax,data,metric,title in [(axes[0],ratings,'rmse','Rating: RMSE-selected; lower is better'),(axes[1],ratings,'r2','Rating R-squared; higher is better'),(axes[2],rankings,'ndcg@10','Ranking: NDCG-selected; higher is better')]:
-        ax.barh(data.experiment,data[metric+'_mean'],xerr=data[metric+'_std'],capsize=3)
+    for ax,plot_data,metric,title in [(axes[0],ratings,'rmse','Rating: RMSE-selected; lower is better'),(axes[1],ratings,'r2','Rating R-squared; higher is better'),(axes[2],rankings,'ndcg@10','Ranking: NDCG-selected; higher is better')]:
+        ax.barh(plot_data.experiment,plot_data[metric+'_mean'],xerr=plot_data[metric+'_std'],capsize=3)
         ax.set(title=title,xlabel=metric)
     fig.tight_layout();fig.savefig(figures/'task_results.png',dpi=160);plt.close(fig)
     regularization=[]
@@ -145,7 +145,7 @@ def main():
             'source_commit':saved['environment']['git_commit'],'evidence_path':str(file),
             'r2_origin':'derived_from_immutable_historical_RMSE_and_shared_test_SST'})
     pd.DataFrame(historical).to_csv(REPORT/'historical_rating_reference.csv',index=False)
-    lines=['# V3 actual-results report','','Generated only from new ML-1M run evidence; v2 remains unchanged.',
+    lines=['# V3 actual-results report','','Primary tables use new ML-1M run evidence; explicitly separated v2 references remain immutable.',
            f"All declared phases complete: **{not missing}**; final runs: {len(frame)}. Primary phase: 24 runs, low-decay follow-up: 3, SVD++ reference follow-up: 3. The follow-ups were separately frozen; they are not retroactively part of the original eight-experiment registration.",'',
            '## Rating prediction: validation RMSE selection','',
            '| Model / phase | Unclipped RMSE | R² | MAE | Clipped RMSE (auxiliary) | Epoch | Total seconds |',
@@ -167,7 +167,7 @@ def main():
         'Every experiment has four parameter trials; ordinary AutoRec has four original decay candidates plus four separately frozen low-decay candidates (eight total settings in that family), while residual AutoRec is a distinct four-candidate variant. SVD++ is an additional four-candidate model with every-epoch validation, versus every five epochs for the primary iterative models. These are disclosed additional search/compute budgets. Iterative models additionally search validation checkpoints. Counts and full histories are exported. Compute and validation exposure differ; this is not equal-time or equal-search-effort causal attribution.',
         'SLIM records convergence diagnostics; failures count against budget and are not silently scored. Deterministic classical model seeds are reproducibility repeats. MultiVAE evaluation uses posterior means. Original unobserved feedback, support, masking and Recall/NDCG definitions are unchanged.',
         'R² is 1-SSE/SST with SST centered on the observed test mean; it can be negative and is not squared correlation or a causal/mechanistic explanation. Previously completed raw JSON records are immutable: missing R² is derived from their saved RMSE/count and the shared observed test SST, with origin recorded in the manifest. Unclipped RMSE remains primary. Clipped metrics are diagnostic only and do not drive selection. External lower RMSE figures use different protocols, and one inspected AutoRec implementation inputs test ratings to its test reconstruction; see research/README.md for exact pinned evidence.',
-        'This is a reused benchmark: v1/v2 test results were known. Conditional user bootstrap omits new-data, search and multiple-comparison uncertainty. No v3 test feedback changes the frozen candidates. See methodology.md, experiment_manifest.json and evidence/; data/checkpoints are not redistributed.']
+        'This is exploratory benchmark reuse: v1/v2 and earlier-phase results were visible when later phases were declared. Each phase freezes its parameter candidates before its own final tests; test observations never enter fitting, negative sampling, epoch selection or parameter selection. The low-decay hypothesis was frozen from validation before inspecting the new AutoRec test scores. Conditional user bootstrap omits new-data, search, researcher-direction and multiple-comparison uncertainty. See methodology.md, experiment_manifest.json and evidence/; data/checkpoints are not redistributed.']
     (REPORT/'technical_report.md').write_text('\n'.join(lines)+'\n')
     smoke=[]
     for f in sorted(Path('outputs/v3_smoke/ml-100k').glob('*/*/result.json')):
