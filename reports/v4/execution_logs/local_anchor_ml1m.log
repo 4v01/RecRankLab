@@ -1,0 +1,125 @@
+  epoch=5 validation_rmse=0.942606 best_epoch=5
+  epoch=10 validation_rmse=0.908873 best_epoch=10
+  epoch=15 validation_rmse=0.899569 best_epoch=15
+  epoch=20 validation_rmse=0.890759 best_epoch=20
+  epoch=25 validation_rmse=0.884668 best_epoch=25
+  epoch=30 validation_rmse=0.878062 best_epoch=30
+  epoch=35 validation_rmse=0.873719 best_epoch=35
+  epoch=40 validation_rmse=0.869922 best_epoch=40
+  epoch=45 validation_rmse=0.868480 best_epoch=45
+  epoch=50 validation_rmse=0.866115 best_epoch=50
+  epoch=55 validation_rmse=0.864104 best_epoch=55
+  epoch=60 validation_rmse=0.862962 best_epoch=60
+  epoch=65 validation_rmse=0.862034 best_epoch=65
+  epoch=70 validation_rmse=0.861580 best_epoch=70
+  epoch=75 validation_rmse=0.861958 best_epoch=70
+  epoch=80 validation_rmse=0.862105 best_epoch=70
+  epoch=85 validation_rmse=0.861434 best_epoch=85
+  epoch=90 validation_rmse=0.861329 best_epoch=90
+  epoch=95 validation_rmse=0.860507 best_epoch=95
+  epoch=100 validation_rmse=0.861556 best_epoch=95
+  epoch=105 validation_rmse=0.862181 best_epoch=95
+  epoch=110 validation_rmse=0.862776 best_epoch=95
+sparse_autorec_v4 seed=17 trial=0 validation_rmse=0.860507 fit=206.0s
+  epoch=5 validation_rmse=0.929835 best_epoch=5
+  epoch=10 validation_rmse=0.901938 best_epoch=10
+  epoch=15 validation_rmse=0.889898 best_epoch=15
+  epoch=20 validation_rmse=0.879864 best_epoch=20
+  epoch=25 validation_rmse=0.873296 best_epoch=25
+  epoch=30 validation_rmse=0.869120 best_epoch=30
+  epoch=35 validation_rmse=0.867931 best_epoch=35
+  epoch=40 validation_rmse=0.864453 best_epoch=40
+  epoch=45 validation_rmse=0.865352 best_epoch=40
+  epoch=50 validation_rmse=0.864753 best_epoch=40
+  epoch=55 validation_rmse=0.865173 best_epoch=40
+sparse_autorec_v4 seed=17 trial=1 validation_rmse=0.864453 fit=118.9s
+FINAL sparse_autorec_v4 seed=17: {"evaluation_task": "observed_rating_only", "rmse": 0.8693201813200929, "mae": 0.6838703144815783, "r2": 0.4248502013965342, "rmse_clipped_aux": 0.8691156054835907, "mae_clipped_aux": 0.683207092971556, "rating_count": 102759, "cold_item_ratings": 30, "cold_user_ratings": 0}
+  epoch=5 validation_rmse=0.939357 best_epoch=5
+  epoch=10 validation_rmse=0.908599 best_epoch=10
+  epoch=15 validation_rmse=0.896705 best_epoch=15
+  epoch=20 validation_rmse=0.888901 best_epoch=20
+  epoch=25 validation_rmse=0.881332 best_epoch=25
+  epoch=30 validation_rmse=0.875770 best_epoch=30
+  epoch=35 validation_rmse=0.872510 best_epoch=35
+  epoch=40 validation_rmse=0.869836 best_epoch=40
+  epoch=45 validation_rmse=0.866743 best_epoch=45
+  epoch=50 validation_rmse=0.864428 best_epoch=50
+  epoch=55 validation_rmse=0.862873 best_epoch=55
+  epoch=60 validation_rmse=0.861108 best_epoch=60
+  epoch=65 validation_rmse=0.861528 best_epoch=60
+  epoch=70 validation_rmse=0.860774 best_epoch=70
+  epoch=75 validation_rmse=0.861100 best_epoch=70
+  epoch=80 validation_rmse=0.860238 best_epoch=80
+  epoch=85 validation_rmse=0.861604 best_epoch=80
+  epoch=90 validation_rmse=0.860902 best_epoch=80
+  epoch=95 validation_rmse=0.860593 best_epoch=80
+sparse_autorec_v4 seed=29 trial=0 validation_rmse=0.860238 fit=145.3s
+  epoch=5 validation_rmse=0.922901 best_epoch=5
+  epoch=10 validation_rmse=0.899248 best_epoch=10
+  epoch=15 validation_rmse=0.882987 best_epoch=15
+  epoch=20 validation_rmse=0.876115 best_epoch=20
+  epoch=25 validation_rmse=0.869623 best_epoch=25
+  epoch=30 validation_rmse=0.865415 best_epoch=30
+  epoch=35 validation_rmse=0.864904 best_epoch=35
+  epoch=40 validation_rmse=0.863179 best_epoch=40
+  epoch=45 validation_rmse=0.861712 best_epoch=45
+  epoch=50 validation_rmse=0.861921 best_epoch=45
+  epoch=55 validation_rmse=0.863691 best_epoch=45
+  epoch=60 validation_rmse=0.862991 best_epoch=45
+sparse_autorec_v4 seed=29 trial=1 validation_rmse=0.861712 fit=136.4s
+FINAL sparse_autorec_v4 seed=29: {"evaluation_task": "observed_rating_only", "rmse": 0.869948920361068, "mae": 0.6857489558126625, "r2": 0.42401794209379895, "rmse_clipped_aux": 0.8697634990593903, "mae_clipped_aux": 0.6850788376274926, "rating_count": 102759, "cold_item_ratings": 30, "cold_user_ratings": 0}
+  epoch=5 validation_rmse=0.943617 best_epoch=5
+  epoch=10 validation_rmse=0.911220 best_epoch=10
+  epoch=15 validation_rmse=0.899063 best_epoch=15
+  epoch=20 validation_rmse=0.891754 best_epoch=20
+  epoch=25 validation_rmse=0.883656 best_epoch=25
+  epoch=30 validation_rmse=0.877904 best_epoch=30
+  epoch=35 validation_rmse=0.872977 best_epoch=35
+  epoch=40 validation_rmse=0.869594 best_epoch=40
+  epoch=45 validation_rmse=0.867270 best_epoch=45
+  epoch=50 validation_rmse=0.865028 best_epoch=50
+  epoch=55 validation_rmse=0.863110 best_epoch=55
+  epoch=60 validation_rmse=0.861513 best_epoch=60
+  epoch=65 validation_rmse=0.862298 best_epoch=60
+  epoch=70 validation_rmse=0.860872 best_epoch=70
+  epoch=75 validation_rmse=0.861324 best_epoch=70
+  epoch=80 validation_rmse=0.860171 best_epoch=80
+  epoch=85 validation_rmse=0.861647 best_epoch=80
+  epoch=90 validation_rmse=0.860089 best_epoch=90
+  epoch=95 validation_rmse=0.860673 best_epoch=90
+  epoch=100 validation_rmse=0.860079 best_epoch=100
+  epoch=105 validation_rmse=0.861608 best_epoch=100
+  epoch=110 validation_rmse=0.861238 best_epoch=100
+  epoch=115 validation_rmse=0.862370 best_epoch=100
+sparse_autorec_v4 seed=43 trial=0 validation_rmse=0.860079 fit=134.6s
+  epoch=5 validation_rmse=0.928596 best_epoch=5
+  epoch=10 validation_rmse=0.902481 best_epoch=10
+  epoch=15 validation_rmse=0.885726 best_epoch=15
+  epoch=20 validation_rmse=0.877356 best_epoch=20
+  epoch=25 validation_rmse=0.870963 best_epoch=25
+  epoch=30 validation_rmse=0.867081 best_epoch=30
+  epoch=35 validation_rmse=0.866280 best_epoch=35
+  epoch=40 validation_rmse=0.862121 best_epoch=40
+  epoch=45 validation_rmse=0.863211 best_epoch=40
+  epoch=50 validation_rmse=0.863014 best_epoch=40
+  epoch=55 validation_rmse=0.864364 best_epoch=40
+sparse_autorec_v4 seed=43 trial=1 validation_rmse=0.862121 fit=106.1s
+FINAL sparse_autorec_v4 seed=43: {"evaluation_task": "observed_rating_only", "rmse": 0.867971362929333, "mae": 0.6837828123527667, "r2": 0.4266335967586611, "rmse_clipped_aux": 0.8677181177816283, "mae_clipped_aux": 0.6829857920872736, "rating_count": 102759, "cold_item_ratings": 30, "cold_user_ratings": 0}
+ml-1m anchor_blend_v4 seed=17 weight=0.0 val_rmse=0.868695
+ml-1m anchor_blend_v4 seed=17 weight=0.25 val_rmse=0.857154
+ml-1m anchor_blend_v4 seed=17 weight=0.5 val_rmse=0.851889
+ml-1m anchor_blend_v4 seed=17 weight=0.75 val_rmse=0.853015
+ml-1m anchor_blend_v4 seed=17 weight=1.0 val_rmse=0.860507
+FINAL ml-1m anchor_blend_v4 seed=17: {'rmse': 0.8613485936438166, 'mae': 0.6772439802919116, 'r2': 0.43534998221786325, 'rmse_clipped_aux': 0.8611725061069744, 'mae_clipped_aux': 0.6767132771417543, 'rating_count': 102759, 'cold_item_ratings': 30, 'cold_user_ratings': 0}
+ml-1m anchor_blend_v4 seed=29 weight=0.0 val_rmse=0.867550
+ml-1m anchor_blend_v4 seed=29 weight=0.25 val_rmse=0.856692
+ml-1m anchor_blend_v4 seed=29 weight=0.5 val_rmse=0.851807
+ml-1m anchor_blend_v4 seed=29 weight=0.75 val_rmse=0.852998
+ml-1m anchor_blend_v4 seed=29 weight=1.0 val_rmse=0.860238
+FINAL ml-1m anchor_blend_v4 seed=29: {'rmse': 0.8613237272479122, 'mae': 0.6779670585438639, 'r2': 0.4353825836717232, 'rmse_clipped_aux': 0.8611537872846046, 'mae_clipped_aux': 0.6774258708232052, 'rating_count': 102759, 'cold_item_ratings': 30, 'cold_user_ratings': 0}
+ml-1m anchor_blend_v4 seed=43 weight=0.0 val_rmse=0.868024
+ml-1m anchor_blend_v4 seed=43 weight=0.25 val_rmse=0.856362
+ml-1m anchor_blend_v4 seed=43 weight=0.5 val_rmse=0.851096
+ml-1m anchor_blend_v4 seed=43 weight=0.75 val_rmse=0.852344
+ml-1m anchor_blend_v4 seed=43 weight=1.0 val_rmse=0.860079
+FINAL ml-1m anchor_blend_v4 seed=43: {'rmse': 0.8596594182356775, 'mae': 0.6761540236684446, 'r2': 0.4375624608777321, 'rmse_clipped_aux': 0.8594700747987492, 'mae_clipped_aux': 0.6755697844605535, 'rating_count': 102759, 'cold_item_ratings': 30, 'cold_user_ratings': 0}

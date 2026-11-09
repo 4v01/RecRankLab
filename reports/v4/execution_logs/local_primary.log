@@ -1,0 +1,335 @@
+bias_baseline_v4 seed=17 trial=0 validation_rmse=0.912894 fit=0.1s
+bias_baseline_v4 seed=17 trial=1 validation_rmse=0.917394 fit=0.1s
+FINAL bias_baseline_v4 seed=17: {"evaluation_task": "observed_rating_only", "rmse": 0.9246750840858816, "mae": 0.7279405936532508, "r2": 0.3492716031152042, "rmse_clipped_aux": 0.9244559648496229, "mae_clipped_aux": 0.7276139041764227, "rating_count": 102759, "cold_item_ratings": 30, "cold_user_ratings": 0}
+  epoch=2 validation_rmse=0.912905 best_epoch=2
+  epoch=4 validation_rmse=0.912637 best_epoch=4
+  epoch=6 validation_rmse=0.911477 best_epoch=6
+  epoch=8 validation_rmse=0.909910 best_epoch=8
+  epoch=10 validation_rmse=0.905224 best_epoch=10
+  epoch=12 validation_rmse=0.898840 best_epoch=12
+  epoch=14 validation_rmse=0.892389 best_epoch=14
+  epoch=16 validation_rmse=0.887108 best_epoch=16
+  epoch=18 validation_rmse=0.882218 best_epoch=18
+  epoch=20 validation_rmse=0.878021 best_epoch=20
+  epoch=22 validation_rmse=0.875095 best_epoch=22
+  epoch=24 validation_rmse=0.872714 best_epoch=24
+  epoch=26 validation_rmse=0.871069 best_epoch=26
+  epoch=28 validation_rmse=0.870023 best_epoch=28
+  epoch=30 validation_rmse=0.869453 best_epoch=30
+  epoch=32 validation_rmse=0.869426 best_epoch=32
+  epoch=34 validation_rmse=0.869516 best_epoch=32
+  epoch=36 validation_rmse=0.869937 best_epoch=32
+  epoch=38 validation_rmse=0.870538 best_epoch=32
+  epoch=40 validation_rmse=0.871319 best_epoch=32
+  epoch=42 validation_rmse=0.872122 best_epoch=32
+sgdmf_v4 seed=17 trial=0 validation_rmse=0.869426 fit=6.2s
+  epoch=2 validation_rmse=0.913002 best_epoch=2
+  epoch=4 validation_rmse=0.912554 best_epoch=4
+  epoch=6 validation_rmse=0.910841 best_epoch=6
+  epoch=8 validation_rmse=0.908025 best_epoch=8
+  epoch=10 validation_rmse=0.901814 best_epoch=10
+  epoch=12 validation_rmse=0.894687 best_epoch=12
+  epoch=14 validation_rmse=0.887900 best_epoch=14
+  epoch=16 validation_rmse=0.882416 best_epoch=16
+  epoch=18 validation_rmse=0.877759 best_epoch=18
+  epoch=20 validation_rmse=0.874059 best_epoch=20
+  epoch=22 validation_rmse=0.871742 best_epoch=22
+  epoch=24 validation_rmse=0.870059 best_epoch=24
+  epoch=26 validation_rmse=0.869120 best_epoch=26
+  epoch=28 validation_rmse=0.868711 best_epoch=28
+  epoch=30 validation_rmse=0.868695 best_epoch=30
+  epoch=32 validation_rmse=0.869187 best_epoch=30
+  epoch=34 validation_rmse=0.869771 best_epoch=30
+  epoch=36 validation_rmse=0.870510 best_epoch=30
+  epoch=38 validation_rmse=0.871505 best_epoch=30
+  epoch=40 validation_rmse=0.872592 best_epoch=30
+sgdmf_v4 seed=17 trial=1 validation_rmse=0.868695 fit=9.3s
+FINAL sgdmf_v4 seed=17: {"evaluation_task": "observed_rating_only", "rmse": 0.877221878957923, "mae": 0.6881489188764105, "r2": 0.41434701907833715, "rmse_clipped_aux": 0.8767598379979474, "mae_clipped_aux": 0.6870953932165685, "rating_count": 102759, "cold_item_ratings": 30, "cold_user_ratings": 0}
+  epoch=2 validation_rmse=0.913169 best_epoch=2
+  epoch=4 validation_rmse=0.912792 best_epoch=4
+  epoch=6 validation_rmse=0.911641 best_epoch=6
+  epoch=8 validation_rmse=0.909895 best_epoch=8
+  epoch=10 validation_rmse=0.905784 best_epoch=10
+  epoch=12 validation_rmse=0.899753 best_epoch=12
+  epoch=14 validation_rmse=0.893427 best_epoch=14
+  epoch=16 validation_rmse=0.887807 best_epoch=16
+  epoch=18 validation_rmse=0.882966 best_epoch=18
+  epoch=20 validation_rmse=0.878874 best_epoch=20
+  epoch=22 validation_rmse=0.875713 best_epoch=22
+  epoch=24 validation_rmse=0.873329 best_epoch=24
+  epoch=26 validation_rmse=0.871805 best_epoch=26
+  epoch=28 validation_rmse=0.870700 best_epoch=28
+  epoch=30 validation_rmse=0.869922 best_epoch=30
+  epoch=32 validation_rmse=0.869929 best_epoch=30
+  epoch=34 validation_rmse=0.869887 best_epoch=34
+  epoch=36 validation_rmse=0.870311 best_epoch=34
+  epoch=38 validation_rmse=0.870872 best_epoch=34
+  epoch=40 validation_rmse=0.871554 best_epoch=34
+  epoch=42 validation_rmse=0.872306 best_epoch=34
+  epoch=44 validation_rmse=0.873330 best_epoch=34
+sgdmf_v4 seed=29 trial=0 validation_rmse=0.869887 fit=7.1s
+  epoch=2 validation_rmse=0.913144 best_epoch=2
+  epoch=4 validation_rmse=0.912538 best_epoch=4
+  epoch=6 validation_rmse=0.910676 best_epoch=6
+  epoch=8 validation_rmse=0.907315 best_epoch=8
+  epoch=10 validation_rmse=0.901130 best_epoch=10
+  epoch=12 validation_rmse=0.894078 best_epoch=12
+  epoch=14 validation_rmse=0.887413 best_epoch=14
+  epoch=16 validation_rmse=0.881753 best_epoch=16
+  epoch=18 validation_rmse=0.877183 best_epoch=18
+  epoch=20 validation_rmse=0.873549 best_epoch=20
+  epoch=22 validation_rmse=0.870943 best_epoch=22
+  epoch=24 validation_rmse=0.869183 best_epoch=24
+  epoch=26 validation_rmse=0.868273 best_epoch=26
+  epoch=28 validation_rmse=0.867768 best_epoch=28
+  epoch=30 validation_rmse=0.867550 best_epoch=30
+  epoch=32 validation_rmse=0.868092 best_epoch=30
+  epoch=34 validation_rmse=0.868521 best_epoch=30
+  epoch=36 validation_rmse=0.869313 best_epoch=30
+  epoch=38 validation_rmse=0.870173 best_epoch=30
+  epoch=40 validation_rmse=0.871178 best_epoch=30
+sgdmf_v4 seed=29 trial=1 validation_rmse=0.867550 fit=9.2s
+FINAL sgdmf_v4 seed=29: {"evaluation_task": "observed_rating_only", "rmse": 0.8763687087325719, "mae": 0.6876713700938296, "r2": 0.4154856562161122, "rmse_clipped_aux": 0.8758505987594042, "mae_clipped_aux": 0.6866031672120481, "rating_count": 102759, "cold_item_ratings": 30, "cold_user_ratings": 0}
+  epoch=2 validation_rmse=0.912808 best_epoch=2
+  epoch=4 validation_rmse=0.912353 best_epoch=4
+  epoch=6 validation_rmse=0.911671 best_epoch=6
+  epoch=8 validation_rmse=0.909918 best_epoch=8
+  epoch=10 validation_rmse=0.906050 best_epoch=10
+  epoch=12 validation_rmse=0.899603 best_epoch=12
+  epoch=14 validation_rmse=0.892951 best_epoch=14
+  epoch=16 validation_rmse=0.886466 best_epoch=16
+  epoch=18 validation_rmse=0.881669 best_epoch=18
+  epoch=20 validation_rmse=0.877378 best_epoch=20
+  epoch=22 validation_rmse=0.874319 best_epoch=22
+  epoch=24 validation_rmse=0.871627 best_epoch=24
+  epoch=26 validation_rmse=0.870131 best_epoch=26
+  epoch=28 validation_rmse=0.868856 best_epoch=28
+  epoch=30 validation_rmse=0.868177 best_epoch=30
+  epoch=32 validation_rmse=0.868024 best_epoch=32
+  epoch=34 validation_rmse=0.868141 best_epoch=32
+  epoch=36 validation_rmse=0.868464 best_epoch=32
+  epoch=38 validation_rmse=0.869013 best_epoch=32
+  epoch=40 validation_rmse=0.869820 best_epoch=32
+  epoch=42 validation_rmse=0.870512 best_epoch=32
+sgdmf_v4 seed=43 trial=0 validation_rmse=0.868024 fit=7.3s
+  epoch=2 validation_rmse=0.913043 best_epoch=2
+  epoch=4 validation_rmse=0.912403 best_epoch=4
+  epoch=6 validation_rmse=0.911184 best_epoch=6
+  epoch=8 validation_rmse=0.908060 best_epoch=8
+  epoch=10 validation_rmse=0.902294 best_epoch=10
+  epoch=12 validation_rmse=0.895044 best_epoch=12
+  epoch=14 validation_rmse=0.888399 best_epoch=14
+  epoch=16 validation_rmse=0.882344 best_epoch=16
+  epoch=18 validation_rmse=0.878090 best_epoch=18
+  epoch=20 validation_rmse=0.874469 best_epoch=20
+  epoch=22 validation_rmse=0.872022 best_epoch=22
+  epoch=24 validation_rmse=0.870185 best_epoch=24
+  epoch=26 validation_rmse=0.869436 best_epoch=26
+  epoch=28 validation_rmse=0.868838 best_epoch=28
+  epoch=30 validation_rmse=0.868833 best_epoch=28
+  epoch=32 validation_rmse=0.869247 best_epoch=28
+  epoch=34 validation_rmse=0.869934 best_epoch=28
+  epoch=36 validation_rmse=0.870711 best_epoch=28
+  epoch=38 validation_rmse=0.871618 best_epoch=28
+sgdmf_v4 seed=43 trial=1 validation_rmse=0.868838 fit=9.6s
+FINAL sgdmf_v4 seed=43: {"evaluation_task": "observed_rating_only", "rmse": 0.8761279546726918, "mae": 0.6869935096383291, "r2": 0.41580676506037484, "rmse_clipped_aux": 0.8756023652382233, "mae_clipped_aux": 0.6859231284990936, "rating_count": 102759, "cold_item_ratings": 30, "cold_user_ratings": 0}
+  epoch=2 validation_rmse=0.912225 best_epoch=2
+  epoch=4 validation_rmse=0.905778 best_epoch=4
+  epoch=6 validation_rmse=0.888003 best_epoch=6
+  epoch=8 validation_rmse=0.884161 best_epoch=8
+  epoch=10 validation_rmse=0.885611 best_epoch=8
+  epoch=12 validation_rmse=0.887878 best_epoch=8
+  epoch=14 validation_rmse=0.889689 best_epoch=8
+  epoch=16 validation_rmse=0.892955 best_epoch=8
+mf_dcn_v4 seed=17 trial=0 validation_rmse=0.884161 fit=27.7s
+  epoch=2 validation_rmse=0.912319 best_epoch=2
+  epoch=4 validation_rmse=0.903553 best_epoch=4
+  epoch=6 validation_rmse=0.882983 best_epoch=6
+  epoch=8 validation_rmse=0.876071 best_epoch=8
+  epoch=10 validation_rmse=0.876628 best_epoch=8
+  epoch=12 validation_rmse=0.880214 best_epoch=8
+  epoch=14 validation_rmse=0.884623 best_epoch=8
+  epoch=16 validation_rmse=0.887948 best_epoch=8
+mf_dcn_v4 seed=17 trial=1 validation_rmse=0.876071 fit=33.7s
+FINAL mf_dcn_v4 seed=17: {"evaluation_task": "observed_rating_only", "rmse": 0.8873531159563052, "mae": 0.6947356408438926, "r2": 0.40074122029736614, "rmse_clipped_aux": 0.8867632135824208, "mae_clipped_aux": 0.6933883912689147, "rating_count": 102759, "cold_item_ratings": 30, "cold_user_ratings": 0}
+  epoch=2 validation_rmse=0.912345 best_epoch=2
+  epoch=4 validation_rmse=0.910669 best_epoch=4
+  epoch=6 validation_rmse=0.890432 best_epoch=6
+  epoch=8 validation_rmse=0.888635 best_epoch=8
+  epoch=10 validation_rmse=0.888209 best_epoch=10
+  epoch=12 validation_rmse=0.890665 best_epoch=10
+  epoch=14 validation_rmse=0.892256 best_epoch=10
+  epoch=16 validation_rmse=0.893854 best_epoch=10
+  epoch=18 validation_rmse=0.897069 best_epoch=10
+mf_dcn_v4 seed=29 trial=0 validation_rmse=0.888209 fit=37.4s
+  epoch=2 validation_rmse=0.912182 best_epoch=2
+  epoch=4 validation_rmse=0.898913 best_epoch=4
+  epoch=6 validation_rmse=0.884732 best_epoch=6
+  epoch=8 validation_rmse=0.878114 best_epoch=8
+  epoch=10 validation_rmse=0.879561 best_epoch=8
+  epoch=12 validation_rmse=0.885235 best_epoch=8
+  epoch=14 validation_rmse=0.890483 best_epoch=8
+  epoch=16 validation_rmse=0.894604 best_epoch=8
+mf_dcn_v4 seed=29 trial=1 validation_rmse=0.878114 fit=48.5s
+FINAL mf_dcn_v4 seed=29: {"evaluation_task": "observed_rating_only", "rmse": 0.8881866423974011, "mae": 0.6964538248581417, "r2": 0.3996148758280792, "rmse_clipped_aux": 0.8875217834668202, "mae_clipped_aux": 0.6949532621649911, "rating_count": 102759, "cold_item_ratings": 30, "cold_user_ratings": 0}
+  epoch=2 validation_rmse=0.912340 best_epoch=2
+  epoch=4 validation_rmse=0.908975 best_epoch=4
+  epoch=6 validation_rmse=0.883973 best_epoch=6
+  epoch=8 validation_rmse=0.878558 best_epoch=8
+  epoch=10 validation_rmse=0.878496 best_epoch=10
+  epoch=12 validation_rmse=0.881133 best_epoch=10
+  epoch=14 validation_rmse=0.883676 best_epoch=10
+  epoch=16 validation_rmse=0.886247 best_epoch=10
+  epoch=18 validation_rmse=0.890363 best_epoch=10
+mf_dcn_v4 seed=43 trial=0 validation_rmse=0.878496 fit=31.8s
+  epoch=2 validation_rmse=0.912179 best_epoch=2
+  epoch=4 validation_rmse=0.898371 best_epoch=4
+  epoch=6 validation_rmse=0.881624 best_epoch=6
+  epoch=8 validation_rmse=0.876190 best_epoch=8
+  epoch=10 validation_rmse=0.879485 best_epoch=8
+  epoch=12 validation_rmse=0.882615 best_epoch=8
+  epoch=14 validation_rmse=0.887136 best_epoch=8
+  epoch=16 validation_rmse=0.892635 best_epoch=8
+mf_dcn_v4 seed=43 trial=1 validation_rmse=0.876190 fit=39.8s
+FINAL mf_dcn_v4 seed=43: {"evaluation_task": "observed_rating_only", "rmse": 0.8839790891435063, "mae": 0.6929193452879528, "r2": 0.40528973912255806, "rmse_clipped_aux": 0.8833002013013277, "mae_clipped_aux": 0.6912608099869606, "rating_count": 102759, "cold_item_ratings": 30, "cold_user_ratings": 0}
+sparse_ease_v4 seed=17 trial=0 validation_ndcg@10=0.098760 fit=3.3s
+sparse_ease_v4 seed=17 trial=1 validation_ndcg@10=0.100295 fit=3.2s
+FINAL sparse_ease_v4 seed=17: {"recall@10": 0.10247729540905982, "ndcg@10": 0.10170125508160067, "recall@20": 0.1703775739631766, "ndcg@20": 0.12176219196507976, "coverage@10": 0.21286994298126527, "coverage@20": 0.27749117567200654, "eligible_users": 5820, "total_users": 6040, "excluded_users": 220, "users_without_heldout_positives": 219, "cold_start_positive_targets": 9, "prior_positive_targets": 0, "heldout_positive_targets": 53025, "catalog_size": 3683, "unsupported_catalog_items": 23, "eligible_user_sha256": "6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b", "candidate_catalog_sha256": "53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9"}
+  epoch=5 validation_ndcg@10=0.045415 best_epoch=5
+  epoch=10 validation_ndcg@10=0.031369 best_epoch=5
+  epoch=15 validation_ndcg@10=0.030336 best_epoch=5
+  epoch=20 validation_ndcg@10=0.032653 best_epoch=5
+history_tower_v4 seed=17 trial=0 validation_ndcg@10=0.045415 fit=8.8s
+  epoch=5 validation_ndcg@10=0.035230 best_epoch=5
+  epoch=10 validation_ndcg@10=0.029974 best_epoch=5
+  epoch=15 validation_ndcg@10=0.032955 best_epoch=5
+  epoch=20 validation_ndcg@10=0.033776 best_epoch=5
+history_tower_v4 seed=17 trial=1 validation_ndcg@10=0.035230 fit=7.5s
+FINAL history_tower_v4 seed=17: {"recall@10": 0.046289699173684154, "ndcg@10": 0.05291318768279352, "recall@20": 0.07903815255857422, "ndcg@20": 0.06131876008577934, "coverage@10": 0.04642954113494434, "coverage@20": 0.07466739071409177, "eligible_users": 5820, "total_users": 6040, "excluded_users": 220, "users_without_heldout_positives": 219, "cold_start_positive_targets": 9, "prior_positive_targets": 0, "heldout_positive_targets": 53025, "catalog_size": 3683, "unsupported_catalog_items": 23, "eligible_user_sha256": "6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b", "candidate_catalog_sha256": "53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9"}
+  epoch=5 validation_ndcg@10=0.056344 best_epoch=5
+  epoch=10 validation_ndcg@10=0.030612 best_epoch=5
+  epoch=15 validation_ndcg@10=0.028638 best_epoch=5
+  epoch=20 validation_ndcg@10=0.027858 best_epoch=5
+history_tower_v4 seed=29 trial=0 validation_ndcg@10=0.056344 fit=8.7s
+  epoch=5 validation_ndcg@10=0.056403 best_epoch=5
+  epoch=10 validation_ndcg@10=0.033247 best_epoch=5
+  epoch=15 validation_ndcg@10=0.027274 best_epoch=5
+  epoch=20 validation_ndcg@10=0.027250 best_epoch=5
+history_tower_v4 seed=29 trial=1 validation_ndcg@10=0.056403 fit=10.4s
+FINAL history_tower_v4 seed=29: {"recall@10": 0.04704390266503385, "ndcg@10": 0.056140341908082675, "recall@20": 0.08285376338636814, "ndcg@20": 0.06527549647018718, "coverage@10": 0.03638338311159381, "coverage@20": 0.05674721694270975, "eligible_users": 5820, "total_users": 6040, "excluded_users": 220, "users_without_heldout_positives": 219, "cold_start_positive_targets": 9, "prior_positive_targets": 0, "heldout_positive_targets": 53025, "catalog_size": 3683, "unsupported_catalog_items": 23, "eligible_user_sha256": "6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b", "candidate_catalog_sha256": "53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9"}
+  epoch=5 validation_ndcg@10=0.055513 best_epoch=5
+  epoch=10 validation_ndcg@10=0.027219 best_epoch=5
+  epoch=15 validation_ndcg@10=0.033176 best_epoch=5
+  epoch=20 validation_ndcg@10=0.033533 best_epoch=5
+history_tower_v4 seed=43 trial=0 validation_ndcg@10=0.055513 fit=6.9s
+  epoch=5 validation_ndcg@10=0.055828 best_epoch=5
+  epoch=10 validation_ndcg@10=0.028982 best_epoch=5
+  epoch=15 validation_ndcg@10=0.032871 best_epoch=5
+  epoch=20 validation_ndcg@10=0.031620 best_epoch=5
+history_tower_v4 seed=43 trial=1 validation_ndcg@10=0.055828 fit=7.2s
+FINAL history_tower_v4 seed=43: {"recall@10": 0.04725358079831176, "ndcg@10": 0.05614142188616385, "recall@20": 0.08379100804019832, "ndcg@20": 0.06560292286595427, "coverage@10": 0.040999185446646755, "coverage@20": 0.06244909041542221, "eligible_users": 5820, "total_users": 6040, "excluded_users": 220, "users_without_heldout_positives": 219, "cold_start_positive_targets": 9, "prior_positive_targets": 0, "heldout_positive_targets": 53025, "catalog_size": 3683, "unsupported_catalog_items": 23, "eligible_user_sha256": "6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b", "candidate_catalog_sha256": "53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9"}
+ml-1m rating_blend_v4 seed=17 weight=0.0 val_rmse=0.876071
+ml-1m rating_blend_v4 seed=17 weight=0.25 val_rmse=0.868032
+ml-1m rating_blend_v4 seed=17 weight=0.5 val_rmse=0.864096
+ml-1m rating_blend_v4 seed=17 weight=0.75 val_rmse=0.864318
+ml-1m rating_blend_v4 seed=17 weight=1.0 val_rmse=0.868695
+FINAL ml-1m rating_blend_v4 seed=17: {'rmse': 0.8734535370509527, 'mae': 0.6848320880320345, 'r2': 0.41936787063465997, 'rmse_clipped_aux': 0.8731104104241411, 'mae_clipped_aux': 0.6839540026647152, 'rating_count': 102759, 'cold_item_ratings': 30, 'cold_user_ratings': 0}
+ml-1m rating_blend_v4 seed=29 weight=0.0 val_rmse=0.878114
+ml-1m rating_blend_v4 seed=29 weight=0.25 val_rmse=0.868481
+ml-1m rating_blend_v4 seed=29 weight=0.5 val_rmse=0.863468
+ml-1m rating_blend_v4 seed=29 weight=0.75 val_rmse=0.863156
+ml-1m rating_blend_v4 seed=29 weight=1.0 val_rmse=0.867550
+FINAL ml-1m rating_blend_v4 seed=29: {'rmse': 0.8720890566780953, 'mae': 0.6843591720530818, 'r2': 0.42118054249101966, 'rmse_clipped_aux': 0.8717146437588282, 'mae_clipped_aux': 0.683437918104295, 'rating_count': 102759, 'cold_item_ratings': 30, 'cold_user_ratings': 0}
+ml-1m rating_blend_v4 seed=43 weight=0.0 val_rmse=0.876190
+ml-1m rating_blend_v4 seed=43 weight=0.25 val_rmse=0.867624
+ml-1m rating_blend_v4 seed=43 weight=0.5 val_rmse=0.863376
+ml-1m rating_blend_v4 seed=43 weight=0.75 val_rmse=0.863510
+ml-1m rating_blend_v4 seed=43 weight=1.0 val_rmse=0.868024
+FINAL ml-1m rating_blend_v4 seed=43: {'rmse': 0.8715055919682011, 'mae': 0.6835166208830232, 'r2': 0.4219547931240224, 'rmse_clipped_aux': 0.8711354092991942, 'mae_clipped_aux': 0.6825009543035007, 'rating_count': 102759, 'cold_item_ratings': 30, 'cold_user_ratings': 0}
+ml-1m ranking_blend_v4 seed=17 weight=0.0 val_ndcg@10=0.045415
+ml-1m ranking_blend_v4 seed=17 weight=0.25 val_ndcg@10=0.068295
+ml-1m ranking_blend_v4 seed=17 weight=0.5 val_ndcg@10=0.088853
+ml-1m ranking_blend_v4 seed=17 weight=0.75 val_ndcg@10=0.098199
+ml-1m ranking_blend_v4 seed=17 weight=1.0 val_ndcg@10=0.100295
+FINAL ml-1m ranking_blend_v4 seed=17: {'recall@10': 0.10247729540905982, 'ndcg@10': 0.10170125508160067, 'recall@20': 0.1703775739631766, 'ndcg@20': 0.12176219196507976, 'coverage@10': 0.21286994298126527, 'coverage@20': 0.27749117567200654, 'eligible_users': 5820, 'total_users': 6040, 'excluded_users': 220, 'users_without_heldout_positives': 219, 'cold_start_positive_targets': 9, 'prior_positive_targets': 0, 'heldout_positive_targets': 53025, 'catalog_size': 3683, 'unsupported_catalog_items': 23, 'eligible_user_sha256': '6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b', 'candidate_catalog_sha256': '53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9'}
+ml-1m ranking_blend_v4 seed=29 weight=0.0 val_ndcg@10=0.056403
+ml-1m ranking_blend_v4 seed=29 weight=0.25 val_ndcg@10=0.069573
+ml-1m ranking_blend_v4 seed=29 weight=0.5 val_ndcg@10=0.085513
+ml-1m ranking_blend_v4 seed=29 weight=0.75 val_ndcg@10=0.097498
+ml-1m ranking_blend_v4 seed=29 weight=1.0 val_ndcg@10=0.100295
+FINAL ml-1m ranking_blend_v4 seed=29: {'recall@10': 0.10247729540905982, 'ndcg@10': 0.10170125508160067, 'recall@20': 0.1703775739631766, 'ndcg@20': 0.12176219196507976, 'coverage@10': 0.21286994298126527, 'coverage@20': 0.27749117567200654, 'eligible_users': 5820, 'total_users': 6040, 'excluded_users': 220, 'users_without_heldout_positives': 219, 'cold_start_positive_targets': 9, 'prior_positive_targets': 0, 'heldout_positive_targets': 53025, 'catalog_size': 3683, 'unsupported_catalog_items': 23, 'eligible_user_sha256': '6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b', 'candidate_catalog_sha256': '53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9'}
+ml-1m ranking_blend_v4 seed=43 weight=0.0 val_ndcg@10=0.055828
+ml-1m ranking_blend_v4 seed=43 weight=0.25 val_ndcg@10=0.069607
+ml-1m ranking_blend_v4 seed=43 weight=0.5 val_ndcg@10=0.085526
+ml-1m ranking_blend_v4 seed=43 weight=0.75 val_ndcg@10=0.096837
+ml-1m ranking_blend_v4 seed=43 weight=1.0 val_ndcg@10=0.100295
+FINAL ml-1m ranking_blend_v4 seed=43: {'recall@10': 0.10247729540905982, 'ndcg@10': 0.10170125508160067, 'recall@20': 0.1703775739631766, 'ndcg@20': 0.12176219196507976, 'coverage@10': 0.21286994298126527, 'coverage@20': 0.27749117567200654, 'eligible_users': 5820, 'total_users': 6040, 'excluded_users': 220, 'users_without_heldout_positives': 219, 'cold_start_positive_targets': 9, 'prior_positive_targets': 0, 'heldout_positive_targets': 53025, 'catalog_size': 3683, 'unsupported_catalog_items': 23, 'eligible_user_sha256': '6255a82155cdf1e4b74f74e419f8226c53c02d2ea55ecea4727eb23137863f6b', 'candidate_catalog_sha256': '53e6ab118d73a821504f801e8b6891e7792b9de1ba62c9c86e28c04c693083a9'}
+bias_baseline_v4 seed=17 trial=0 validation_rmse=0.861990 fit=2.6s
+bias_baseline_v4 seed=17 trial=1 validation_rmse=0.864505 fit=2.7s
+FINAL bias_baseline_v4 seed=17: {"evaluation_task": "observed_rating_only", "rmse": 0.8686479516828918, "mae": 0.6668499169981443, "r2": 0.32409701591675766, "rmse_clipped_aux": 0.8685036872468215, "mae_clipped_aux": 0.6666789410841096, "rating_count": 1031713, "cold_item_ratings": 799, "cold_user_ratings": 0}
+  epoch=2 validation_rmse=0.862569 best_epoch=2
+  epoch=4 validation_rmse=0.860172 best_epoch=4
+  epoch=6 validation_rmse=0.848635 best_epoch=6
+  epoch=8 validation_rmse=0.836732 best_epoch=8
+  epoch=10 validation_rmse=0.826508 best_epoch=10
+  epoch=12 validation_rmse=0.818185 best_epoch=12
+  epoch=14 validation_rmse=0.811745 best_epoch=14
+  epoch=16 validation_rmse=0.806709 best_epoch=16
+  epoch=18 validation_rmse=0.802706 best_epoch=18
+  epoch=20 validation_rmse=0.799677 best_epoch=20
+  epoch=22 validation_rmse=0.797432 best_epoch=22
+  epoch=24 validation_rmse=0.795814 best_epoch=24
+  epoch=26 validation_rmse=0.794655 best_epoch=26
+  epoch=28 validation_rmse=0.793740 best_epoch=28
+  epoch=30 validation_rmse=0.793219 best_epoch=30
+  epoch=32 validation_rmse=0.792919 best_epoch=32
+  epoch=34 validation_rmse=0.792781 best_epoch=34
+  epoch=36 validation_rmse=0.792770 best_epoch=36
+  epoch=38 validation_rmse=0.792885 best_epoch=36
+  epoch=40 validation_rmse=0.793075 best_epoch=36
+  epoch=42 validation_rmse=0.793310 best_epoch=36
+  epoch=44 validation_rmse=0.793594 best_epoch=36
+  epoch=46 validation_rmse=0.793888 best_epoch=36
+sgdmf_v4 seed=17 trial=0 validation_rmse=0.792770 fit=275.8s
+  epoch=2 validation_rmse=0.862517 best_epoch=2
+  epoch=4 validation_rmse=0.857954 best_epoch=4
+  epoch=6 validation_rmse=0.845105 best_epoch=6
+  epoch=8 validation_rmse=0.833094 best_epoch=8
+  epoch=10 validation_rmse=0.822764 best_epoch=10
+  epoch=12 validation_rmse=0.814446 best_epoch=12
+  epoch=14 validation_rmse=0.808275 best_epoch=14
+  epoch=16 validation_rmse=0.803643 best_epoch=16
+  epoch=18 validation_rmse=0.800031 best_epoch=18
+  epoch=20 validation_rmse=0.797397 best_epoch=20
+  epoch=22 validation_rmse=0.795504 best_epoch=22
+  epoch=24 validation_rmse=0.794240 best_epoch=24
+  epoch=26 validation_rmse=0.793411 best_epoch=26
+  epoch=28 validation_rmse=0.792834 best_epoch=28
+  epoch=30 validation_rmse=0.792620 best_epoch=30
+  epoch=32 validation_rmse=0.792602 best_epoch=32
+  epoch=34 validation_rmse=0.792719 best_epoch=32
+  epoch=36 validation_rmse=0.792955 best_epoch=32
+  epoch=38 validation_rmse=0.793294 best_epoch=32
+  epoch=40 validation_rmse=0.793694 best_epoch=32
+  epoch=42 validation_rmse=0.794139 best_epoch=32
+sgdmf_v4 seed=17 trial=1 validation_rmse=0.792602 fit=372.8s
+FINAL sgdmf_v4 seed=17: {"evaluation_task": "observed_rating_only", "rmse": 0.7988258928525144, "mae": 0.6090775915033682, "r2": 0.42838840335014206, "rmse_clipped_aux": 0.7986486439721273, "mae_clipped_aux": 0.6086552305162088, "rating_count": 1031713, "cold_item_ratings": 799, "cold_user_ratings": 0}
+  epoch=2 validation_rmse=0.862449 best_epoch=2
+  epoch=4 validation_rmse=0.859297 best_epoch=4
+  epoch=6 validation_rmse=0.847710 best_epoch=6
+  epoch=8 validation_rmse=0.836864 best_epoch=8
+  epoch=10 validation_rmse=0.826768 best_epoch=10
+  epoch=12 validation_rmse=0.818467 best_epoch=12
+  epoch=14 validation_rmse=0.811792 best_epoch=14
+  epoch=16 validation_rmse=0.806672 best_epoch=16
+  epoch=18 validation_rmse=0.802693 best_epoch=18
+Traceback (most recent call last):
+  File "/workspace/work/v4_training/scripts/run_v4.py", line 18, in <module>
+    for seed in seeds:run_one(spec['model'],cfg,seed)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/work/v4_training/src/recranklab/experiments/run.py", line 61, in run_one
+    model.fit(parts["train"])
+  File "/workspace/work/v4_training/src/recranklab/models/scalable.py", line 101, in fit
+    mse=kernel(u.ctypes.data_as(pi),i.ctypes.data_as(pi),r.ctypes.data_as(pf),order.ctypes.data_as(pi),len(frame),p.shape[1],self.mean,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

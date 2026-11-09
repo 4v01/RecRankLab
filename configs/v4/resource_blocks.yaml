@@ -1,0 +1,9 @@
+final_records:
+  - dataset: ml-10m
+    experiments: [sparse_autorec_v4, anchor_blend_v4]
+    seeds: [17, 29, 43]
+    reason: Full declared AutoRec budget impractical on available CPU; train-only timing pilot retained; no final metric fabricated.
+stress_records:
+  - dataset: ml-10m
+    experiment: sparse_autorec_v4
+    nominal_context_drop: [0.0, 0.2, 0.5, 0.8]

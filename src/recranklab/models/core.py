@@ -64,7 +64,15 @@ class Recommender(nn.Module):
         payload={"model":self.config["model"],"config":self.config,
                  "n_users":self.n_users,"n_items":self.n_items,
                  "state_dict":self.state_dict(),"loss_history":self.loss_history}
-        if self.config.get("compact_checkpoint",False):
+        if self.config.get("checkpoint_data_reference",False):
+            import json
+            manifest_path=Path(self.config.get("data_root","data"))/"processed"/self.config["dataset"]/"manifest.json"
+            data=json.loads(manifest_path.read_text());n=len(self.train_frame)
+            if n==data["split_counts"]["train"]:partition="train"
+            elif n==data["split_counts"]["train"]+data["split_counts"]["val"]:partition="trainval"
+            else:raise ValueError("External context must be an exact declared fit partition")
+            payload["external_context"]={"dataset":self.config["dataset"],"fingerprint":data["fingerprint"],"partition":partition}
+        elif self.config.get("compact_checkpoint",False):
             context={"mean":self.mean,"user_support":torch.as_tensor(self.user_support),
                      "item_support":torch.as_tensor(self.item_support),"sparse":{}}
             for name in ("inputs","positive"):
@@ -75,14 +83,22 @@ class Recommender(nn.Module):
                         "indices":torch.from_numpy(value.indices),"indptr":torch.from_numpy(value.indptr),"shape":list(value.shape)}
             payload["compact_context"]=context
         else:payload["training"]=torch.as_tensor(self.train_frame.to_numpy())
-        if self.config["model"]=="history_tower":payload["history_ids"]=self.history_ids
+        if self.config["model"]=="history_tower" and "external_context" not in payload:payload["history_ids"]=self.history_ids
         torch.save(payload,path)
 
     @staticmethod
     def load(path):
         payload = torch.load(path, map_location="cpu", weights_only=True)
         model = create(payload["model"], payload["n_users"], payload["n_items"], payload["config"])
-        if "compact_context" in payload:
+        if "external_context" in payload:
+            from recranklab.data.prepare import load
+            context=payload["external_context"]
+            parts,data=load(context["dataset"],model.config.get("data_root","data"))
+            if data["fingerprint"]!=context["fingerprint"]:raise ValueError("Checkpoint dataset fingerprint mismatch")
+            if context["partition"] not in ("train","trainval"):raise ValueError("Invalid checkpoint fit partition")
+            frame=parts["train"] if context["partition"]=="train" else pd.concat([parts["train"],parts["val"]],ignore_index=True)
+            model.setup(frame)
+        elif "compact_context" in payload:
             context=payload["compact_context"];model.mean=context["mean"]
             model.user_support=context["user_support"].numpy();model.item_support=context["item_support"].numpy()
             model.train_frame=pd.DataFrame(columns=["user","item","rating"])

@@ -135,3 +135,20 @@ def test_sparse_autorec_matches_dense_training_and_compact_context(variant,spars
     assert model.cache.shape[1]==cfg['hidden']
     model.save(tmp_path/'m.pt');loaded=Recommender.load(tmp_path/'m.pt')
     np.testing.assert_allclose(loaded.predict_scores([0,1,2,3]),expected,atol=1e-6)
+
+
+@pytest.mark.parametrize('name',['sgdmf','sparse_ease','history_tower','sparse_autorec'])
+def test_external_checkpoint_reconstructs_official_context_without_embedding_ratings(name,tmp_path):
+    raw=tmp_path/'raw';raw.mkdir()
+    with zipfile.ZipFile(raw/'ml-100k.zip','w') as archive:
+        archive.writestr('ml-100k/u.data',''.join(f'{u}\t{i}\t{2 if i%3==0 else 4}\t{i}\n' for u in (1,2) for i in range(1,11)))
+    meta=prepare('ml-100k',tmp_path);parts,_=load('ml-100k',tmp_path)
+    history=pd.concat([parts['train'],parts['val']],ignore_index=True)
+    cfg=dict(seed=17,epochs=1,dim=4,hidden=4,lr=.005,reg=.02,user_batch_size=2,
+             checkpoint_data_reference=True,dataset='ml-100k',data_root=str(tmp_path),auto_variant='item')
+    seed_all(17,1);model=create(name,2,10,cfg).fit(history);expected=model.predict_scores([0,1])
+    model.save(tmp_path/'transfer.pt');payload=torch.load(tmp_path/'transfer.pt',weights_only=True)
+    assert not {'training','compact_context','history_ids'}&set(payload)
+    assert payload['external_context']=={'dataset':'ml-100k','fingerprint':meta['fingerprint'],'partition':'trainval'}
+    loaded=Recommender.load(tmp_path/'transfer.pt')
+    np.testing.assert_allclose(loaded.predict_scores([0,1]),expected,atol=1e-7)

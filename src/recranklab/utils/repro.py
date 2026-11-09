@@ -37,7 +37,13 @@ def provenance(require_clean=True):
     dirty = subprocess.check_output(["git", "status", "--porcelain"], text=True).strip()
     if require_clean and dirty:
         raise RuntimeError("Commit code/config changes before running experiments")
-    return {"git_commit": sha, "git_dirty": bool(dirty), "python": platform.python_version(),
+    result={"git_commit": sha, "git_dirty": bool(dirty), "python": platform.python_version(),
             "platform": platform.platform(), "cpu": next((x.split(':', 1)[1].strip() for x in Path('/proc/cpuinfo').read_text().splitlines() if x.startswith('model name')), platform.processor()),
             "logical_cpus": os.cpu_count(), "device": "cpu", "blas": threadpool_info(),
             "packages": {p: importlib.metadata.version(p) for p in ("torch", "numpy", "pandas", "scipy", "scikit-learn", "PyYAML", "matplotlib", "pytest")}}
+    if os.environ.get("GITHUB_RUN_ID"):
+        result["execution"]={"provider":"github_actions","run_id":os.environ["GITHUB_RUN_ID"],
+            "run_attempt":os.environ.get("GITHUB_RUN_ATTEMPT"),"workflow_sha":os.environ.get("GITHUB_WORKFLOW_SHA"),
+            "job":os.environ.get("GITHUB_JOB"),"runner_os":os.environ.get("RUNNER_OS"),
+            "url":f"https://github.com/{os.environ.get('GITHUB_REPOSITORY')}/actions/runs/{os.environ['GITHUB_RUN_ID']}"}
+    return result

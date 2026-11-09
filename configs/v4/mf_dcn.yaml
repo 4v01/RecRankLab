@@ -18,3 +18,4 @@ trials:
   - {dim: 16}
   - {dim: 32}
 compact_checkpoint: true
+checkpoint_data_reference: true

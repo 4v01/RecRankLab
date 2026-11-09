@@ -1,0 +1,56 @@
+name: V4 remaining complete ML-10M research fits
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Frozen source commit for these unfinished fits
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  base:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      max-parallel: 9
+      matrix:
+        include:
+          - {model: sgdmf, experiment: sgdmf_v4, seed: 29}
+          - {model: sgdmf, experiment: sgdmf_v4, seed: 43}
+          - {model: mf_dcn, experiment: mf_dcn_v4, seed: 17}
+          - {model: mf_dcn, experiment: mf_dcn_v4, seed: 29}
+          - {model: mf_dcn, experiment: mf_dcn_v4, seed: 43}
+          - {model: sparse_ease, experiment: sparse_ease_v4, seed: 17}
+          - {model: history_tower, experiment: history_tower_v4, seed: 17}
+          - {model: history_tower, experiment: history_tower_v4, seed: 29}
+          - {model: history_tower, experiment: history_tower_v4, seed: 43}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements-lock.txt
+      - run: pip install --no-deps -e .
+      - run: python -m recranklab.data.prepare --dataset ml-10m --config configs/base.yaml
+      - name: Frozen full-data tuning, refit and one final test; train-only blend cache
+        run: python scripts/cloud_base_v4.py --model ${{ matrix.model }} --seed ${{ matrix.seed }}
+      - name: Transfer only parameter checkpoints with external official-data references and anonymous summaries
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v4-ml10m-${{ matrix.model }}-${{ matrix.seed }}
+          path: |
+            outputs/v4/ml-10m/${{ matrix.experiment }}/${{ matrix.seed }}/result.json
+            outputs/v4/ml-10m/${{ matrix.experiment }}/${{ matrix.seed }}/validation.json
+            outputs/v4/ml-10m/${{ matrix.experiment }}/${{ matrix.seed }}/selection.json
+            outputs/v4/ml-10m/${{ matrix.experiment }}/${{ matrix.seed }}/per_user*.csv
+            outputs/v4/ml-10m/${{ matrix.experiment }}/${{ matrix.seed }}/model.pt
+            outputs/v4_validation_components/ml-10m/${{ matrix.experiment }}/${{ matrix.seed }}/model.pt
+            outputs/v4_validation_components/ml-10m/${{ matrix.experiment }}/${{ matrix.seed }}/metadata.json
+          retention-days: 3

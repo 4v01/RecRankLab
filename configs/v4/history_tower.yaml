@@ -16,3 +16,4 @@ trials:
   - {temperature: 0.2}
 evaluation_batch_users: 128
 compact_checkpoint: true
+checkpoint_data_reference: true

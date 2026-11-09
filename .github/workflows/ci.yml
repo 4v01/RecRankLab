@@ -23,7 +23,8 @@ jobs:
       - run: python scripts/audit_v3.py
       - name: Prepare complete official ML-10M for V4 source-data audit
         run: python -m recranklab.data.prepare --dataset ml-10m --config configs/base.yaml
-      - run: python scripts/audit_v4.py
+      - if: hashFiles('reports/v4/experiment_manifest.json') != ''
+        run: python scripts/audit_v4.py
   movielens-smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 20
