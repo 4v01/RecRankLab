@@ -21,6 +21,9 @@ jobs:
       - name: Prepare official ML-1M for independent R-squared SST verification
         run: python -m recranklab.data.prepare --dataset ml-1m --config configs/base.yaml
       - run: python scripts/audit_v3.py
+      - name: Prepare complete official ML-10M for V4 source-data audit
+        run: python -m recranklab.data.prepare --dataset ml-10m --config configs/base.yaml
+      - run: python scripts/audit_v4.py
   movielens-smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -46,6 +49,12 @@ jobs:
           done
       - name: V3 rating stopping and new ranking models on ML-100K
         run: python scripts/smoke_v3.py
+      - name: V4 original methods and both frozen blend phases on real ML-100K
+        run: |
+          python scripts/run_v4.py --smoke
+          python scripts/hybrid_v4.py --smoke
+          python scripts/run_v4.py --smoke --plan configs/v4/anchor_study.yaml
+          python scripts/hybrid_v4.py --smoke --plan configs/v4/anchor_study.yaml
       - uses: actions/upload-artifact@v4
         with:
           name: smoke-metrics-only
@@ -54,4 +63,7 @@ jobs:
             outputs/smoke/**/validation.json
             outputs/v3_smoke/**/result.json
             outputs/v3_smoke/**/validation.json
+            outputs/v4_smoke/**/result.json
+            outputs/v4_smoke/**/validation.json
+            outputs/v4_smoke/**/selection.json
           retention-days: 14

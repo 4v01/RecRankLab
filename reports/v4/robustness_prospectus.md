@@ -1,0 +1,9 @@
+# Fixed inference-context availability stress
+
+Declared while primary ML-10M SGD validation was running and before the new ML-10M final result was inspected. This is a supplementary diagnostic, not an extra tuning objective or replacement test protocol.
+
+After the declared models finish, load seed17 SparseAutoRec, SparseEASE and HistoryTower on both datasets. Keep all fitted parameters, original train+validation support, complete original history exclusion mask, catalog and test targets fixed. Independently hide20%,50%,80% of the **inference input context** using one uniform vector with seed2026 for nested masks; include0% as an identity check. For SparseAutoRec, mask nonzero observed input ratings; for EASE, binary positive inputs; for HistoryTower, nonpadding entries in its last50 positive context. Context feature types differ, so do not claim identical perturbations across models.
+
+No retraining or label alteration; no fusion/model selection based on this diagnostic. Models' parameters still reflect the complete fitting data, so this is inference-context outage sensitivity, not robustness to corrupted training, true new-user cold start, adversarial ratings, or infrastructure fault tolerance. It is one fixed seed17 model and one nested perturbation draw per dataset/method, not a three-seed uncertainty estimate. Different datasets remain different populations; relative changes do not isolate a causal sample-size benefit.
+
+Report all24 cases (two datasets × three methods × four context-availability levels), actual removed input fraction, immutable checkpoint/source/data hashes, primary metric/R² as appropriate and retained historical-mask policy. At0%, require agreement with the base run. Raw data, perturbed inputs and prediction pairs stay untracked.

@@ -6,7 +6,8 @@ import numpy as np
 import pandas as pd
 import yaml
 from recranklab.data.prepare import digest,load
-from recranklab.utils.repro import provenance
+from recranklab.utils.repro import provenance,seed_all
+from recranklab.experiments.study_v4 import load_study_v4
 
 ROOT=Path('reports/v4')
 
@@ -20,7 +21,7 @@ def expected_runs(study):
 
 def collect(study):
     evidence=ROOT/'evidence';evidence.mkdir(exist_ok=True)
-    runs={};rows=[];trials=[];checks=[];missing=[]
+    runs={};rows=[];trials=[];checks=[];fit_diagnostics=[];missing=[]
     for dataset,name,seed,kind,spec in expected_runs(study):
         directory=Path('outputs/v4')/dataset/name/str(seed);path=directory/'result.json'
         if not path.exists():missing.append([dataset,name,seed]);continue
@@ -40,8 +41,12 @@ def collect(study):
         rows.append(row)
         for i,t in enumerate(r['validation_trials']):
             trials.append({'dataset':dataset,'experiment':name,'seed':seed,'trial':i,'selected':i==r['selected_trial'],'selection_metric':selection,'best_epoch':t.get('best_epoch'),'stopped_epoch':t.get('stopped_epoch'),'weight_first':t.get('weight_first'),'overrides':json.dumps(t.get('overrides',{}),sort_keys=True),**t.get('metrics',{}),'fit_seconds':t.get('fit_seconds')})
+            history=t.get('checkpoint_history',[])
+            if history:
+                fit_diagnostics.append({'dataset':dataset,'experiment':name,'seed':seed,'trial':i,'selected_candidate':i==r['selected_trial'],'best_epoch':t['best_epoch'],'first_check_epoch':history[0]['epoch'],'stopped_epoch':t['stopped_epoch'],'max_epoch':r['config']['epochs'],'best_at_first_check':t['best_epoch']==history[0]['epoch'],'best_at_max_epoch':t['best_epoch']==r['config']['epochs'],'best_validation_objective':t['metrics'][selection],'last_validation_objective':history[-1]['metrics'][selection],'training_loss_at_best':t['loss_history'][t['best_epoch']-1],'last_training_loss':t['loss_history'][-1]})
             for c in t.get('checkpoint_history',[]):checks.append({'dataset':dataset,'experiment':name,'seed':seed,'trial':i,'epoch':c['epoch'],**c['metrics']})
     frame=pd.DataFrame(rows);frame.to_csv(ROOT/'per_seed_results.csv',index=False)
+    pd.DataFrame(fit_diagnostics).to_csv(ROOT/'fit_diagnostics.csv',index=False)
     pd.DataFrame(trials).to_csv(ROOT/'validation_trials.csv',index=False);pd.DataFrame(checks).to_csv(ROOT/'validation_checkpoints.csv',index=False)
     numeric=[c for c in frame.select_dtypes(include=[np.number]).columns if c not in ('seed','selected_trial')]
     aggregate=[]
@@ -60,16 +65,17 @@ def collect(study):
 
 
 def uncertainty(runs):
-    pairs=[('sgdmf_v4','bias_baseline_v4','rmse'),('mf_dcn_v4','sgdmf_v4','rmse'),('rating_blend_v4','sgdmf_v4','rmse'),('history_tower_v4','sparse_ease_v4','ndcg@10'),('ranking_blend_v4','sparse_ease_v4','ndcg@10')]
+    pairs=[('sgdmf_v4','bias_baseline_v4','rmse'),('mf_dcn_v4','sgdmf_v4','rmse'),('rating_blend_v4','sgdmf_v4','rmse'),('history_tower_v4','sparse_ease_v4','ndcg@10'),('ranking_blend_v4','sparse_ease_v4','ndcg@10'),('sparse_autorec_v4','sgdmf_v4','rmse'),('anchor_blend_v4','sparse_autorec_v4','rmse'),('anchor_blend_v4','historical_autorec_v3','rmse')]
     output=[]
     for dataset in ('ml-1m','ml-10m'):
         for first,second,metric in pairs:
             arrays=[]
             for seed in (17,29,43):
                 a=f'{dataset}_{first}_seed{seed}';b=f'{dataset}_{second}_seed{17 if second in ("bias_baseline_v4","sparse_ease_v4") else seed}'
-                if a not in runs or b not in runs:continue
+                if a not in runs or (b not in runs and not (dataset=='ml-1m' and second=='historical_autorec_v3')):continue
                 filename='per_user_rating.csv' if metric=='rmse' else 'per_user.csv'
-                x=pd.read_csv(ROOT/runs[a]['files'][filename]['path']);y=pd.read_csv(ROOT/runs[b]['files'][filename]['path'])
+                x=pd.read_csv(ROOT/runs[a]['files'][filename]['path'])
+                y=pd.read_csv(Path(f'reports/v3/evidence/autorec_rmse_v3_seed{seed}_rating_users.csv') if second=='historical_autorec_v3' else ROOT/runs[b]['files'][filename]['path'])
                 assert x.evaluation_row.equals(y.evaluation_row)
                 if metric=='rmse':
                     np.testing.assert_array_equal(x['count'],y['count']);arrays.append((x.sse.to_numpy(),y.sse.to_numpy(),x['count'].to_numpy()))
@@ -102,12 +108,13 @@ def diagnostics(runs):
         count=train.groupby('user').size();n=len(catalog)-count.reindex(p.index).to_numpy()
         truth=p.to_numpy();discount=1/np.log2(np.arange(20)+2)
         for k in (10,20):
-            expected_ndcg=np.mean((truth/n)*discount[:k].sum()/np.array([discount[:min(k,int(t))].sum() for t in truth]))
+            prefix=np.r_[0.,np.cumsum(discount)]
+            expected_ndcg=np.mean((truth/n)*prefix[np.minimum(k,n)]/prefix[np.minimum(k,truth)])
             random_refs.append({'dataset':dataset,'stage':'validation','k':k,'expected_random_recall':float(np.mean(np.minimum(k,n)/n)),'expected_random_ndcg':float(expected_ndcg),'eligible_users':len(p)})
         uc=val.user.map(train.user.value_counts()).fillna(0).to_numpy();ic=val.item.map(train.item.value_counts()).fillna(0).to_numpy()
         gap=(val.timestamp.to_numpy()-val.user.map(train.groupby('user').timestamp.max()).to_numpy())/86400.
         masks={'user_1_to_49':uc<50,'user_50_to_199':(uc>=50)&(uc<200),'user_200plus':uc>=200,'item_cold':ic==0,'item_1_to_19':(ic>=1)&(ic<20),'item_20_to_99':(ic>=20)&(ic<100),'item_100plus':ic>=100,'gap_0_to_7d':gap<=7,'gap_7_to_30d':(gap>7)&(gap<=30),'gap_30_to_180d':(gap>30)&(gap<=180),'gap_180plus_d':gap>180}
-        for name in ('sgdmf_v4','mf_dcn_v4'):
+        for name in ('sgdmf_v4','mf_dcn_v4','sparse_autorec_v4'):
             key=f'{dataset}_{name}_seed17'
             path=Path('outputs/v4_validation_components')/dataset/name/'17'/'model.pt'
             if key not in runs or not path.exists():continue
@@ -160,16 +167,17 @@ def report(summary,status):
     for _,r in summary[summary.selection_metric=='ndcg@10'].sort_values(['dataset','ndcg@10_mean'],ascending=[True,False]).iterrows():lines.append(f"| {r.dataset} | {r.experiment} | {r.seeds} | {r['ndcg@10_mean']:.6f} ± {r['ndcg@10_std']:.6f} | {r['recall@10_mean']:.6f} | {r['ndcg@20_mean']:.6f} |")
     lines+=['','## 组合、诊断与不确定性','',
         'validation_trials.csv包含全部候选、轮次与融合权重。端点权重表示退回单模型，也是结果；不因未改善删去某种方法。paired_differences.csv提供同一数据集内用户配对bootstrap；区间条件于给定划分和模型，不包含新数据、搜索和研究者方向不确定性。',
-        'validation_cohorts.csv按训练用户活跃度、物品支持度、时间间隔报告seed17验证表现。dcn_branch_diagnostic.csv是在选定验证模型上临时置零交互输出头的诊断，未重训，不能当作严格架构消融或测试结果。',
+        'fit_diagnostics.csv保留每个候选的训练损失、首个检查/上限命中和验证退化，训练损失在不同目标间不可直接横比。validation_cohorts.csv按训练用户活跃度、物品支持度、时间间隔报告seed17验证表现。dcn_branch_diagnostic.csv是在选定验证模型上临时置零交互输出头的诊断，未重训，不能当作严格架构消融或测试结果。',
         '', '## 复现、局限和下一步','',
-        '研究来源见research/README.md；方法与预算见methodology.md和configs/v4/study.yaml；manifest绑定每条结果的代码SHA、完整配置、数据版本、种子和组件依赖。旧报告完全保留。评分模型仅做真实观测评分评估，未将排序logit当评分。',
+        '研究来源见research/README.md；主阶段方法与预算见methodology.md和configs/v4/study.yaml；额外AutoRec对照与融合阶段见anchor_prospectus.md和configs/v4/anchor_study.yaml；manifest绑定每条结果的代码SHA、完整配置、数据版本、种子和组件依赖。旧报告完全保留。评分模型仅做真实观测评分评估，未将排序logit当评分。',
         '候选预算、验证次数、最大轮次和损失不同；融合还使用额外验证选权与组件重训预算。后续阶段发生在已有版本测试结果已知后，属于探索，不宣称未触碰测试集的确认性结论。官方数据/模型checkpoint不随仓库分发；可按对应源SHA完整重训。',
-        '下一步应由验证诊断决定：对真正命中预算边界的模型预先扩展预算；对时间间隔差异检验时间偏置；对长尾优先引入可用元数据与严格冷启动留出；组合只用训练折外或验证预测。新的确认性改进应在预先冻结的新留出集/外部数据上验证。不能为提高数字切换主测试划分、采样候选或输入测试目标。']
+        '历史双塔的批内负例分布非均匀；原始对比目标可能学习偏好相对采样频率的比值，而非直接的相关性。这是需进一步检验的目标匹配假设，不能从当前结果断言为唯一原因。下一轮应预注册LogQ采样修正、严格时间前缀上下文与更密集的早期验证，配合相同预算对照。下一步也应由验证诊断决定：对真正命中预算边界的模型预先扩展预算；对时间间隔差异检验时间偏置；对长尾优先引入可用元数据与严格冷启动留出；组合只用训练折外或验证预测。新的确认性改进应在预先冻结的新留出集/外部数据上验证。不能为提高数字切换主测试划分、采样候选或输入测试目标。']
     (ROOT/'technical_report.md').write_text('\n'.join(lines)+'\n')
 
 
 def main():
-    study=yaml.safe_load(Path('configs/v4/study.yaml').read_text());runs,summary,status=collect(study)
+    seed_all(2026,2)
+    study=load_study_v4();runs,summary,status=collect(study)
     uncertainty(runs);diagnostics(runs);report(summary,status)
     smoke=[]
     for path in sorted(Path('outputs/v4_smoke/ml-100k').glob('*/*/result.json')):
