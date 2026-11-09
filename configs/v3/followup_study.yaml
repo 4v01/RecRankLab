@@ -1,0 +1,7 @@
+phase: validation_only_low_decay_followup
+prospectus: reports/v3/lowreg_prospectus.md
+seeds: [17, 29, 43]
+experiments:
+  autorec_lowreg_v3: {model: autorec, config: configs/v3/autorec_lowreg.yaml, objective: rmse, trials: 4}
+comparisons:
+  - [autorec_lowreg_v3, autorec_rmse_v3]
