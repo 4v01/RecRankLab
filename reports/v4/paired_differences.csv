@@ -7,3 +7,8 @@ ml-1m,ranking_blend_v4 - sparse_ease_v4,ndcg@10,0.0,0.0,0.0,2000,2026,"user, con
 ml-1m,sparse_autorec_v4 - sgdmf_v4,rmse,-0.007492692584230946,-0.010409366468365783,-0.0049688049299891155,2000,2026,"user, conditional on split and fitted models"
 ml-1m,anchor_blend_v4 - sparse_autorec_v4,rmse,-0.008302908494362474,-0.009494033831151927,-0.006991705688014924,2000,2026,"user, conditional on split and fitted models"
 ml-1m,anchor_blend_v4 - historical_autorec_v3,rmse,-0.008770144696923202,-0.00998957803129768,-0.0074412448187624975,2000,2026,"user, conditional on split and fitted models"
+ml-10m,sgdmf_v4 - bias_baseline_v4,rmse,-0.06994216507102351,-0.0713830197340024,-0.06861032732534945,2000,2026,"user, conditional on split and fitted models"
+ml-10m,mf_dcn_v4 - sgdmf_v4,rmse,0.01340985214602545,0.012828314742655335,0.013975080883145644,2000,2026,"user, conditional on split and fitted models"
+ml-10m,rating_blend_v4 - sgdmf_v4,rmse,-0.003198084144822144,-0.00334968403953174,-0.0030528188808164242,2000,2026,"user, conditional on split and fitted models"
+ml-10m,history_tower_v4 - sparse_ease_v4,ndcg@10,-0.07043301876982162,-0.07170709874389378,-0.06912909988750304,2000,2026,"user, conditional on split and fitted models"
+ml-10m,ranking_blend_v4 - sparse_ease_v4,ndcg@10,0.0011038726041024487,0.0007814093466649292,0.0014129883014916374,2000,2026,"user, conditional on split and fitted models"

@@ -1,0 +1,1 @@
+PASS: 40 V4 final records on complete datasets; six declared CPU-resource-blocked records remain explicitly missing; clean source/config/seed/data signatures, immutable history, stopping/refit, blend dependencies, official SST/R², per-user arithmetic, cohorts, aggregates and paired points.

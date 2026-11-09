@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "signature": "7ef54d15cb730ea021d36dfa3f0bb1851f1af0180b8163982996cb4334f6761c",
+  "dataset": "ml-10m",
+  "experiment": "ranking_blend_v4",
+  "model": "ranking_blend_v4",
+  "seed": 29,
+  "config": {
+    "dataset": "ml-10m",
+    "experiment": "ranking_blend_v4",
+    "seed": 29,
+    "rating_min": 0.5,
+    "components": [
+      "sparse_ease_v4",
+      "history_tower_v4"
+    ],
+    "objective": "ndcg@10",
+    "weights": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "normalization": "per_user_supported_catalog_zscore"
+  },
+  "environment": {
+    "git_commit": "eac194cdce4fe411ec84354fe3d457a7a4c5d980",
+    "git_dirty": false,
+    "python": "3.12.16",
+    "platform": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.43",
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "logical_cpus": 4,
+    "device": "cpu",
+    "blas": [
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 2,
+        "prefix": "libgomp",
+        "filepath": "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+        "version": null
+      },
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 2,
+        "prefix": "libscipy_openblas",
+        "filepath": "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+        "version": "0.3.31.dev",
+        "threading_layer": "pthreads",
+        "architecture": "Haswell"
+      },
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 2,
+        "prefix": "libscipy_openblas",
+        "filepath": "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+        "version": "0.3.34.106.0",
+        "threading_layer": "pthreads",
+        "architecture": "Haswell"
+      },
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 2,
+        "prefix": "libgomp",
+        "filepath": "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+        "version": null
+      }
+    ],
+    "packages": {
+      "torch": "2.15.0+cpu",
+      "numpy": "2.5.4",
+      "pandas": "2.2.3",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.11.2",
+      "pytest": "9.2.0"
+    },
+    "execution": {
+      "provider": "github_actions",
+      "run_id": "42654528106",
+      "run_attempt": "1",
+      "workflow_sha": "eac194cdce4fe411ec84354fe3d457a7a4c5d980",
+      "job": "finish",
+      "runner_os": "Linux",
+      "url": "https://github.com/4v01/RecRankLab/actions/runs/42654528106"
+    }
+  },
+  "data": {
+    "dataset": "ml-10m",
+    "source_url": "https://files.grouplens.org/datasets/movielens/ml-10m.zip",
+    "archive_sha256": "813c411ccb6122564edfe752e7f80c4dcc5aa25fa94c93622f6877a7ba252862",
+    "ratings_member_sha256": "4ce3f48dc570268079e4227901bd675f4997e687dafafec16de94170737179ad",
+    "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+    "n_users": 69878,
+    "n_items": 10677,
+    "n_ratings": 10000054,
+    "split_counts": {
+      "train": 7972582,
+      "val": 995759,
+      "test": 1031713
+    },
+    "split_index_sha256": {
+      "train": "c278a3efc1f46aade27b494258c36b98e45b26ec7fb9bc636bac66ff038224f3",
+      "val": "e339b3a4e911417bcc53b0618148ccc8be5916b30b9280df08d719d1940cf08a",
+      "test": "21d7817140cdf04fdbd1727445b5a7eae9cd7a77c931a07fa3c075670e897839"
+    },
+    "files": {
+      "ratings.csv": "4e1aa0d16a9941bda069b7bad8b299005c97c37dac442da513dbc6c0192cafb2",
+      "id_maps.npz": "527790f17bf8d136a77a09cfce5dc1dbd190c4bb7e25012867ba4288ee2f66a0",
+      "splits.npz": "9d91bc4d0e3fcb6bb6df9cafffef358320ed022ec54485c88871ce189e463b53"
+    },
+    "fingerprint": "481d5b1e9afa0354deee11ee43d88522c36f601b14d743a220368ded2b59547a"
+  },
+  "selected_trial": 2,
+  "weight_first": 0.5,
+  "selection_metric": "ndcg@10",
+  "validation_trials": [
+    {
+      "weight_first": 0.0,
+      "metrics": {
+        "recall@10": 0.07396106940199311,
+        "ndcg@10": 0.05243016884070945,
+        "recall@20": 0.12084178721194286,
+        "ndcg@20": 0.06742283817597594,
+        "coverage@10": 0.7215996908809892,
+        "coverage@20": 0.8018740340030912,
+        "eligible_users": 64721,
+        "total_users": 69878,
+        "excluded_users": 5157,
+        "users_without_heldout_positives": 5157,
+        "cold_start_positive_targets": 18,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 462802,
+        "catalog_size": 10352,
+        "unsupported_catalog_items": 325,
+        "eligible_user_sha256": "a1581b3b3e67726037e7b294425c0e591b85789552f35c4cae97b042dffe3cb4",
+        "candidate_catalog_sha256": "dce7f51730b86643e04ac4d6921589af9c7eec3a34079691c3a15aec17af1891"
+      }
+    },
+    {
+      "weight_first": 0.25,
+      "metrics": {
+        "recall@10": 0.14845296388472345,
+        "ndcg@10": 0.11806303087190112,
+        "recall@20": 0.24124972146760604,
+        "ndcg@20": 0.1473654407194259,
+        "coverage@10": 0.3043856259659969,
+        "coverage@20": 0.44397217928902627,
+        "eligible_users": 64721,
+        "total_users": 69878,
+        "excluded_users": 5157,
+        "users_without_heldout_positives": 5157,
+        "cold_start_positive_targets": 18,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 462802,
+        "catalog_size": 10352,
+        "unsupported_catalog_items": 325,
+        "eligible_user_sha256": "a1581b3b3e67726037e7b294425c0e591b85789552f35c4cae97b042dffe3cb4",
+        "candidate_catalog_sha256": "dce7f51730b86643e04ac4d6921589af9c7eec3a34079691c3a15aec17af1891"
+      }
+    },
+    {
+      "weight_first": 0.5,
+      "metrics": {
+        "recall@10": 0.14985924945026746,
+        "ndcg@10": 0.12036230661745859,
+        "recall@20": 0.2448769281945737,
+        "ndcg@20": 0.15046635879144427,
+        "coverage@10": 0.20102395672333848,
+        "coverage@20": 0.26294435857805254,
+        "eligible_users": 64721,
+        "total_users": 69878,
+        "excluded_users": 5157,
+        "users_without_heldout_positives": 5157,
+        "cold_start_positive_targets": 18,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 462802,
+        "catalog_size": 10352,
+        "unsupported_catalog_items": 325,
+        "eligible_user_sha256": "a1581b3b3e67726037e7b294425c0e591b85789552f35c4cae97b042dffe3cb4",
+        "candidate_catalog_sha256": "dce7f51730b86643e04ac4d6921589af9c7eec3a34079691c3a15aec17af1891"
+      }
+    },
+    {
+      "weight_first": 0.75,
+      "metrics": {
+        "recall@10": 0.14884718658758378,
+        "ndcg@10": 0.11975952938741961,
+        "recall@20": 0.24272609434006248,
+        "ndcg@20": 0.14944441712904616,
+        "coverage@10": 0.17822642967542504,
+        "coverage@20": 0.22797527047913446,
+        "eligible_users": 64721,
+        "total_users": 69878,
+        "excluded_users": 5157,
+        "users_without_heldout_positives": 5157,
+        "cold_start_positive_targets": 18,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 462802,
+        "catalog_size": 10352,
+        "unsupported_catalog_items": 325,
+        "eligible_user_sha256": "a1581b3b3e67726037e7b294425c0e591b85789552f35c4cae97b042dffe3cb4",
+        "candidate_catalog_sha256": "dce7f51730b86643e04ac4d6921589af9c7eec3a34079691c3a15aec17af1891"
+      }
+    },
+    {
+      "weight_first": 1.0,
+      "metrics": {
+        "recall@10": 0.14758399886128243,
+        "ndcg@10": 0.11883173595786695,
+        "recall@20": 0.24031830066469065,
+        "ndcg@20": 0.14820824935699034,
+        "coverage@10": 0.16769706336939721,
+        "coverage@20": 0.21406491499227204,
+        "eligible_users": 64721,
+        "total_users": 69878,
+        "excluded_users": 5157,
+        "users_without_heldout_positives": 5157,
+        "cold_start_positive_targets": 18,
+        "prior_positive_targets": 0,
+        "heldout_positive_targets": 462802,
+        "catalog_size": 10352,
+        "unsupported_catalog_items": 325,
+        "eligible_user_sha256": "a1581b3b3e67726037e7b294425c0e591b85789552f35c4cae97b042dffe3cb4",
+        "candidate_catalog_sha256": "dce7f51730b86643e04ac4d6921589af9c7eec3a34079691c3a15aec17af1891"
+      }
+    }
+  ],
+  "validation_components": [
+    {
+      "signature": "16c574d2f7ca46aa6545f458f9f07d7a7c29213b9a50626bf7f46358cff16941",
+      "checkpoint_sha256": "fada5d2848b3d3dc0dae7251e35f814ecf6e22d2d4013381f21097b46944de23",
+      "config": {
+        "dataset": "ml-10m",
+        "data_root": "data",
+        "output_root": "outputs/v4",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 1,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.01,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "ridge": 300.0
+          },
+          {
+            "ridge": 1000.0
+          }
+        ],
+        "experiment": "sparse_ease_v4",
+        "selection_metric": "ndcg@10",
+        "evaluation_batch_users": 128,
+        "compact_checkpoint": true,
+        "checkpoint_data_reference": true,
+        "rating_min": 0.5,
+        "model": "sparse_ease",
+        "ridge": 1000.0,
+        "seed": 17
+      },
+      "dependency_run_signature": "825c457a6289d7c22cb5797d17af29db22a9280cda7576e735c65a2cc5b742fd",
+      "fit_seconds": 18.061170267999955
+    },
+    {
+      "signature": "07afe42d94b8b002bc541d9a848e95d728bfe66e97780cfc8b5bfb5db9e76f91",
+      "checkpoint_sha256": "03fd6436037faffc472c48ce13d18011f3370ec0cd4f7ad57b4ae4b6b3fb89ed",
+      "config": {
+        "dataset": "ml-10m",
+        "data_root": "data",
+        "output_root": "outputs/v4",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 10,
+        "dim": 64,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 1e-05,
+        "lr": 0.001,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "temperature": 0.1
+          },
+          {
+            "temperature": 0.2
+          }
+        ],
+        "experiment": "history_tower_v4",
+        "selection_metric": "ndcg@10",
+        "early_stopping": true,
+        "eval_interval": 5,
+        "patience": 3,
+        "min_delta": 1e-05,
+        "history_length": 50,
+        "user_batch_size": 512,
+        "evaluation_batch_users": 128,
+        "compact_checkpoint": true,
+        "checkpoint_data_reference": true,
+        "rating_min": 0.5,
+        "model": "history_tower",
+        "temperature": 0.2,
+        "seed": 29
+      },
+      "dependency_run_signature": "483dbcda0d83757d3704d8ed806bd0c9c89bd7c8fe2f88d9c499ea4cfaa00bb7",
+      "fit_seconds": 37.79752674500003
+    }
+  ],
+  "test_metrics": {
+    "recall@10": 0.14046559279957588,
+    "ndcg@10": 0.11975478190678056,
+    "recall@20": 0.22670462630213672,
+    "ndcg@20": 0.14666262121374685,
+    "coverage@10": 0.2141965229084622,
+    "coverage@20": 0.2805686293343579,
+    "eligible_users": 65774,
+    "total_users": 69878,
+    "excluded_users": 4104,
+    "users_without_heldout_positives": 4104,
+    "cold_start_positive_targets": 249,
+    "prior_positive_targets": 0,
+    "heldout_positive_targets": 487347,
+    "catalog_size": 10411,
+    "unsupported_catalog_items": 266,
+    "eligible_user_sha256": "d7669dd6ca99aeab708cf765e600d1967eb2b7b4cfe38e8d1d0b2d132645986b",
+    "candidate_catalog_sha256": "96b6547137ffd5ccfe4d5710ba95ba1f978d70a4b11f652c52f42a1274bfb2ae"
+  },
+  "component_runs": [
+    {
+      "signature": "825c457a6289d7c22cb5797d17af29db22a9280cda7576e735c65a2cc5b742fd",
+      "source_commit": "a2b7dd8c05849a23afd34a0a90c71243cf06789f",
+      "path": "outputs/v4/ml-10m/sparse_ease_v4/17",
+      "checkpoint_sha256": "caa7ef459e0a065aa9dc344ffb3ccd263f9d30c682a15d7fcee55ccc98c2944c"
+    },
+    {
+      "signature": "483dbcda0d83757d3704d8ed806bd0c9c89bd7c8fe2f88d9c499ea4cfaa00bb7",
+      "source_commit": "a2b7dd8c05849a23afd34a0a90c71243cf06789f",
+      "path": "outputs/v4/ml-10m/history_tower_v4/29",
+      "checkpoint_sha256": "17162bc2c888509418bbd230544c103d9308db858593ef8b0ec508e259d394db"
+    }
+  ],
+  "files": {
+    "per_user.csv": "738e04fb998f42d1c540d8f0868799854fe6a9a3fc454c6cc0d5a4b7fce43df9"
+  },
+  "total_seconds": 573.046055786
+}
