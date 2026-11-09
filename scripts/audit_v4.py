@@ -139,8 +139,9 @@ def main():
     stress=pd.read_csv(ROOT/'context_stress.csv');stress_meta=json.loads((ROOT/'context_stress_manifest.json').read_text())
     assert len(stress)==20 and stress_meta['completed']==20 and stress_meta['expected']==24
     assert len(stress_meta['resource_blocked'])==1
-    stress_source=stress_meta['evaluation_source']['git_commit']
-    assert hashlib.sha256(subprocess.check_output(['git','show',stress_source+':scripts/stress_v4.py'])).hexdigest()==stress_meta['evaluation_script_sha256']
+    for execution in stress_meta['evaluation_sources'].values():
+        stress_source=execution['environment']['git_commit']
+        assert hashlib.sha256(subprocess.check_output(['git','show',stress_source+':scripts/stress_v4.py'])).hexdigest()==execution['script_sha256']
     for (dataset,name),group in stress.groupby(['dataset','experiment']):
         group=group.sort_values('nominal_context_drop');assert group.nominal_context_drop.tolist()==[0.,.2,.5,.8]
         assert group.remaining_context_entries.is_monotonic_decreasing

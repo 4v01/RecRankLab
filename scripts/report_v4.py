@@ -99,7 +99,21 @@ def uncertainty(runs):
 
 def diagnostics(runs):
     from recranklab.models.core import Recommender
-    data_refs={};random_refs=[];cohorts=[];branch=[];dependencies={};diversity=[]
+    data_refs={};random_refs=[];cohorts=[];branch=[];diversity=[]
+    prior_dependencies=ROOT/'diagnostic_model_dependencies.json'
+    dependencies=json.loads(prior_dependencies.read_text()) if prior_dependencies.exists() else {}
+    diagnostic_environment=provenance(require_clean=False)
+    def merge_diagnostics(filename,records,keys):
+        path=ROOT/filename;new=pd.DataFrame(records)
+        if len(new):
+            new['diagnostic_source_commit']=diagnostic_environment['git_commit'];new['diagnostic_script_sha256']=digest(__file__)
+        if path.exists():
+            old=pd.read_csv(path)
+            if len(new):
+                new_keys=set(map(tuple,new[keys].to_numpy()))
+                old=old[[tuple(v) not in new_keys for v in old[keys].to_numpy()]]
+            new=pd.concat([old,new],ignore_index=True)
+        new.to_csv(path,index=False)
     for dataset in ('ml-1m','ml-10m'):
         parts,data=load(dataset);train,val,test=parts['train'],parts['val'],parts['test']
         data_refs[dataset]={'manifest':data,'partitions':{}}
@@ -122,7 +136,7 @@ def diagnostics(runs):
             path=Path('outputs/v4_validation_components')/dataset/name/'17'/'model.pt'
             if key not in runs or not path.exists():continue
             meta=path.with_name('metadata.json');metadata=json.loads(meta.read_text());assert digest(path)==metadata['checkpoint_sha256']
-            dependencies[str(path)]={'checkpoint_sha256':digest(path),'metadata':metadata}
+            dependencies[str(path)]={'checkpoint_sha256':digest(path),'metadata':metadata,'diagnostic_environment':diagnostic_environment,'diagnostic_script_sha256':digest(__file__)}
             model=Recommender.load(path);prediction=model.predict_pairs(val.user.to_numpy(),val.item.to_numpy());truth_values=val.rating.to_numpy(dtype=float)
             residuals[name]=prediction-truth_values
             for label,mask in masks.items():
@@ -144,9 +158,9 @@ def diagnostics(runs):
     (ROOT/'rating_reference.json').write_text(json.dumps(data_refs,indent=2))
     (ROOT/'diagnostic_model_dependencies.json').write_text(json.dumps(dependencies,indent=2))
     pd.DataFrame(random_refs).to_csv(ROOT/'random_reference.csv',index=False)
-    pd.DataFrame(cohorts).to_csv(ROOT/'validation_cohorts.csv',index=False)
-    pd.DataFrame(branch).to_csv(ROOT/'dcn_branch_diagnostic.csv',index=False)
-    pd.DataFrame(diversity).to_csv(ROOT/'validation_error_complementarity.csv',index=False)
+    merge_diagnostics('validation_cohorts.csv',cohorts,['dataset','experiment','seed','partition','group'])
+    merge_diagnostics('dcn_branch_diagnostic.csv',branch,['dataset','seed','diagnostic'])
+    merge_diagnostics('validation_error_complementarity.csv',diversity,['dataset','first','second','seed'])
 
 
 def report(summary,status):
@@ -192,6 +206,7 @@ def main():
     smoke=[]
     for path in sorted([*Path('outputs/v4_smoke/ml-100k').glob('*/*/result.json'),*Path('outputs/v4_engine_smoke/ml-100k').glob('*/*/result.json')]):
         r=json.loads(path.read_text());smoke.append({'experiment':r['experiment'],'source_commit':r['environment']['git_commit'],'signature':r['signature'],'metrics':r['test_metrics']})
+    if not smoke and (ROOT/'smoke_summary.json').exists():smoke=json.loads((ROOT/'smoke_summary.json').read_text())
     (ROOT/'smoke_summary.json').write_text(json.dumps(smoke,indent=2))
     artifacts={str(p.relative_to(ROOT)):{'sha256':digest(p)} for p in sorted(ROOT.rglob('*')) if p.is_file() and p.name!='experiment_manifest.json'}
     historical={str(p):digest(p) for p in [Path('reports/experiment_manifest.json'),Path('reports/results.csv'),Path('reports/v3/experiment_manifest.json'),Path('reports/v3/results.csv')]}
