@@ -18,6 +18,8 @@ jobs:
       - run: PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest -q
       - run: python scripts/audit_results.py
       - run: python reports/external_benchmark/verify.py
+      - name: Prepare official ML-1M for independent R-squared SST verification
+        run: python -m recranklab.data.prepare --dataset ml-1m --config configs/base.yaml
       - run: python scripts/audit_v3.py
   movielens-smoke:
     runs-on: ubuntu-latest

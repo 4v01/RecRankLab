@@ -4,6 +4,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import yaml
+from recranklab.data.prepare import load
+from recranklab.experiments.study import load_study
 
 
 def digest(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
@@ -13,11 +15,18 @@ def fingerprint(x):return hashlib.sha256(json.dumps(x,sort_keys=True).encode()).
 def main():
     root=Path('reports/v3');m=json.loads((root/'experiment_manifest.json').read_text())
     assert m['schema_version']==3 and m['status']['complete']
-    plan=yaml.safe_load(Path('configs/v3/study.yaml').read_text());assert m['study']==plan
+    plan=load_study();assert m['study']==plan
     for name,entry in m['artifacts'].items():assert digest(root/name)==entry['sha256'],name
     assert digest(m['historical_reference']['path'])==m['historical_reference']['sha256']
     assert digest('reports/experiment_manifest.json')==m['historical_reference']['manifest_sha256']
     population=set();groups={};rating_users={};ranking_users={}
+    parts,data=load('ml-1m','data');reference=json.loads((root/'rating_reference.json').read_text())
+    assert reference['dataset_fingerprint']==data['fingerprint']
+    for stage in ('val','test'):
+        y=parts[stage].rating.to_numpy(dtype=float)
+        assert reference['reference'][stage]['count']==len(y)
+        assert np.isclose(reference['reference'][stage]['sst'],np.square(y-y.mean()).sum(),atol=1e-9,rtol=0)
+    sst=reference['reference']['test']['sst']
     for key,entry in m['runs'].items():
         r=json.loads((root/entry['evidence']).read_text());name=r['experiment'];seed=r['seed']
         assert r['environment']==entry['environment'] and not r['environment']['git_dirty']
@@ -35,6 +44,7 @@ def main():
         expected={**r['config'],**t['overrides'],'seed':seed,'model':r['model']}
         if 'best_epoch' in t:expected['epochs']=t['best_epoch']
         assert expected==r['selected_config']
+        if r['model'] in ('biasmf','autorec','multivae','svdpp'):assert len(r['final_loss_history'])==r['selected_config']['epochs']
         for trial in r['validation_trials']:
             if 'error' in trial:continue
             if 'checkpoint_history' in trial:
@@ -59,6 +69,9 @@ def main():
             assert np.isclose(np.sqrt(stats.sse.sum()/stats['count'].sum()),score['rmse'],atol=1e-12,rtol=0)
             assert np.isclose(stats.sae.sum()/stats['count'].sum(),score['mae'],atol=1e-12,rtol=0)
             assert score['rmse_clipped_aux']<=score['rmse']+1e-12
+            derived=1-stats.sse.sum()/sst
+            assert np.isclose(derived,entry['rating_r2']['value'],atol=1e-12,rtol=0)
+            if 'r2' in score:assert np.isclose(derived,score['r2'],atol=1e-12,rtol=0)
         if r['model']=='slim':assert r['solver_diagnostics']['nonconverged_columns']==0
         groups.setdefault(name,[]).append(r)
     assert len(population)==1 and set(groups)==set(plan['experiments'])
@@ -70,6 +83,11 @@ def main():
             vals=[r['test_metrics'][metric] for r in runs]
             assert np.isclose(np.mean(vals),results.loc[name,metric+'_mean'],atol=1e-12,rtol=0)
             assert np.isclose(np.std(vals,ddof=1),results.loc[name,metric+'_std'],atol=1e-12,rtol=0)
+    for name,runs in groups.items():
+        if plan['experiments'][name]['objective']!='rmse':continue
+        values=[m['runs'][f'{name}_seed{r["seed"]}']['rating_r2']['value'] for r in runs]
+        assert np.isclose(np.mean(values),results.loc[name,'r2_mean'],atol=1e-12,rtol=0)
+        assert np.isclose(np.std(values,ddof=1),results.loc[name,'r2_std'],atol=1e-12,rtol=0)
     old=pd.read_csv('reports/results.csv').set_index('experiment')
     assert np.isclose(results.loc['ease_v3','ndcg@10_mean'],old.loc['ease','ndcg@10_mean'],atol=1e-12,rtol=0)
     comparisons=pd.read_csv(root/'paired_differences.csv')
