@@ -41,6 +41,9 @@ def main():
         config=r['config'];metric=r.get('selection_metric',config.get('selection_metric'));trials=r['validation_trials']
         if entry['kind']=='base':
             spec=study['experiments'][name];expected=source_yaml(sha,'configs/base.yaml');expected.update(source_yaml(sha,spec['config']))
+            phase=next(p for p,v in study['phases'].items() if name in v['experiments'])
+            source_spec=source_yaml(sha,study['phases'][phase]['config'])['experiments'][name]
+            expected.update(source_spec.get('dataset_overrides',{}).get(dataset,{}))
             expected.update(dataset=dataset,rating_min=.5 if dataset=='ml-10m' else 1.,model=spec['model'])
             assert expected==config,key
             assert fingerprint(config)==r['config_sha256']
@@ -120,7 +123,7 @@ def main():
                 np.testing.assert_array_equal(a['count'],b['count']);differences.append(np.sqrt(a.sse.sum()/a['count'].sum())-np.sqrt(b.sse.sum()/b['count'].sum()))
             else:differences.append((a[p.metric]-b[p.metric]).mean())
         close(np.mean(differences),p.mean_difference);assert p.ci_low<=p.ci_high and p.bootstrap_replicates==2000 and p.bootstrap_seed==2026
-    assert len(json.loads((ROOT/'smoke_summary.json').read_text()))==9
+    assert len(json.loads((ROOT/'smoke_summary.json').read_text()))==10
     tracked=subprocess.check_output(['git','ls-files','data','outputs'],text=True);assert not tracked
     print('PASS: 46 V4 records across complete ML-1M/ML-10M; clean source/config/seed/data signatures, immutable history, stopping/refit, blend dependencies, official SST/R², per-user arithmetic, cohorts, aggregates and paired points.')
 

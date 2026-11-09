@@ -180,7 +180,7 @@ def main():
     study=load_study_v4();runs,summary,status=collect(study)
     uncertainty(runs);diagnostics(runs);report(summary,status)
     smoke=[]
-    for path in sorted(Path('outputs/v4_smoke/ml-100k').glob('*/*/result.json')):
+    for path in sorted([*Path('outputs/v4_smoke/ml-100k').glob('*/*/result.json'),*Path('outputs/v4_engine_smoke/ml-100k').glob('*/*/result.json')]):
         r=json.loads(path.read_text());smoke.append({'experiment':r['experiment'],'source_commit':r['environment']['git_commit'],'signature':r['signature'],'metrics':r['test_metrics']})
     (ROOT/'smoke_summary.json').write_text(json.dumps(smoke,indent=2))
     artifacts={str(p.relative_to(ROOT)):{'sha256':digest(p)} for p in sorted(ROOT.rglob('*')) if p.is_file() and p.name!='experiment_manifest.json'}

@@ -10,7 +10,7 @@ study=yaml.safe_load(Path(a.plan).read_text())
 for dataset in ([a.dataset] if a.dataset else study['datasets']):
     for name,spec in study['experiments'].items():
         if a.model and a.model!=spec['model']:continue
-        cfg=config_load(spec['config']);cfg['dataset']=dataset
+        cfg=config_load(spec['config']);cfg.update(spec.get('dataset_overrides',{}).get(dataset,{}));cfg['dataset']=dataset
         cfg['rating_min']=.5 if dataset=='ml-10m' else 1.
         seeds=spec.get('seeds',study['seeds'])
         if a.smoke:

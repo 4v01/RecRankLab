@@ -278,9 +278,17 @@ class SparseAutoRec(AutoRec):
             for ids in torch.randperm(self.inputs.shape[0]).split(self.config.get('auto_batch_size',128)):
                 target=torch.from_numpy(self.inputs[ids.numpy()].toarray());mask=target!=0
                 x=F.dropout(target,p=self.config.get('input_dropout',0.),training=True) if self.config.get('input_dropout',0.) else target
-                prediction=self(x)
                 if not mask.any():continue
-                loss=(prediction-target).square()[mask].mean()
+                if self.config.get('sparse_training',False):
+                    # Same dropout draw/observed MSE/Adam decay as dense training;
+                    # avoid dense input matmul and decoding unobserved targets.
+                    hidden=torch.sigmoid(torch.sparse.mm(x.to_sparse_coo(),self.encoder.weight.T)+self.encoder.bias)
+                    observed_row,observed_col=mask.nonzero(as_tuple=True)
+                    prediction=(hidden[observed_row]*self.decoder.weight[observed_col]).sum(1)+self.decoder.bias[observed_col]
+                    loss=(prediction-target[observed_row,observed_col]).square().mean()
+                else:
+                    prediction=self(x)
+                    loss=(prediction-target).square()[mask].mean()
                 optimizer.zero_grad();loss.backward();optimizer.step();losses.append(loss.item())
             self.loss_history.append(float(np.mean(losses)))
             if self.finish_epoch():break

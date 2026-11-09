@@ -1,0 +1,9 @@
+# ML-10M AutoRec execution-engine refinement
+
+Declared before any anchored ML-10M fit or its final test, while the primary SGD model was still validating its first seed. ML-1M anchored fits already started at source774775c with ordinary dense within-batch operations; they are preserved.
+
+The plain AutoRec objective supervises only observed entries, yet dense item-AutoRec decodes all69,878 users for every item batch. This creates computation proportional to users×items×hidden, even at1.34% data density. For the ML-10M anchored fits only, use sparse encoder multiplication and compute decoder outputs only at the observed target coordinates. Keep the same dense input dropout draw (including zero positions), activation, observed-only mean squared loss, Adam/weight decay on every parameter, initialization, shuffle and two-candidate grid. Dimensions/epoch caps/search budgets do not change. No sample is removed from supervision.
+
+Small deterministic tests compare training histories and scores against dense AutoRec for both user/item variants, with and without the optimized engine, including compact checkpoints. Different reduction orders can still accumulate floating-point differences over long fits; do not claim bitwise equivalence at scale. Dataset override `sparse_training: true` and exact code SHA appear in every relevant run. ML-1M remains on its original frozen engine; reproductions must use each run's own source/config.
+
+A train-only full-data one-epoch timing pilot may be used to assess resource feasibility; it does not inspect held-out targets or change candidate selection. A separate real ML-100K one-epoch engine smoke is a correctness artifact, not a benchmark result. If the unchanged budgets prove infeasible, disclose the resource limitation instead of reporting a subset as the full experiment.

@@ -55,6 +55,7 @@ jobs:
           python scripts/hybrid_v4.py --smoke
           python scripts/run_v4.py --smoke --plan configs/v4/anchor_study.yaml
           python scripts/hybrid_v4.py --smoke --plan configs/v4/anchor_study.yaml
+          python scripts/smoke_sparse_engine_v4.py
       - uses: actions/upload-artifact@v4
         with:
           name: smoke-metrics-only
@@ -66,4 +67,6 @@ jobs:
             outputs/v4_smoke/**/result.json
             outputs/v4_smoke/**/validation.json
             outputs/v4_smoke/**/selection.json
+            outputs/v4_engine_smoke/**/result.json
+            outputs/v4_engine_smoke/**/validation.json
           retention-days: 14

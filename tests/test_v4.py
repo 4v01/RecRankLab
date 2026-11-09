@@ -123,8 +123,9 @@ def test_half_star_auxiliary_clip_has_dataset_bound():
 
 
 @pytest.mark.parametrize('variant',['user','item'])
-def test_sparse_autorec_matches_dense_training_and_compact_context(variant,tmp_path):
-    cfg=dict(seed=17,epochs=3,hidden=4,lr=.001,reg=.0001,input_dropout=.2,auto_variant=variant,auto_batch_size=2,compact_checkpoint=True)
+@pytest.mark.parametrize('sparse_training',[False,True])
+def test_sparse_autorec_matches_dense_training_and_compact_context(variant,sparse_training,tmp_path):
+    cfg=dict(seed=17,epochs=3,hidden=4,lr=.001,reg=.0001,input_dropout=.2,auto_variant=variant,auto_batch_size=2,compact_checkpoint=True,sparse_training=sparse_training)
     seed_all(17,1);dense=create('autorec',4,6,cfg).fit(frame())
     seed_all(17,1);model=create('sparse_autorec',4,6,cfg).fit(frame())
     np.testing.assert_allclose(dense.loss_history,model.loss_history,atol=1e-7)
