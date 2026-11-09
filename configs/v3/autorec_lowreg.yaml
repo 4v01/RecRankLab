@@ -1,0 +1,16 @@
+experiment: autorec_lowreg_v3
+output_root: outputs/v3_followup
+selection_metric: rmse
+early_stopping: true
+epochs: 80
+eval_interval: 5
+patience: 3
+min_delta: 0.00001
+auto_variant: item
+lr: 0.001
+input_dropout: 0.2
+trials:
+  - {hidden: 128, reg: 0.00001}
+  - {hidden: 128, reg: 0.000001}
+  - {hidden: 256, reg: 0.00001}
+  - {hidden: 256, reg: 0.000001}
