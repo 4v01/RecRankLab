@@ -1940,6 +1940,12 @@
     "diagnostic_model_dependencies.json": {
       "sha256": "81bcbc8816eaf686f8b2ff284b8dd45fe8dc58beb184dee48b32196e8ad80576"
     },
+    "ease_dtype_microprofile.json": {
+      "sha256": "9603ae94526d026de1f878b21f485cead4801632e8b03d319c16996de87fcc9a"
+    },
+    "evaluation_performance.md": {
+      "sha256": "ef2d81e0210d7869849fa35cb267a744f3492b64ad45e00a988a86dffd020434"
+    },
     "evidence/ml-10m_bias_baseline_v4_seed17.json": {
       "sha256": "4d664fd968872e325e7f1af3b8ddbcf4da2b7348d635528a8733cbb315efd944"
     },
@@ -2255,6 +2261,9 @@
     "migration_verification.json": {
       "sha256": "9e4c56c69a84f731f67b2a291708d507cd3ae7412137ce4162aeba69bd5aa471"
     },
+    "next_steps.md": {
+      "sha256": "07563dba5eb8839f14c8c644465990c63aa8c77293c64dd6974e58c0a99175a0"
+    },
     "paired_differences.csv": {
       "sha256": "0a15508c6425d9d23ec83c71b3fae92403c82c13b0f02294f739cca71f131379"
     },
@@ -2298,13 +2307,13 @@
       "sha256": "81016b96ff1a43f38c8ccf440781d9bcc10b890c73996e5996c4b9e7f21f996f"
     },
     "test_output.txt": {
-      "sha256": "a50be8d6de0ea8d95f3f7fe1c5019ca6319c6ad8f57b7ba10e4dc162a7abf38c"
+      "sha256": "68319241ed88aa53f77172350039596b36798be1511ed319630440199216dc01"
     },
     "train_only_timing_pilot.json": {
       "sha256": "4bea131a561a452a393ae2388feb6a18601e5e526f28989c999b1af7868c452c"
     },
     "validation.md": {
-      "sha256": "597b86e23a9718c777a37a5135c77c28475f69fd9534f536ea9fbc8f4a37be56"
+      "sha256": "10589bb89f6acdc6bf067a9eee0065eab6be66ac1df6b8314714e80e886a8abb"
     },
     "validation_checkpoints.csv": {
       "sha256": "e4a82ea3f02e1f957218e5f79b9feb5b10912fc8edb1cbd012230d1d85b20376"
@@ -2325,32 +2334,32 @@
     "reports/v3/experiment_manifest.json": "561a62cc44623d753a1f51ca60065571b32d9f4c6c14d3e4dea5a42c42340e1b",
     "reports/v3/results.csv": "37cd912358c861a20e242ccfa21e9d6fb85a8010603ba7a7c3e1bc8eeb9be5bb"
   },
-  "sealed_at_utc": "2026-11-09T17:04:27.325168+00:00",
+  "sealed_at_utc": "2026-11-09T17:09:13.216791+00:00",
   "sealing_environment": {
-    "git_commit": "eac194cdce4fe411ec84354fe3d457a7a4c5d980",
+    "git_commit": "b217d5eb0ec4195621031c439adf293b36fb39bf",
     "git_dirty": true,
-    "python": "3.12.16",
-    "platform": "Linux-7.0.0-1019-azure-x86_64-with-glibc2.43",
-    "cpu": "AMD EPYC 7763 64-Core Processor",
-    "logical_cpus": 4,
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cpus": 3,
     "device": "cpu",
     "blas": [
       {
         "user_api": "blas",
         "internal_api": "openblas",
-        "num_threads": 4,
+        "num_threads": 3,
         "prefix": "libscipy_openblas",
-        "filepath": "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
         "version": "0.3.34.106.0",
         "threading_layer": "pthreads",
-        "architecture": "Haswell"
+        "architecture": "SkylakeX"
       },
       {
         "user_api": "openmp",
         "internal_api": "openmp",
-        "num_threads": 2,
+        "num_threads": 3,
         "prefix": "libgomp",
-        "filepath": "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
         "version": null
       }
     ],
@@ -2363,15 +2372,6 @@
       "PyYAML": "6.0.3",
       "matplotlib": "3.11.2",
       "pytest": "9.2.0"
-    },
-    "execution": {
-      "provider": "github_actions",
-      "run_id": "42654528106",
-      "run_attempt": "1",
-      "workflow_sha": "eac194cdce4fe411ec84354fe3d457a7a4c5d980",
-      "job": "finish",
-      "runner_os": "Linux",
-      "url": "https://github.com/4v01/RecRankLab/actions/runs/42654528106"
     }
   }
 }

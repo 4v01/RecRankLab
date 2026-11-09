@@ -1,0 +1,58 @@
+{
+  "scope": "synthetic dtype-path microprofile; not end-to-end recommendation, accuracy or training speed",
+  "environment": {
+    "git_commit": "b217d5eb0ec4195621031c439adf293b36fb39bf",
+    "git_dirty": false,
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cpus": 3,
+    "device": "cpu",
+    "blas": [
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 2,
+        "prefix": "libscipy_openblas",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+        "version": "0.3.34.106.0",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      },
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 2,
+        "prefix": "libgomp",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+        "version": null
+      }
+    ],
+    "packages": {
+      "torch": "2.15.0+cpu",
+      "numpy": "2.5.4",
+      "pandas": "2.2.3",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.11.2",
+      "pytest": "9.2.0"
+    }
+  },
+  "seed": 17,
+  "shape": [
+    128,
+    4096,
+    4096
+  ],
+  "density": 0.02,
+  "synthetic_data_sha256": "2233b6d93de037c533bac858299aece77f061335f7f3041ed26fa6cb798962f8",
+  "repeats": 5,
+  "identical_outputs": true,
+  "seconds": {
+    "implicit_repeated_upcast": 0.3031709810020402,
+    "cached_float64_view": 0.1276200020001852
+  },
+  "speed_ratio": 2.3755757424420056,
+  "persistent_memory_tradeoff": "one float64 view per active SparseEASE instance, O(items squared); excluded from checkpoints"
+}
