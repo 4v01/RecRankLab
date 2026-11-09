@@ -61,19 +61,37 @@ class Recommender(nn.Module):
 
     def save(self, path):
         Path(path).parent.mkdir(parents=True, exist_ok=True)
-        torch.save({"model": self.config["model"], "config": self.config,
-                    "n_users": self.n_users, "n_items": self.n_items,
-                    "training": torch.as_tensor(self.train_frame.to_numpy()),
-                    "state_dict": self.state_dict(), "loss_history": self.loss_history,
-                    **({"history_ids": self.history_ids} if self.config["model"]=="history_tower" else {})}, path)
+        payload={"model":self.config["model"],"config":self.config,
+                 "n_users":self.n_users,"n_items":self.n_items,
+                 "state_dict":self.state_dict(),"loss_history":self.loss_history}
+        if self.config.get("compact_checkpoint",False):
+            context={"mean":self.mean,"user_support":torch.as_tensor(self.user_support),
+                     "item_support":torch.as_tensor(self.item_support),"sparse":{}}
+            for name in ("inputs","positive"):
+                value=getattr(self,name,None)
+                if sparse.issparse(value):
+                    value=value.tocsr()
+                    context["sparse"][name]={"data":torch.from_numpy(value.data),
+                        "indices":torch.from_numpy(value.indices),"indptr":torch.from_numpy(value.indptr)}
+            payload["compact_context"]=context
+        else:payload["training"]=torch.as_tensor(self.train_frame.to_numpy())
+        if self.config["model"]=="history_tower":payload["history_ids"]=self.history_ids
+        torch.save(payload,path)
 
     @staticmethod
     def load(path):
         payload = torch.load(path, map_location="cpu", weights_only=True)
         model = create(payload["model"], payload["n_users"], payload["n_items"], payload["config"])
-        frame = pd.DataFrame(payload["training"].numpy(), columns=["user", "item", "rating"])
-        frame[["user", "item"]] = frame[["user", "item"]].astype(int)
-        model.setup(frame)
+        if "compact_context" in payload:
+            context=payload["compact_context"];model.mean=context["mean"]
+            model.user_support=context["user_support"].numpy();model.item_support=context["item_support"].numpy()
+            model.train_frame=pd.DataFrame(columns=["user","item","rating"])
+            for name,value in context["sparse"].items():
+                setattr(model,name,sparse.csr_matrix((value["data"].numpy(),value["indices"].numpy(),value["indptr"].numpy()),shape=(model.n_users,model.n_items)))
+        else:
+            frame = pd.DataFrame(payload["training"].numpy(), columns=["user", "item", "rating"])
+            frame[["user", "item"]] = frame[["user", "item"]].astype(int)
+            model.setup(frame)
         if "history_ids" in payload:model.history_ids=payload["history_ids"]
         model.load_state_dict(payload["state_dict"])
         model.loss_history = payload["loss_history"]

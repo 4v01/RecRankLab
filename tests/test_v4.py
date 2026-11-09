@@ -47,8 +47,9 @@ def test_native_sgd_one_step_matches_equations():
 
 
 @pytest.mark.parametrize('name',['sgdmf','mf_dcn','bias_baseline','sparse_ease','history_tower'])
-def test_scalable_models_deterministic_checkpoint_and_finite(name,tmp_path):
-    cfg=dict(seed=17,epochs=2,dim=4,lr=.005,reg=.02,rating_batch_size=4,user_batch_size=2,history_length=2)
+@pytest.mark.parametrize('compact',[False,True])
+def test_scalable_models_deterministic_checkpoint_and_finite(name,compact,tmp_path):
+    cfg=dict(seed=17,epochs=2,dim=4,lr=.005,reg=.02,rating_batch_size=4,user_batch_size=2,history_length=2,compact_checkpoint=compact)
     seed_all(17,1);model=create(name,4,6,cfg).fit(frame());expected=model.predict_scores([0,1,2],[1,3,5])
     assert model.cache is None or isinstance(model.cache,tuple)
     assert expected.shape==(3,3) and np.isfinite(expected).all()

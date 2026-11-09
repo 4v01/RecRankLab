@@ -6,3 +6,4 @@ trials:
   - {ridge: 300.0}
   - {ridge: 1000.0}
 evaluation_batch_users: 128
+compact_checkpoint: true

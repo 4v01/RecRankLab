@@ -15,3 +15,4 @@ bias_shrink: 10.0
 trials:
   - {dim: 64}
   - {dim: 128}
+compact_checkpoint: true

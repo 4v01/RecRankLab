@@ -29,3 +29,5 @@ For each component, reproduce its selected model on train only at its already se
 ## Diagnostics and uncertainty
 
 Diagnose data density, cold fractions, simple fit-only mean/bias validation baseline, support cohorts, full-catalog difficulty and historical checkpoint boundaries. These describe plausible bottlenecks, not experimental proof that any single cause explains all errors. Larger data may be sparser. Report per-seed outcomes and negative hypotheses. Conditional user paired bootstrap resamples anonymous per-user statistics, with2000 resamples seed2026; this omits new-data, search and researcher-direction uncertainty. Do not pool cross-dataset users or compare deterministic repeats as independent seeds. No paid service, API or GPU is needed. Raw data/prediction pairs/checkpoints remain untracked.
+
+V4 checkpoints store only fitted support/mean/parameters and necessary sparse histories, rather than repeated full raw rating frames. Round-trip tests exercise compact and original formats; original checkpoints still load unchanged. This keeps all full ML-10M models and blend dependencies within the available disk without subsampling data.

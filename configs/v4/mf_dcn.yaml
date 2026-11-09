@@ -17,3 +17,4 @@ rating_batch_size: 8192
 trials:
   - {dim: 16}
   - {dim: 32}
+compact_checkpoint: true

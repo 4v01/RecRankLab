@@ -6,3 +6,4 @@ epochs: 1
 trials:
   - {bias_shrink: 10.0}
   - {bias_shrink: 25.0}
+compact_checkpoint: true
