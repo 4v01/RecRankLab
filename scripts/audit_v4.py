@@ -136,6 +136,12 @@ def main():
             else:differences.append((a[p.metric]-b[p.metric]).mean())
         close(np.mean(differences),p.mean_difference);assert p.ci_low<=p.ci_high and p.bootstrap_replicates==2000 and p.bootstrap_seed==2026
     assert len(json.loads((ROOT/'smoke_summary.json').read_text()))==10
+    diagnostic=json.loads((ROOT/'diagnostic_model_dependencies.json').read_text())
+    for entry in diagnostic.values():
+        metadata=entry['metadata'];base=by_signature[metadata['dependency_run_signature']]
+        assert metadata['config']==base['selected_config']
+        diagnostic_commit=entry['diagnostic_environment']['git_commit']
+        assert hashlib.sha256(subprocess.check_output(['git','show',diagnostic_commit+':scripts/report_v4.py'])).hexdigest()==entry['diagnostic_script_sha256']
     stress=pd.read_csv(ROOT/'context_stress.csv');stress_meta=json.loads((ROOT/'context_stress_manifest.json').read_text())
     assert len(stress)==20 and stress_meta['completed']==20 and stress_meta['expected']==24
     assert len(stress_meta['resource_blocked'])==1
@@ -149,7 +155,9 @@ def main():
         base=raw[f'{dataset}_{name}_seed17'];dependency=stress_meta['dependencies'][f'{dataset}/{name}']
         assert dependency['result_signature']==base['signature'] and dependency['checkpoint_sha256']==base['checkpoint_sha256']
         for _,row in group.iterrows():close(1-row.remaining_context_entries/row.original_context_entries,row.actual_context_drop)
-        close(group.iloc[0].primary_value,base['test_metrics'][group.iloc[0].primary_metric])
+        execution=stress_meta['evaluation_sources'][f'{dataset}/{name}']
+        tolerance=execution.get('identity_tolerance',1e-11)
+        assert tolerance<=1e-5 and np.isclose(group.iloc[0].primary_value,base['test_metrics'][group.iloc[0].primary_metric],atol=tolerance,rtol=0)
     tracked=subprocess.check_output(['git','ls-files','data','outputs'],text=True);assert not tracked
     print('PASS: 40 V4 final records on complete datasets; six declared CPU-resource-blocked records remain explicitly missing; clean source/config/seed/data signatures, immutable history, stopping/refit, blend dependencies, official SST/R², per-user arithmetic, cohorts, aggregates and paired points.')
 

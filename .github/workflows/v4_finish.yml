@@ -1,0 +1,41 @@
+name: Finish and publish V4 research evidence
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Full source commit for frozen blend and diagnostic code
+        required: true
+        type: string
+      training_run:
+        description: Completed original hosted base-fit run
+        required: true
+        type: string
+      reference_branch:
+        description: Temporary parameter-only local SGD reference branch
+        required: true
+        type: string
+permissions:
+  contents: write
+  actions: read
+jobs:
+  finish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      GH_TOKEN: ${{ github.token }}
+      MPLCONFIGDIR: /tmp/recranklab-mpl
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements-lock.txt
+      - run: pip install --no-deps -e .
+      - run: python -m recranklab.data.prepare --dataset ml-1m --config configs/base.yaml
+      - run: python -m recranklab.data.prepare --dataset ml-10m --config configs/base.yaml
+      - name: Complete fixed blends and context diagnostics, audit and publish text evidence
+        run: python scripts/finish_cloud_v4.py --training-run ${{ inputs.training_run }} --reference-branch ${{ inputs.reference_branch }}

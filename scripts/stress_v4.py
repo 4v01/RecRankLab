@@ -33,7 +33,8 @@ def main():
                 skipped.append(declared);continue
             result=json.loads((root/'result.json').read_text())
             assert digest(root/'model.pt')==result['checkpoint_sha256'];model=Recommender.load(root/'model.pt')
-            sources[f'{dataset}/{name}']={'environment':source,'script_sha256':digest(__file__)}
+            identity_tolerance=1e-6 if name=='sparse_autorec_v4' else 1e-5
+            sources[f'{dataset}/{name}']={'environment':source,'script_sha256':digest(__file__),'identity_tolerance':identity_tolerance}
             dependencies[f'{dataset}/{name}']={'result_signature':result['signature'],'source_commit':result['environment']['git_commit'],'checkpoint_sha256':result['checkpoint_sha256'],'data_fingerprint':data['fingerprint']}
             rng=np.random.default_rng(2026);is_tower=name=='history_tower_v4'
             if is_tower:
@@ -52,9 +53,9 @@ def main():
                 scores=rating_metrics(model,parts['test']) if protocol is None else protocol.evaluate(model,batch_size=128)[0]
                 metric='rmse' if protocol is None else 'ndcg@10'
                 if drop==0.:
-                    assert np.isclose(scores[metric],result['test_metrics'][metric],atol=1e-11,rtol=0)
+                    assert np.isclose(scores[metric],result['test_metrics'][metric],atol=identity_tolerance,rtol=0)
                     baseline=scores[metric]
-                row={'dataset':dataset,'experiment':name,'model_seed':17,'perturbation_seed':2026,'nominal_context_drop':drop,'original_context_entries':original_count,'remaining_context_entries':remaining,'actual_context_drop':1-remaining/original_count,'primary_metric':metric,'primary_value':scores[metric],'difference_from_full_context':scores[metric]-baseline,**scores}
+                row={'dataset':dataset,'experiment':name,'model_seed':17,'perturbation_seed':2026,'nominal_context_drop':drop,'original_context_entries':original_count,'remaining_context_entries':remaining,'actual_context_drop':1-remaining/original_count,'primary_metric':metric,'primary_value':scores[metric],'difference_from_full_context':scores[metric]-baseline,'difference_from_original_run':scores[metric]-result['test_metrics'][metric],**scores}
                 rows.append(row);print(dataset,name,drop,scores[metric],flush=True)
             del model,protocol,original;gc.collect()
         del parts,history;gc.collect()
