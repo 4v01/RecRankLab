@@ -1,0 +1,1 @@
+PASS: 10 v3 experiments × 3 seeds; immutable hashes, source/config/data, stopping/selection/refit epochs, per-user rating/ranking arithmetic, paired differences, convergence and unchanged EASE reference.

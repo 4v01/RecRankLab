@@ -1,0 +1,18 @@
+{
+  "dataset_fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9",
+  "definition": "R2 = 1-SSE/SST on observed held-out ratings, unmodified prediction scale",
+  "reference": {
+    "val": {
+      "count": 99692,
+      "mean": 3.467068571199294,
+      "sst": 124678.88611924728,
+      "split_index_sha256": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9"
+    },
+    "test": {
+      "count": 102759,
+      "mean": 3.416897789974601,
+      "sst": 135020.0986774881,
+      "split_index_sha256": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "complete": true,
+  "completed_seeds": {
+    "biasmf_rmse_v3": [
+      17,
+      29,
+      43
+    ],
+    "itemknn_v3": [
+      17,
+      29,
+      43
+    ],
+    "rp3beta_v3": [
+      17,
+      29,
+      43
+    ],
+    "slim_v3": [
+      17,
+      29,
+      43
+    ],
+    "multivae_v3": [
+      17,
+      29,
+      43
+    ],
+    "autorec_rmse_v3": [
+      17,
+      29,
+      43
+    ],
+    "autorec_residual_v3": [
+      17,
+      29,
+      43
+    ],
+    "ease_v3": [
+      17,
+      29,
+      43
+    ],
+    "autorec_lowreg_v3": [
+      17,
+      29,
+      43
+    ],
+    "svdpp_rmse_v3": [
+      17,
+      29,
+      43
+    ]
+  },
+  "missing_or_mismatched": {}
+}
