@@ -171,7 +171,9 @@ class SparseEASE(Recommender):
     def __init__(self,nu,ni,config):
         super().__init__(nu,ni,config)
         self.register_buffer('coefficients',torch.zeros(ni,ni))
+        self._coefficient_numpy64=None;self._coefficient_token=None
     def setup(self,frame):
+        self._coefficient_numpy64=None;self._coefficient_token=None
         super().setup(frame);positive=frame[frame.rating>=4]
         self.inputs=sparse.csr_matrix((np.ones(len(positive),dtype=np.float64),(positive.user,positive.item)),shape=(self.n_users,self.n_items))
     def fit(self,frame):
@@ -188,7 +190,14 @@ class SparseEASE(Recommender):
         users=np.atleast_1d(user_ids).astype(int)
         items=np.arange(self.n_items) if item_ids is None else np.atleast_1d(item_ids).astype(int)
         # Slice after sparse multiply avoids copying a dense n_items × n_candidates matrix per user.
-        return np.asarray(self.inputs[users]@self.coefficients.numpy())[:,items]
+        # CSR histories are float64. Avoid upcasting the complete item matrix
+        # again for every user batch; state reloads and refits invalidate the view.
+        token=(self.coefficients.data_ptr(),self.coefficients._version)
+        if self._coefficient_token!=token:
+            self._coefficient_numpy64=None
+            self._coefficient_numpy64=self.coefficients.numpy().astype(np.float64)
+            self._coefficient_token=token
+        return np.asarray(self.inputs[users]@self._coefficient_numpy64)[:,items]
 
 
 class HistoryTower(Recommender):

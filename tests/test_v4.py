@@ -152,3 +152,18 @@ def test_external_checkpoint_reconstructs_official_context_without_embedding_rat
     assert payload['external_context']=={'dataset':'ml-100k','fingerprint':meta['fingerprint'],'partition':'trainval'}
     loaded=Recommender.load(tmp_path/'transfer.pt')
     np.testing.assert_allclose(loaded.predict_scores([0,1]),expected,atol=1e-7)
+
+
+def test_sparse_ease_cached_dtype_preserves_scores_through_refit_and_state_reload():
+    model=create('sparse_ease',4,6,{'ridge':30.}).fit(frame())
+    initial={k:v.clone() for k,v in model.state_dict().items()}
+    first=model.predict_scores([0,1,2])
+    np.testing.assert_array_equal(first,np.asarray(model.inputs[[0,1,2]]@model.coefficients.numpy().astype(np.float64)))
+    np.testing.assert_array_equal(model.predict_scores([0,1,2]),first)
+    changed=frame().copy();changed.loc[0,'rating']=1.
+    model.fit(changed)
+    refit=model.predict_scores([0,1,2])
+    np.testing.assert_array_equal(refit,np.asarray(model.inputs[[0,1,2]]@model.coefficients.numpy().astype(np.float64)))
+    assert not np.array_equal(first,refit)
+    model.load_state_dict(initial)
+    np.testing.assert_array_equal(model.predict_scores([0,1,2]),np.asarray(model.inputs[[0,1,2]]@initial['coefficients'].numpy().astype(np.float64)))
