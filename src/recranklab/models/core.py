@@ -145,6 +145,69 @@ class BiasMF(Recommender):
         return scores
 
 
+class SVDPP(BiasMF):
+    """Rating MF plus normalized implicit exposure to ALL fit-rated items.
+
+    User batches compute history contexts once, but all observed rating targets
+    contribute squared error. Separate implicit regularization is declared.
+    """
+    def __init__(self,n_users,n_items,config):
+        super().__init__(n_users,n_items,config)
+        self.implicit=nn.Embedding(n_items,config.get('dim',64))
+        nn.init.normal_(self.implicit.weight,std=.05)
+
+    @staticmethod
+    def tensor_graph(matrix):
+        coo=matrix.tocoo()
+        indices=torch.tensor(np.stack([coo.row,coo.col]),dtype=torch.long)
+        return torch.sparse_coo_tensor(indices,torch.tensor(coo.data,dtype=torch.float32),
+                                      coo.shape,check_invariants=True).coalesce()
+
+    def setup(self,train):
+        super().setup(train)
+        self.history_matrix=sparse.csr_matrix((np.ones(len(train),dtype=np.float32),
+            (train.user.to_numpy(),train.item.to_numpy())),shape=(self.n_users,self.n_items))
+        degree=np.asarray(self.history_matrix.sum(1)).ravel().clip(min=1)
+        self.normalized_history=sparse.diags(1/np.sqrt(degree))@self.history_matrix
+        self.history_graph=self.tensor_graph(self.normalized_history)
+
+    def fit(self,train):
+        self.setup(train);self.cache=None
+        optimizer=torch.optim.Adam(self.parameters(),lr=self.config['lr'])
+        user_np=train.user.to_numpy();item_np=train.item.to_numpy();rating_np=train.rating.to_numpy()
+        row_indices=[np.flatnonzero(user_np==u) for u in range(self.n_users)]
+        active=np.flatnonzero(self.user_support)
+        batch=self.config.get('user_batch_size',128)
+        for _ in range(self.config['epochs']):
+            self.train();losses=[]
+            for users in torch.tensor(active)[torch.randperm(len(active))].split(batch):
+                ids=users.numpy();idx=np.concatenate([row_indices[u] for u in ids])
+                lookup=np.full(self.n_users,-1,dtype=np.int64);lookup[ids]=np.arange(len(ids))
+                u=torch.tensor(user_np[idx],dtype=torch.long);i=torch.tensor(item_np[idx],dtype=torch.long)
+                local=torch.tensor(lookup[user_np[idx]],dtype=torch.long)
+                r=torch.tensor(rating_np[idx],dtype=torch.float32)
+                graph=self.tensor_graph(self.normalized_history[ids])
+                context=torch.sparse.mm(graph,self.implicit.weight)
+                ue,ie=self.users(u),self.items(i)
+                pred=self.mean+self.ub(u).flatten()+self.ib(i).flatten()+((ue+context[local])*ie).sum(1)
+                regular=(ue.square().sum(1)+ie.square().sum(1)+self.ub(u).flatten().square()+self.ib(i).flatten().square()).mean()
+                raw_graph=self.tensor_graph(self.history_matrix[ids])
+                history_norm=torch.sparse.mm(raw_graph,self.implicit.weight.square().sum(1,keepdim=True)).flatten()
+                implicit_penalty=history_norm[local].mean()
+                loss=F.mse_loss(pred,r)+self.config['reg']*regular+self.config.get('implicit_reg',.001)*implicit_penalty
+                optimizer.zero_grad();loss.backward();optimizer.step()
+                losses.append((float(loss.item()),len(idx)))
+            self.loss_history.append(sum(v*n for v,n in losses)/len(train))
+            if self.finish_epoch():break
+        return self
+
+    def all_scores(self):
+        context=torch.sparse.mm(self.history_graph,self.implicit.weight)
+        score=self.mean+self.ub.weight+self.ib.weight.T+(self.users.weight+context)@self.items.weight.T
+        score[~self.user_support,:]=self.mean;score[:,~self.item_support]=self.mean
+        return score
+
+
 class AutoRec(Recommender):
     """User-based AutoRec: sigmoid hidden, linear output, observed-only SSE."""
     rating_model = True
@@ -477,7 +540,7 @@ class MultiVAE(Recommender):
 
 
 MODELS = {"popularity": Popularity, "biasmf": BiasMF, "autorec": AutoRec, "bpr_mf": BPRMF, "lightgcn": LightGCN, "ease": EASE,
-          "itemknn":ItemKNN,"rp3beta":RP3Beta,"slim":SLIM,"multivae":MultiVAE}
+          "itemknn":ItemKNN,"rp3beta":RP3Beta,"slim":SLIM,"multivae":MultiVAE,"svdpp":SVDPP}
 
 
 def create(name, n_users, n_items, config):

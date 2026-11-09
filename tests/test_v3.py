@@ -171,3 +171,28 @@ def test_slim_parallel_worker_isolation(ratings):
     a=create('slim',3,4,{**cfg(),'slim_workers':1}).fit(ratings)
     b=create('slim',3,4,{**cfg(),'slim_workers':3}).fit(ratings)
     np.testing.assert_array_equal(a.coefficients.numpy(),b.coefficients.numpy())
+
+
+def test_svdpp_history_formula_low_ratings_and_zero_history(ratings,tmp_path):
+    c={**cfg(),'dim':3,'implicit_reg':.001,'reg':.01,'user_batch_size':2}
+    seed_all(17,1);m=create('svdpp',4,4,c);m.setup(ratings)
+    assert m.history_matrix[0,1]==1 # Exposure includes the observed low rating.
+    with torch.no_grad():
+        context=torch.sparse.mm(m.history_graph,m.implicit.weight)
+        expected=(m.implicit.weight[0]+m.implicit.weight[1])/np.sqrt(2)
+        torch.testing.assert_close(context[0],expected)
+        assert torch.all(context[3]==0)
+    m.fit(ratings);scores=m.predict_scores([0,1,2,3]);assert np.isfinite(scores).all()
+    m.save(tmp_path/'svdpp.pt')
+    np.testing.assert_array_equal(scores,Recommender.load(tmp_path/'svdpp.pt').predict_scores([0,1,2,3]))
+    seed_all(17,1);n=create('svdpp',4,4,c).fit(ratings)
+    np.testing.assert_array_equal(scores,n.predict_scores([0,1,2,3]))
+
+
+def test_svdpp_zero_implicit_factors_reduces_to_biasmf_algebra(ratings):
+    c={**cfg(),'dim':3};m=create('svdpp',3,4,c);m.setup(ratings)
+    with torch.no_grad():
+        m.implicit.weight.zero_()
+        expected=m.mean+m.ub.weight+m.ib.weight.T+m.users.weight@m.items.weight.T
+        expected[:,~m.item_support]=m.mean
+        torch.testing.assert_close(m.all_scores(),expected)

@@ -1,0 +1,9 @@
+# Bounded explicit-rating reference: SVD++
+
+This is a separately committed, four-candidate follow-up motivated by the inspected Surprise rating benchmark and the need for a direct rating model, not by changing rating scale, clipping the primary metric or altering the held-out split. Prior benchmark/test exposure remains explicitly acknowledged. It is an extra model/search budget, not part of the original eight-experiment preregistration, and its results must be reported whether favorable or unfavorable.
+
+Score = fit mean + user bias + item bias + (user factor + sum of implicit item factors / sqrt(number of FIT-rated items)) dot target-item factor. History includes all fit ratings, including low ratings, because it models exposure rather than the ranking-positive convention. Supervision uses only observed fit ratings. User batches recompute contexts with gradient flow; no validation/test history enters training contexts. Evaluation uses fit history only and the same unclipped observed-rating RMSE and full-catalog evaluator.
+
+Adam, dim64, rating-factor regularization0.01. Grid lr{0.001,0.003} × implicit regularization{0.0001,0.001}; max40epochs, validation RMSE every epoch, patience5, min_delta1e-5. The implicit penalty is the sum of squared history-item embeddings per observed target; bias/user/item penalties follow the existing BiasMF batch objective. This is a from-scratch mini-user-batch SVD++ implementation, not a bitwise Surprise reproduction. Separate regularization and optimizer/batching differences are disclosed.
+
+Three seeds17/29/43. Reset and refit train+validation for the selected epoch; final test once per seed. Record the additional validation checks and full compute budget. No expectation that random/clipped five-fold Surprise RMSE0.862 transfers to this temporal/unclipped task. This is the last additional model family of the current iteration; do not extend the search based on its test results.

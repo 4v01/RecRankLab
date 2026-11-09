@@ -1,0 +1,16 @@
+experiment: svdpp_rmse_v3
+output_root: outputs/v3_svdpp
+selection_metric: rmse
+early_stopping: true
+epochs: 40
+eval_interval: 1
+patience: 5
+min_delta: 0.00001
+dim: 64
+reg: 0.01
+user_batch_size: 128
+trials:
+  - {lr: 0.001, implicit_reg: 0.0001}
+  - {lr: 0.003, implicit_reg: 0.0001}
+  - {lr: 0.001, implicit_reg: 0.001}
+  - {lr: 0.003, implicit_reg: 0.001}

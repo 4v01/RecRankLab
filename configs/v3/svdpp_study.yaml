@@ -1,0 +1,8 @@
+phase: explicit_rating_reference_followup
+prospectus: reports/v3/svdpp_prospectus.md
+seeds: [17, 29, 43]
+experiments:
+  svdpp_rmse_v3: {model: svdpp, config: configs/v3/svdpp.yaml, objective: rmse, trials: 4}
+comparisons:
+  - [svdpp_rmse_v3, biasmf_rmse_v3]
+  - [svdpp_rmse_v3, autorec_rmse_v3]
