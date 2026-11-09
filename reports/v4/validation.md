@@ -1,6 +1,6 @@
 # V4 validation evidence
 
-68 local tests passed (7.69 seconds), including independent native-SGD equations, sparse-vs-dense AutoRec training, external-data checkpoint reconstruction, stable top-K/candidate equivalence, stopping and split tests. The source preparation CI at a2b7dd8 passed: https://github.com/4v01/RecRankLab/actions/runs/42647372584 . Test output is preserved in test_output.txt.
+69 local tests passed (6.14 seconds), including EASE dtype-cache coherence under refit/state reload, independent native-SGD equations, sparse-vs-dense AutoRec training, external-data checkpoint reconstruction, stable top-K/candidate equivalence, stopping and split tests. The source preparation CI at a2b7dd8 passed: https://github.com/4v01/RecRankLab/actions/runs/42647372584 . Test output is preserved in test_output.txt.
 
 Ten real ML-100K one-epoch configuration/engine smoke artifacts are retained in smoke_summary.json; these are correctness checks, not benchmark scores. Standard CI repeats tests, old-generation audits, official-data preparation, the V4 evidence audit when feasible work completes, and these smoke paths.
 
@@ -14,3 +14,5 @@ Numerical experiment source commits:
 - `eac194cdce4fe411ec84354fe3d457a7a4c5d980`
 
 Hosted training: https://github.com/4v01/RecRankLab/actions/runs/42648058543 . An earlier checkout-only attempt failed before training because a short SHA was interpreted as a branch: https://github.com/4v01/RecRankLab/actions/runs/42647433983 . No result or candidate was discarded for performance. Raw V2/V3 evidence remains unchanged.
+
+The hosted completion and full numerical/evidence audit passed at https://github.com/4v01/RecRankLab/actions/runs/42654528106 . The subsequent EASE cache fix is an exact-score performance maintenance change; experiment source commits and immutable raw records remain unchanged. The original study-preparation source had 68 tests; the delivery adds one cache-coherence check.

@@ -201,7 +201,13 @@ def report(summary,status):
 
 def main():
     seed_all(2026,2)
-    study=load_study_v4();runs,summary,status=collect(study)
+    study=load_study_v4()
+    existing=ROOT/'completion_status.json'
+    if existing.exists() and json.loads(existing.read_text()).get('feasible_complete'):
+        blocked={(b['dataset'],name,seed) for b in study['resource_blocks']['final_records'] for name in b['experiments'] for seed in b['seeds']}
+        missing=[(d,n,s) for d,n,s,_,_ in expected_runs(study) if (d,n,s) not in blocked and not (Path('outputs/v4')/d/n/str(s)/'result.json').exists()]
+        if missing:raise RuntimeError('Refusing to replace a completed delivered report with incomplete local outputs; audit published evidence or restore the matching source outputs first.')
+    runs,summary,status=collect(study)
     uncertainty(runs);diagnostics(runs);report(summary,status)
     smoke=[]
     for path in sorted([*Path('outputs/v4_smoke/ml-100k').glob('*/*/result.json'),*Path('outputs/v4_engine_smoke/ml-100k').glob('*/*/result.json')]):

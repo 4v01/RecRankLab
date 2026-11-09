@@ -77,3 +77,15 @@ V3 has three explicitly separate phases: 24 primary final runs, 3 low-decay foll
 For strict reproduction of delivered signatures, use the source SHA in each run: `964084262c25184b2ca363bc5ea5022887e16d79` for the original primary script, `5b8bd6a86adcd7881c36282956436cf0b0362444` with `--model autorec --config configs/v3/autorec_lowreg.yaml`, and `49cda6e052b1fbed5c45a2eba60f91ffb0f6a6aa` with `--model svdpp --config configs/v3/svdpp.yaml`. The current runner offers `--phase primary` / `--phase followups` / default `all` for new runs. The R² source-data audit needs `python -m recranklab.data.prepare --dataset ml-1m --config configs/base.yaml` first.
 
 V3 delivery: [Chinese review handoff](reports/v3/handoff_zh.md), [validation evidence](reports/v3/validation.md), [rating RMSE/MAE/R²](reports/v3/rating_results.csv) and [ranking results](reports/v3/ranking_results.csv). The best mean RMSE is 0.869547 (R² 0.424549), a small change from v2 0.870566; added ranking baselines did not exceed EASE. Negative results and extra follow-up budgets are retained.
+
+## V4: diagnosis, complete ML-10M and validation-selected combinations
+
+[Chinese handoff](reports/v4/handoff_zh.md), [technical report](reports/v4/technical_report.md), [actual result tables](reports/v4/results.csv), [provenance manifest](reports/v4/experiment_manifest.json) and [next-step hypotheses](reports/v4/next_steps.md).
+
+The delivered feasible study contains 40 final records: 25 base-model fits and 15 combinations reusing fitted components. Six of the original 46 planned records (full-budget ML-10M AutoRec and its combination) remain explicitly CPU-resource-blocked. Twenty inference-context stress cases are available out of 24 planned; these are supplementary outage diagnostics, not new independent fits or claims of general fault tolerance.
+
+V4 adds SGD MF, a small MF-DCN, X-inspired history two-tower retrieval and fixed validation-weight combinations. It uses complete official ML-10M, without changing the original per-user temporal/full-catalog protocol or clipping primary rating predictions. An architecture inspired by a public industrial system is not a reproduction of its production data, features or model. Larger-dataset results are separate benchmarks, not a causal sample-size experiment. Negative findings are retained.
+
+Strict reproduction uses each run's source SHA/config/data/seed in the manifest. Local primary runs use source `4e531a0`, local anchored ML-1M runs `774775c`, and hosted base fits `a2b7dd8`; hosted combination sources are recorded individually. The current HEAD creates a new provenance signature for fresh runs and refuses incompatible final overwrites. Prepare both official datasets before `python scripts/audit_v4.py`; no model retraining is needed for that evidence audit. Standard CI checks all prior generations too.
+
+Delivered mean rating results: ML-1M AutoRec/SGD blend RMSE **0.860777**, R² **0.436098**; ML-10M SGD/MF-DCN blend RMSE **0.795508**, R² **0.433126**. ML-10M ranking blend NDCG@10 **0.119952**, versus EASE **0.118848**. These are separate dataset benchmarks.
