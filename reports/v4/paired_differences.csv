@@ -1,0 +1,9 @@
+dataset,comparison,metric,mean_difference,ci_low,ci_high,bootstrap_replicates,bootstrap_seed,unit
+ml-1m,sgdmf_v4 - bias_baseline_v4,rmse,-0.048102236631486085,-0.05165408738581896,-0.044887675359254,2000,2026,"user, conditional on split and fitted models"
+ml-1m,mf_dcn_v4 - sgdmf_v4,rmse,0.009933435044675401,0.008299011699273856,0.011578503964952459,2000,2026,"user, conditional on split and fitted models"
+ml-1m,rating_blend_v4 - sgdmf_v4,rmse,-0.0042234522219791,-0.0049425723235028245,-0.0035345695988396493,2000,2026,"user, conditional on split and fitted models"
+ml-1m,history_tower_v4 - sparse_ease_v4,ndcg@10,-0.04663627125592066,-0.05059603430512584,-0.04285600705549185,2000,2026,"user, conditional on split and fitted models"
+ml-1m,ranking_blend_v4 - sparse_ease_v4,ndcg@10,0.0,0.0,0.0,2000,2026,"user, conditional on split and fitted models"
+ml-1m,sparse_autorec_v4 - sgdmf_v4,rmse,-0.007492692584230946,-0.010409366468365783,-0.0049688049299891155,2000,2026,"user, conditional on split and fitted models"
+ml-1m,anchor_blend_v4 - sparse_autorec_v4,rmse,-0.008302908494362474,-0.009494033831151927,-0.006991705688014924,2000,2026,"user, conditional on split and fitted models"
+ml-1m,anchor_blend_v4 - historical_autorec_v3,rmse,-0.008770144696923202,-0.00998957803129768,-0.0074412448187624975,2000,2026,"user, conditional on split and fitted models"

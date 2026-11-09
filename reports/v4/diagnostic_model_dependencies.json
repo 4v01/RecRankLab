@@ -1,0 +1,443 @@
+{
+  "outputs/v4_validation_components/ml-1m/sgdmf_v4/17/model.pt": {
+    "checkpoint_sha256": "0eecdc670b0334f9a7292c282ad0d13b92106902ba02d9761522f599db3be63d",
+    "metadata": {
+      "signature": "6d420e3904d43725379c57563c9ede6a892dcb163158e6ba703d648f73bfea24",
+      "checkpoint_sha256": "0eecdc670b0334f9a7292c282ad0d13b92106902ba02d9761522f599db3be63d",
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/v4",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 30,
+        "dim": 128,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.02,
+        "lr": 0.005,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "dim": 64
+          },
+          {
+            "dim": 128
+          }
+        ],
+        "experiment": "sgdmf_v4",
+        "selection_metric": "rmse",
+        "evaluate_ranking": false,
+        "early_stopping": true,
+        "eval_interval": 2,
+        "patience": 5,
+        "min_delta": 1e-05,
+        "lr_decay": 0.98,
+        "bias_reg": 0.02,
+        "bias_shrink": 10.0,
+        "compact_checkpoint": true,
+        "rating_min": 1.0,
+        "model": "sgdmf",
+        "seed": 17
+      },
+      "dependency_run_signature": "f66ec179a8038c9e01a27b462451bfe449c31f1dbb089d7bcd789e1fbb9a1720",
+      "fit_seconds": 8.097897146000832
+    },
+    "diagnostic_environment": {
+      "git_commit": "e5599d4034f0d588fa77c9792b1b785cc793fbaf",
+      "git_dirty": true,
+      "python": "3.12.14",
+      "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+      "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+      "logical_cpus": 3,
+      "device": "cpu",
+      "blas": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 2,
+          "prefix": "libscipy_openblas",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "openmp",
+          "internal_api": "openmp",
+          "num_threads": 2,
+          "prefix": "libgomp",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+          "version": null
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 3,
+          "prefix": "libscipy_openblas",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+          "version": "0.3.31.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "openmp",
+          "internal_api": "openmp",
+          "num_threads": 3,
+          "prefix": "libgomp",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+          "version": null
+        }
+      ],
+      "packages": {
+        "torch": "2.15.0+cpu",
+        "numpy": "2.5.4",
+        "pandas": "2.2.3",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1",
+        "PyYAML": "6.0.3",
+        "matplotlib": "3.11.2",
+        "pytest": "9.2.0"
+      }
+    },
+    "diagnostic_script_sha256": "36b6294e08a7be5083dd718bdf3e825d54e99f768039696fb22e30eee3786bfa"
+  },
+  "outputs/v4_validation_components/ml-1m/mf_dcn_v4/17/model.pt": {
+    "checkpoint_sha256": "a15942b9d13b7e50b88d0b68ed60ef3a7e6cc45b92410cad301487de9329f296",
+    "metadata": {
+      "signature": "d3332f15eca492828a985f366563264beecfe3a7604688169d79ee64480073f5",
+      "checkpoint_sha256": "a15942b9d13b7e50b88d0b68ed60ef3a7e6cc45b92410cad301487de9329f296",
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/v4",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 8,
+        "dim": 32,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.001,
+        "lr": 0.001,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "dim": 16
+          },
+          {
+            "dim": 32
+          }
+        ],
+        "experiment": "mf_dcn_v4",
+        "selection_metric": "rmse",
+        "evaluate_ranking": false,
+        "early_stopping": true,
+        "eval_interval": 2,
+        "patience": 4,
+        "min_delta": 1e-05,
+        "bias_shrink": 10.0,
+        "weight_decay": 1e-05,
+        "cross_layers": 2,
+        "dropout": 0.1,
+        "compact_checkpoint": true,
+        "rating_min": 1.0,
+        "model": "mf_dcn",
+        "seed": 17
+      },
+      "dependency_run_signature": "ddf16d414d41ba329f6d0fb03e5f09ffd91c3a01db5cbe4a2112f529f4f0d6ec",
+      "fit_seconds": 15.599252890999196
+    },
+    "diagnostic_environment": {
+      "git_commit": "e5599d4034f0d588fa77c9792b1b785cc793fbaf",
+      "git_dirty": true,
+      "python": "3.12.14",
+      "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+      "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+      "logical_cpus": 3,
+      "device": "cpu",
+      "blas": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 2,
+          "prefix": "libscipy_openblas",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "openmp",
+          "internal_api": "openmp",
+          "num_threads": 2,
+          "prefix": "libgomp",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+          "version": null
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 3,
+          "prefix": "libscipy_openblas",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+          "version": "0.3.31.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "openmp",
+          "internal_api": "openmp",
+          "num_threads": 3,
+          "prefix": "libgomp",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+          "version": null
+        }
+      ],
+      "packages": {
+        "torch": "2.15.0+cpu",
+        "numpy": "2.5.4",
+        "pandas": "2.2.3",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1",
+        "PyYAML": "6.0.3",
+        "matplotlib": "3.11.2",
+        "pytest": "9.2.0"
+      }
+    },
+    "diagnostic_script_sha256": "36b6294e08a7be5083dd718bdf3e825d54e99f768039696fb22e30eee3786bfa"
+  },
+  "outputs/v4_validation_components/ml-1m/sparse_autorec_v4/17/model.pt": {
+    "checkpoint_sha256": "2ffee1340d9007c4d52dc9168da5cf4402f6903d3a9b467419c2d1219669a5f5",
+    "metadata": {
+      "signature": "f78c2201190eb2ac81b1a2b0e2c213f58ec9cdd36fb24424244cdc7222a07cd6",
+      "checkpoint_sha256": "2ffee1340d9007c4d52dc9168da5cf4402f6903d3a9b467419c2d1219669a5f5",
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/v4",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 95,
+        "dim": 32,
+        "hidden": 128,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.001,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "hidden": 128
+          },
+          {
+            "hidden": 256
+          }
+        ],
+        "experiment": "sparse_autorec_v4",
+        "study_phase": "anchored_rating_followup",
+        "selection_metric": "rmse",
+        "evaluate_ranking": false,
+        "early_stopping": true,
+        "eval_interval": 5,
+        "patience": 3,
+        "min_delta": 1e-05,
+        "auto_variant": "item",
+        "input_dropout": 0.2,
+        "compact_checkpoint": true,
+        "rating_min": 1.0,
+        "model": "sparse_autorec",
+        "seed": 17
+      },
+      "dependency_run_signature": "2e853090ce22bf60258ff0805f3086432b9b69d3bf7ce04d3803a34cab79c2ff",
+      "fit_seconds": 95.38288723900041
+    },
+    "diagnostic_environment": {
+      "git_commit": "e5599d4034f0d588fa77c9792b1b785cc793fbaf",
+      "git_dirty": true,
+      "python": "3.12.14",
+      "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+      "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+      "logical_cpus": 3,
+      "device": "cpu",
+      "blas": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 2,
+          "prefix": "libscipy_openblas",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "openmp",
+          "internal_api": "openmp",
+          "num_threads": 2,
+          "prefix": "libgomp",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+          "version": null
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 3,
+          "prefix": "libscipy_openblas",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+          "version": "0.3.31.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "openmp",
+          "internal_api": "openmp",
+          "num_threads": 3,
+          "prefix": "libgomp",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+          "version": null
+        }
+      ],
+      "packages": {
+        "torch": "2.15.0+cpu",
+        "numpy": "2.5.4",
+        "pandas": "2.2.3",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1",
+        "PyYAML": "6.0.3",
+        "matplotlib": "3.11.2",
+        "pytest": "9.2.0"
+      }
+    },
+    "diagnostic_script_sha256": "36b6294e08a7be5083dd718bdf3e825d54e99f768039696fb22e30eee3786bfa"
+  },
+  "outputs/v4_validation_components/ml-10m/sgdmf_v4/17/model.pt": {
+    "checkpoint_sha256": "35ddb74bd26b5a8f4e150d33cc01bdc265332f90d94558a23ee84d7b03e81c06",
+    "metadata": {
+      "signature": "b96c5d5f65e1cf49c51890286b82a97161cf286bad40720b0ddba33bd81c4918",
+      "checkpoint_sha256": "35ddb74bd26b5a8f4e150d33cc01bdc265332f90d94558a23ee84d7b03e81c06",
+      "config": {
+        "dataset": "ml-10m",
+        "data_root": "data",
+        "output_root": "outputs/v4",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 32,
+        "dim": 128,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.02,
+        "lr": 0.005,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "dim": 64
+          },
+          {
+            "dim": 128
+          }
+        ],
+        "experiment": "sgdmf_v4",
+        "selection_metric": "rmse",
+        "evaluate_ranking": false,
+        "early_stopping": true,
+        "eval_interval": 2,
+        "patience": 5,
+        "min_delta": 1e-05,
+        "lr_decay": 0.98,
+        "bias_reg": 0.02,
+        "bias_shrink": 10.0,
+        "compact_checkpoint": true,
+        "rating_min": 0.5,
+        "model": "sgdmf",
+        "seed": 17
+      },
+      "dependency_run_signature": "c173343f2e6d7c4d47ca30921224f08df1fec78e4fc81b4f79e739feb2d1b28c",
+      "fit_seconds": 136.37033969899858
+    },
+    "diagnostic_environment": {
+      "git_commit": "e5599d4034f0d588fa77c9792b1b785cc793fbaf",
+      "git_dirty": true,
+      "python": "3.12.14",
+      "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+      "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+      "logical_cpus": 3,
+      "device": "cpu",
+      "blas": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 2,
+          "prefix": "libscipy_openblas",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+          "version": "0.3.34.106.0",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "openmp",
+          "internal_api": "openmp",
+          "num_threads": 2,
+          "prefix": "libgomp",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+          "version": null
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 3,
+          "prefix": "libscipy_openblas",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+          "version": "0.3.31.dev",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "openmp",
+          "internal_api": "openmp",
+          "num_threads": 3,
+          "prefix": "libgomp",
+          "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+          "version": null
+        }
+      ],
+      "packages": {
+        "torch": "2.15.0+cpu",
+        "numpy": "2.5.4",
+        "pandas": "2.2.3",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1",
+        "PyYAML": "6.0.3",
+        "matplotlib": "3.11.2",
+        "pytest": "9.2.0"
+      }
+    },
+    "diagnostic_script_sha256": "36b6294e08a7be5083dd718bdf3e825d54e99f768039696fb22e30eee3786bfa"
+  }
+}

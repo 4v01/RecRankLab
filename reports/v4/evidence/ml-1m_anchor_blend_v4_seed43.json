@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "signature": "8e107ac32404ecd19382b3ea35eed4c675dc47cce3e0a52c4e75df710ba83654",
+  "dataset": "ml-1m",
+  "experiment": "anchor_blend_v4",
+  "model": "anchor_blend_v4",
+  "seed": 43,
+  "config": {
+    "dataset": "ml-1m",
+    "experiment": "anchor_blend_v4",
+    "seed": 43,
+    "rating_min": 1.0,
+    "components": [
+      "sparse_autorec_v4",
+      "sgdmf_v4"
+    ],
+    "objective": "rmse",
+    "weights": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ]
+  },
+  "environment": {
+    "git_commit": "774775c1970f2c455d47d4399b5cdf2c289a7f44",
+    "git_dirty": false,
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cpus": 3,
+    "device": "cpu",
+    "blas": [
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 2,
+        "prefix": "libscipy_openblas",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+        "version": "0.3.31.dev",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      },
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 2,
+        "prefix": "libgomp",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+        "version": null
+      },
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 2,
+        "prefix": "libscipy_openblas",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+        "version": "0.3.34.106.0",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      },
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 2,
+        "prefix": "libgomp",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+        "version": null
+      }
+    ],
+    "packages": {
+      "torch": "2.15.0+cpu",
+      "numpy": "2.5.4",
+      "pandas": "2.2.3",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.11.2",
+      "pytest": "9.2.0"
+    }
+  },
+  "data": {
+    "dataset": "ml-1m",
+    "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+    "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+    "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+    "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+    "n_users": 6040,
+    "n_items": 3706,
+    "n_ratings": 1000209,
+    "split_counts": {
+      "train": 797758,
+      "val": 99692,
+      "test": 102759
+    },
+    "split_index_sha256": {
+      "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+      "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+      "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+    },
+    "files": {
+      "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+      "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+      "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+    },
+    "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+  },
+  "selected_trial": 2,
+  "weight_first": 0.5,
+  "selection_metric": "rmse",
+  "validation_trials": [
+    {
+      "weight_first": 0.0,
+      "metrics": {
+        "rmse": 0.8680238327824867,
+        "mae": 0.6796074014397557,
+        "r2": 0.3975365642846699,
+        "rmse_clipped_aux": 0.8675136357625176,
+        "mae_clipped_aux": 0.6786967706085758,
+        "rating_count": 99692,
+        "cold_item_ratings": 17,
+        "cold_user_ratings": 0
+      }
+    },
+    {
+      "weight_first": 0.25,
+      "metrics": {
+        "rmse": 0.8563619039211176,
+        "mae": 0.6715276278903289,
+        "r2": 0.4136160518791825,
+        "rmse_clipped_aux": 0.8560848644551939,
+        "mae_clipped_aux": 0.6709374152483034,
+        "rating_count": 99692,
+        "cold_item_ratings": 17,
+        "cold_user_ratings": 0
+      }
+    },
+    {
+      "weight_first": 0.5,
+      "metrics": {
+        "rmse": 0.851095836357691,
+        "mae": 0.6681893550268928,
+        "r2": 0.4208056362671426,
+        "rmse_clipped_aux": 0.8508988653749922,
+        "mae_clipped_aux": 0.6677198944320297,
+        "rating_count": 99692,
+        "cold_item_ratings": 17,
+        "cold_user_ratings": 0
+      }
+    },
+    {
+      "weight_first": 0.75,
+      "metrics": {
+        "rmse": 0.8523441856506018,
+        "mae": 0.6695490770122433,
+        "r2": 0.41910531744855006,
+        "rmse_clipped_aux": 0.8521320039766218,
+        "mae_clipped_aux": 0.6690280895480794,
+        "rating_count": 99692,
+        "cold_item_ratings": 17,
+        "cold_user_ratings": 0
+      }
+    },
+    {
+      "weight_first": 1.0,
+      "metrics": {
+        "rmse": 0.8600785864840319,
+        "mae": 0.6757187403665855,
+        "r2": 0.40851509542340525,
+        "rmse_clipped_aux": 0.8597277326818561,
+        "mae_clipped_aux": 0.6749286126749419,
+        "rating_count": 99692,
+        "cold_item_ratings": 17,
+        "cold_user_ratings": 0
+      }
+    }
+  ],
+  "validation_components": [
+    {
+      "signature": "197ff34dee2def6b2ee27558d9ff0ac581d4160c4202ca40124588f22d867876",
+      "checkpoint_sha256": "9a46daf4622807db18b139a7c88fcaa7e78a7f5b2cc7f5a89aff1121c76e8381",
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/v4",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 100,
+        "dim": 32,
+        "hidden": 128,
+        "layers": 2,
+        "reg": 0.0001,
+        "lr": 0.001,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "hidden": 128
+          },
+          {
+            "hidden": 256
+          }
+        ],
+        "experiment": "sparse_autorec_v4",
+        "study_phase": "anchored_rating_followup",
+        "selection_metric": "rmse",
+        "evaluate_ranking": false,
+        "early_stopping": true,
+        "eval_interval": 5,
+        "patience": 3,
+        "min_delta": 1e-05,
+        "auto_variant": "item",
+        "input_dropout": 0.2,
+        "compact_checkpoint": true,
+        "rating_min": 1.0,
+        "model": "sparse_autorec",
+        "seed": 43
+      },
+      "dependency_run_signature": "05a1d4ce95640db0dc3237c572c5425c29a1b6d26d56511048bbf118274697d8",
+      "fit_seconds": 84.55692702899978
+    },
+    {
+      "signature": "06c95abd9b3ada306320a39fd89256aee8371393278385c477b7aff9680772ce",
+      "checkpoint_sha256": "e72f77f976aca4eb4b976e524cf65cb2d28dd21dd9c5d4f4414a6bff9d1e8cfa",
+      "config": {
+        "dataset": "ml-1m",
+        "data_root": "data",
+        "output_root": "outputs/v4",
+        "seeds": [
+          17,
+          29,
+          43
+        ],
+        "threads": 2,
+        "epochs": 32,
+        "dim": 64,
+        "hidden": 64,
+        "layers": 2,
+        "reg": 0.02,
+        "lr": 0.005,
+        "rating_batch_size": 8192,
+        "ranking_batch_size": 32768,
+        "auto_batch_size": 128,
+        "negative_policy": "all_history",
+        "trials": [
+          {
+            "dim": 64
+          },
+          {
+            "dim": 128
+          }
+        ],
+        "experiment": "sgdmf_v4",
+        "selection_metric": "rmse",
+        "evaluate_ranking": false,
+        "early_stopping": true,
+        "eval_interval": 2,
+        "patience": 5,
+        "min_delta": 1e-05,
+        "lr_decay": 0.98,
+        "bias_reg": 0.02,
+        "bias_shrink": 10.0,
+        "compact_checkpoint": true,
+        "rating_min": 1.0,
+        "model": "sgdmf",
+        "seed": 43
+      },
+      "dependency_run_signature": "04efaa9280a3172bf0870f57be7b05c411501345da8ea21ce30bfd9c9d5fec7e",
+      "fit_seconds": 4.780947206001656
+    }
+  ],
+  "test_metrics": {
+    "rmse": 0.8596594182356775,
+    "mae": 0.6761540236684446,
+    "r2": 0.4375624608777321,
+    "rmse_clipped_aux": 0.8594700747987492,
+    "mae_clipped_aux": 0.6755697844605535,
+    "rating_count": 102759,
+    "cold_item_ratings": 30,
+    "cold_user_ratings": 0
+  },
+  "component_runs": [
+    {
+      "signature": "05a1d4ce95640db0dc3237c572c5425c29a1b6d26d56511048bbf118274697d8",
+      "source_commit": "774775c1970f2c455d47d4399b5cdf2c289a7f44",
+      "path": "outputs/v4/ml-1m/sparse_autorec_v4/43",
+      "checkpoint_sha256": "414a814e2216ee57e64400536c530d6a457d3ecd16f8e564ce4b476332868c3d"
+    },
+    {
+      "signature": "04efaa9280a3172bf0870f57be7b05c411501345da8ea21ce30bfd9c9d5fec7e",
+      "source_commit": "4e531a0e016f563375794138aec34123244f8b4a",
+      "path": "outputs/v4/ml-1m/sgdmf_v4/43",
+      "checkpoint_sha256": "6fb3abcc5274f25479af7267b26ba4641d8810cd808eaa1f1d52ca1a38e5bc52"
+    }
+  ],
+  "files": {
+    "per_user_rating.csv": "049429ce536865e6ccbb59fa24e30415a868f76931126248190835002d3201bc"
+  },
+  "total_seconds": 86.18785516900061
+}

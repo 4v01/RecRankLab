@@ -1,0 +1,184 @@
+[
+  {
+    "experiment": "sparse_autorec_engine_smoke_v4",
+    "source_commit": "02c9f095a2f63f66ff6241a8f77de4b035e94f16",
+    "signature": "66708ce68bdff189af5bfe5b48fd5a5b184c17155cd4e4ef435f15648c5ddad4",
+    "metrics": {
+      "evaluation_task": "observed_rating_only",
+      "rmse": 2.3083290294953547,
+      "mae": 2.0108582604111214,
+      "r2": -2.6795100273085914,
+      "rmse_clipped_aux": 2.2436760832121077,
+      "mae_clipped_aux": 1.9487308752880503,
+      "rating_count": 10439,
+      "cold_item_ratings": 42,
+      "cold_user_ratings": 0
+    }
+  },
+  {
+    "experiment": "anchor_blend_v4",
+    "source_commit": "774775c1970f2c455d47d4399b5cdf2c289a7f44",
+    "signature": "2f12014c1c04b492311c405703745568bda50ffc34f1768f871291cf83a4ae4c",
+    "metrics": {
+      "rmse": 1.0010610372538613,
+      "mae": 0.7982834640196975,
+      "r2": 0.30798472491334583,
+      "rmse_clipped_aux": 1.0009787958042922,
+      "mae_clipped_aux": 0.798027609223458,
+      "rating_count": 10439,
+      "cold_item_ratings": 42,
+      "cold_user_ratings": 0
+    }
+  },
+  {
+    "experiment": "bias_baseline_v4",
+    "source_commit": "4e531a0e016f563375794138aec34123244f8b4a",
+    "signature": "d634f5f9c96cb313ad4cc68b9995963cc033215ef891a4f606326a6b7d801c51",
+    "metrics": {
+      "evaluation_task": "observed_rating_only",
+      "rmse": 1.0007103347296602,
+      "mae": 0.7991497759812636,
+      "r2": 0.3084695085250799,
+      "rmse_clipped_aux": 1.0006546042194484,
+      "mae_clipped_aux": 0.7989344204827645,
+      "rating_count": 10439,
+      "cold_item_ratings": 42,
+      "cold_user_ratings": 0
+    }
+  },
+  {
+    "experiment": "history_tower_v4",
+    "source_commit": "4e531a0e016f563375794138aec34123244f8b4a",
+    "signature": "8979db406574c39a6dc97b8a736d2bf2a8590f054f39bb94710143f3996c7d71",
+    "metrics": {
+      "recall@10": 0.001629157067753559,
+      "ndcg@10": 0.001085683382909416,
+      "recall@20": 0.006903615809068546,
+      "ndcg@20": 0.003341345078194977,
+      "coverage@10": 0.012165450121654502,
+      "coverage@20": 0.029197080291970802,
+      "eligible_users": 855,
+      "total_users": 943,
+      "excluded_users": 88,
+      "users_without_heldout_positives": 87,
+      "cold_start_positive_targets": 12,
+      "prior_positive_targets": 0,
+      "heldout_positive_targets": 4975,
+      "catalog_size": 1644,
+      "unsupported_catalog_items": 38,
+      "eligible_user_sha256": "65803e25273623757454dd4bf6c569cbd686cb798e73fc26ed3ca0ba567bb788",
+      "candidate_catalog_sha256": "3a4ac504dba95a29f7f03b2cb48daeab5c3e5ab63cb8cac69b5c30c80ebe04cd"
+    }
+  },
+  {
+    "experiment": "mf_dcn_v4",
+    "source_commit": "4e531a0e016f563375794138aec34123244f8b4a",
+    "signature": "66bd381048035bafca92a05ea458894fe3f7b2dd5929207a5449ae331dc3ad5b",
+    "metrics": {
+      "evaluation_task": "observed_rating_only",
+      "rmse": 1.0019275209642382,
+      "mae": 0.8004412242753922,
+      "r2": 0.3067862376163858,
+      "rmse_clipped_aux": 1.0018645752078632,
+      "mae_clipped_aux": 0.8002181092673465,
+      "rating_count": 10439,
+      "cold_item_ratings": 42,
+      "cold_user_ratings": 0
+    }
+  },
+  {
+    "experiment": "ranking_blend_v4",
+    "source_commit": "4e531a0e016f563375794138aec34123244f8b4a",
+    "signature": "b6ec3383f665c040a67ed88188089ce60027836a21f694498d4e7fce63b3253a",
+    "metrics": {
+      "recall@10": 0.152908211347602,
+      "ndcg@10": 0.1354707078734847,
+      "recall@20": 0.244589634867694,
+      "ndcg@20": 0.16500553024554138,
+      "coverage@10": 0.201338199513382,
+      "coverage@20": 0.2645985401459854,
+      "eligible_users": 855,
+      "total_users": 943,
+      "excluded_users": 88,
+      "users_without_heldout_positives": 87,
+      "cold_start_positive_targets": 12,
+      "prior_positive_targets": 0,
+      "heldout_positive_targets": 4975,
+      "catalog_size": 1644,
+      "unsupported_catalog_items": 38,
+      "eligible_user_sha256": "65803e25273623757454dd4bf6c569cbd686cb798e73fc26ed3ca0ba567bb788",
+      "candidate_catalog_sha256": "3a4ac504dba95a29f7f03b2cb48daeab5c3e5ab63cb8cac69b5c30c80ebe04cd"
+    }
+  },
+  {
+    "experiment": "rating_blend_v4",
+    "source_commit": "4e531a0e016f563375794138aec34123244f8b4a",
+    "signature": "bf443d19b1675197b8aa4eb2e3f2130ab62817789fb2dba804fafb4a7e22fb59",
+    "metrics": {
+      "rmse": 1.0010610372538613,
+      "mae": 0.7982834640196975,
+      "r2": 0.30798472491334583,
+      "rmse_clipped_aux": 1.0009787958042922,
+      "mae_clipped_aux": 0.798027609223458,
+      "rating_count": 10439,
+      "cold_item_ratings": 42,
+      "cold_user_ratings": 0
+    }
+  },
+  {
+    "experiment": "sgdmf_v4",
+    "source_commit": "4e531a0e016f563375794138aec34123244f8b4a",
+    "signature": "156334b69ea9cb1e44913024a583077aae42879d9ed9ff68f7bab7e23d6e34cb",
+    "metrics": {
+      "evaluation_task": "observed_rating_only",
+      "rmse": 1.0010610372538613,
+      "mae": 0.7982834640196975,
+      "r2": 0.30798472491334583,
+      "rmse_clipped_aux": 1.0009787958042922,
+      "mae_clipped_aux": 0.798027609223458,
+      "rating_count": 10439,
+      "cold_item_ratings": 42,
+      "cold_user_ratings": 0
+    }
+  },
+  {
+    "experiment": "sparse_autorec_v4",
+    "source_commit": "774775c1970f2c455d47d4399b5cdf2c289a7f44",
+    "signature": "da85331763a88fffce90352bf9e961bc04e0cf7dd272e77d9155897b26d03879",
+    "metrics": {
+      "evaluation_task": "observed_rating_only",
+      "rmse": 2.308329031377722,
+      "mae": 2.010858262360127,
+      "r2": -2.6795100333096324,
+      "rmse_clipped_aux": 2.24367608487874,
+      "mae_clipped_aux": 1.9487308769096348,
+      "rating_count": 10439,
+      "cold_item_ratings": 42,
+      "cold_user_ratings": 0
+    }
+  },
+  {
+    "experiment": "sparse_ease_v4",
+    "source_commit": "4e531a0e016f563375794138aec34123244f8b4a",
+    "signature": "ce58e6d66da52cc5a907ee125bb0b6a352dde5d1ed9bef038d680dca87b6089d",
+    "metrics": {
+      "recall@10": 0.152908211347602,
+      "ndcg@10": 0.1354707078734847,
+      "recall@20": 0.244589634867694,
+      "ndcg@20": 0.16500553024554138,
+      "coverage@10": 0.201338199513382,
+      "coverage@20": 0.2645985401459854,
+      "eligible_users": 855,
+      "total_users": 943,
+      "excluded_users": 88,
+      "users_without_heldout_positives": 87,
+      "cold_start_positive_targets": 12,
+      "prior_positive_targets": 0,
+      "heldout_positive_targets": 4975,
+      "catalog_size": 1644,
+      "unsupported_catalog_items": 38,
+      "eligible_user_sha256": "65803e25273623757454dd4bf6c569cbd686cb798e73fc26ed3ca0ba567bb788",
+      "candidate_catalog_sha256": "3a4ac504dba95a29f7f03b2cb48daeab5c3e5ab63cb8cac69b5c30c80ebe04cd"
+    }
+  }
+]

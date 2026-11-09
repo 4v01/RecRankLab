@@ -1,0 +1,272 @@
+{
+  "completed": 12,
+  "expected": 24,
+  "evaluation_sources": {
+    "ml-1m/sparse_autorec_v4": {
+      "environment": {
+        "git_commit": "d37d6d559395f5f410a34a74c91be0c2cece5360",
+        "git_dirty": true,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+        "logical_cpus": 3,
+        "device": "cpu",
+        "blas": [
+          {
+            "user_api": "blas",
+            "internal_api": "openblas",
+            "num_threads": 2,
+            "prefix": "libscipy_openblas",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+            "version": "0.3.34.106.0",
+            "threading_layer": "pthreads",
+            "architecture": "SkylakeX"
+          },
+          {
+            "user_api": "openmp",
+            "internal_api": "openmp",
+            "num_threads": 2,
+            "prefix": "libgomp",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+            "version": null
+          },
+          {
+            "user_api": "openmp",
+            "internal_api": "openmp",
+            "num_threads": 2,
+            "prefix": "libgomp",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+            "version": null
+          },
+          {
+            "user_api": "blas",
+            "internal_api": "openblas",
+            "num_threads": 2,
+            "prefix": "libscipy_openblas",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+            "version": "0.3.31.dev",
+            "threading_layer": "pthreads",
+            "architecture": "SkylakeX"
+          }
+        ],
+        "packages": {
+          "torch": "2.15.0+cpu",
+          "numpy": "2.5.4",
+          "pandas": "2.2.3",
+          "scipy": "1.18.1",
+          "scikit-learn": "1.9.1",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.11.2",
+          "pytest": "9.2.0"
+        }
+      },
+      "script_sha256": "99daf88be9a0d10e1d574f0548f6e9ef3ab80e7c6958dda9e4ae645e58939cd2"
+    },
+    "ml-1m/sparse_ease_v4": {
+      "environment": {
+        "git_commit": "d37d6d559395f5f410a34a74c91be0c2cece5360",
+        "git_dirty": true,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+        "logical_cpus": 3,
+        "device": "cpu",
+        "blas": [
+          {
+            "user_api": "blas",
+            "internal_api": "openblas",
+            "num_threads": 2,
+            "prefix": "libscipy_openblas",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+            "version": "0.3.34.106.0",
+            "threading_layer": "pthreads",
+            "architecture": "SkylakeX"
+          },
+          {
+            "user_api": "openmp",
+            "internal_api": "openmp",
+            "num_threads": 2,
+            "prefix": "libgomp",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+            "version": null
+          },
+          {
+            "user_api": "openmp",
+            "internal_api": "openmp",
+            "num_threads": 2,
+            "prefix": "libgomp",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+            "version": null
+          },
+          {
+            "user_api": "blas",
+            "internal_api": "openblas",
+            "num_threads": 2,
+            "prefix": "libscipy_openblas",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+            "version": "0.3.31.dev",
+            "threading_layer": "pthreads",
+            "architecture": "SkylakeX"
+          }
+        ],
+        "packages": {
+          "torch": "2.15.0+cpu",
+          "numpy": "2.5.4",
+          "pandas": "2.2.3",
+          "scipy": "1.18.1",
+          "scikit-learn": "1.9.1",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.11.2",
+          "pytest": "9.2.0"
+        }
+      },
+      "script_sha256": "99daf88be9a0d10e1d574f0548f6e9ef3ab80e7c6958dda9e4ae645e58939cd2"
+    },
+    "ml-1m/history_tower_v4": {
+      "environment": {
+        "git_commit": "d37d6d559395f5f410a34a74c91be0c2cece5360",
+        "git_dirty": true,
+        "python": "3.12.14",
+        "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+        "logical_cpus": 3,
+        "device": "cpu",
+        "blas": [
+          {
+            "user_api": "blas",
+            "internal_api": "openblas",
+            "num_threads": 2,
+            "prefix": "libscipy_openblas",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+            "version": "0.3.34.106.0",
+            "threading_layer": "pthreads",
+            "architecture": "SkylakeX"
+          },
+          {
+            "user_api": "openmp",
+            "internal_api": "openmp",
+            "num_threads": 2,
+            "prefix": "libgomp",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+            "version": null
+          },
+          {
+            "user_api": "openmp",
+            "internal_api": "openmp",
+            "num_threads": 2,
+            "prefix": "libgomp",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+            "version": null
+          },
+          {
+            "user_api": "blas",
+            "internal_api": "openblas",
+            "num_threads": 2,
+            "prefix": "libscipy_openblas",
+            "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+            "version": "0.3.31.dev",
+            "threading_layer": "pthreads",
+            "architecture": "SkylakeX"
+          }
+        ],
+        "packages": {
+          "torch": "2.15.0+cpu",
+          "numpy": "2.5.4",
+          "pandas": "2.2.3",
+          "scipy": "1.18.1",
+          "scikit-learn": "1.9.1",
+          "PyYAML": "6.0.3",
+          "matplotlib": "3.11.2",
+          "pytest": "9.2.0"
+        }
+      },
+      "script_sha256": "99daf88be9a0d10e1d574f0548f6e9ef3ab80e7c6958dda9e4ae645e58939cd2"
+    }
+  },
+  "resource_blocked": [],
+  "scope": "fixed fitted parameters; nested inference-input missingness; complete original catalog and exclusion masks; no retraining/selection",
+  "evaluation_source": {
+    "git_commit": "d37d6d559395f5f410a34a74c91be0c2cece5360",
+    "git_dirty": true,
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logical_cpus": 3,
+    "device": "cpu",
+    "blas": [
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 2,
+        "prefix": "libscipy_openblas",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+        "version": "0.3.34.106.0",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      },
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 2,
+        "prefix": "libgomp",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+        "version": null
+      },
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 2,
+        "prefix": "libgomp",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/torch/lib/libgomp.so.1",
+        "version": null
+      },
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 2,
+        "prefix": "libscipy_openblas",
+        "filepath": "/workspace/work/venv/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+        "version": "0.3.31.dev",
+        "threading_layer": "pthreads",
+        "architecture": "SkylakeX"
+      }
+    ],
+    "packages": {
+      "torch": "2.15.0+cpu",
+      "numpy": "2.5.4",
+      "pandas": "2.2.3",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.11.2",
+      "pytest": "9.2.0"
+    }
+  },
+  "evaluation_script_sha256": "99daf88be9a0d10e1d574f0548f6e9ef3ab80e7c6958dda9e4ae645e58939cd2",
+  "fractions": [
+    0.0,
+    0.2,
+    0.5,
+    0.8
+  ],
+  "dependencies": {
+    "ml-1m/sparse_autorec_v4": {
+      "result_signature": "2e853090ce22bf60258ff0805f3086432b9b69d3bf7ce04d3803a34cab79c2ff",
+      "source_commit": "774775c1970f2c455d47d4399b5cdf2c289a7f44",
+      "checkpoint_sha256": "d7f2b323438e782a80c4b6c9b67f981eae010b5919001145cc61e01da987f6e7",
+      "data_fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+    },
+    "ml-1m/sparse_ease_v4": {
+      "result_signature": "d86bdb41234b7e27a0451ba0515c4fa58c1be5b09cdad8dedfe71e7895ff9eda",
+      "source_commit": "4e531a0e016f563375794138aec34123244f8b4a",
+      "checkpoint_sha256": "bff6aa64f17eaa2e5d568dc8654419550d929859e9ece07f48f5969962722eee",
+      "data_fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+    },
+    "ml-1m/history_tower_v4": {
+      "result_signature": "b078c42135569e81ac4c81b73194f8239572ed0feed93e1ee67ef9661dda0cd1",
+      "source_commit": "4e531a0e016f563375794138aec34123244f8b4a",
+      "checkpoint_sha256": "37f789870ee6870c8f61d33c5bb34a94c525d9dae0484ca62cc056ff103e39ba",
+      "data_fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+    }
+  }
+}
