@@ -35,7 +35,7 @@ def run_one(model_name, config, seed, allow_dirty=False):
         return saved
     out.mkdir(parents=True, exist_ok=True)
     nu, ni = data_manifest["n_users"], data_manifest["n_items"]
-    validation = RankingProtocol(parts["train"], parts["val"], nu, ni)
+    validation = RankingProtocol(parts["train"], parts["val"], nu, ni) if config.get("evaluate_ranking",True) else None
     metric=config.get('selection_metric','ndcg@10')
     if metric not in ('rmse','ndcg@10'):raise ValueError('Unsupported selection metric')
     budget = 1 if model_name == "popularity" else config.get("search_budget", len(config["trials"]))
@@ -49,7 +49,7 @@ def run_one(model_name, config, seed, allow_dirty=False):
         if metric=='rmse' and not model.rating_model:raise ValueError('RMSE selection needs a rating model')
         def evaluate_validation(current):
             if metric=='rmse':return rating_metrics(current,parts['val'])
-            values,_=validation.evaluate(current)
+            values,_=validation.evaluate(current,**({"batch_size":config["evaluation_batch_users"]} if "evaluation_batch_users" in config else {}))
             if current.rating_model:values.update(rating_metrics(current,parts['val']))
             return values
         stopper=None
@@ -99,8 +99,14 @@ def run_one(model_name, config, seed, allow_dirty=False):
     fit_seconds = time.perf_counter() - begin
     model.save(out / "model.pt")
     evaluation_start = time.perf_counter()
-    test = RankingProtocol(final_train, parts["test"], nu, ni)
-    metrics, users = test.evaluate(model)
+    if config.get("evaluate_ranking",True):
+        test = RankingProtocol(final_train, parts["test"], nu, ni)
+        metrics, users = test.evaluate(model,**({"batch_size":config["evaluation_batch_users"]} if "evaluation_batch_users" in config else {}))
+    else:
+        if not model.rating_model:raise ValueError("Only rating models can omit ranking")
+        metrics={"evaluation_task":"observed_rating_only"}
+        users=pd.DataFrame(columns=["user"])
+
     if model.rating_model:
         metrics.update(rating_metrics(model, parts["test"]))
         errors=rating_user_errors(model,parts['test']).drop(columns='user').rename_axis('evaluation_row').reset_index()
@@ -132,7 +138,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--model", choices=list(MODELS), required=True)
     p.add_argument("--config", default="configs/base.yaml")
-    p.add_argument("--dataset", choices=["ml-1m", "ml-100k"])
+    p.add_argument("--dataset", choices=["ml-1m", "ml-100k", "ml-10m"])
     p.add_argument("--seeds", nargs="+", type=int)
     p.add_argument("--smoke", action="store_true", help="Separate 1-epoch 100K smoke; never headline")
     p.add_argument("--allow-dirty", action="store_true", help="Development only, recorded in provenance")

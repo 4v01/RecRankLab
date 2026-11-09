@@ -64,7 +64,8 @@ class Recommender(nn.Module):
         torch.save({"model": self.config["model"], "config": self.config,
                     "n_users": self.n_users, "n_items": self.n_items,
                     "training": torch.as_tensor(self.train_frame.to_numpy()),
-                    "state_dict": self.state_dict(), "loss_history": self.loss_history}, path)
+                    "state_dict": self.state_dict(), "loss_history": self.loss_history,
+                    **({"history_ids": self.history_ids} if self.config["model"]=="history_tower" else {})}, path)
 
     @staticmethod
     def load(path):
@@ -73,6 +74,7 @@ class Recommender(nn.Module):
         frame = pd.DataFrame(payload["training"].numpy(), columns=["user", "item", "rating"])
         frame[["user", "item"]] = frame[["user", "item"]].astype(int)
         model.setup(frame)
+        if "history_ids" in payload:model.history_ids=payload["history_ids"]
         model.load_state_dict(payload["state_dict"])
         model.loss_history = payload["loss_history"]
         return model

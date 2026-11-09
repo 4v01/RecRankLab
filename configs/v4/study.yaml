@@ -1,0 +1,11 @@
+datasets: [ml-1m, ml-10m]
+seeds: [17, 29, 43]
+experiments:
+  bias_baseline_v4: {model: bias_baseline, config: configs/v4/bias_baseline.yaml, seeds: [17]}
+  sgdmf_v4: {model: sgdmf, config: configs/v4/sgdmf.yaml}
+  mf_dcn_v4: {model: mf_dcn, config: configs/v4/mf_dcn.yaml}
+  sparse_ease_v4: {model: sparse_ease, config: configs/v4/sparse_ease.yaml, seeds: [17]}
+  history_tower_v4: {model: history_tower, config: configs/v4/history_tower.yaml}
+hybrids:
+  rating_blend_v4: {components: [sgdmf_v4, mf_dcn_v4], objective: rmse, weights: [0.0, 0.25, 0.5, 0.75, 1.0]}
+  ranking_blend_v4: {components: [sparse_ease_v4, history_tower_v4], objective: ndcg@10, weights: [0.0, 0.25, 0.5, 0.75, 1.0], normalization: per_user_supported_catalog_zscore}

@@ -1,0 +1,19 @@
+{
+  "scope": "review snapshots, architectural inspiration only; no upstream performance replication",
+  "sources": [
+    {
+      "repo": "xai-org/x-algorithm",
+      "file": "phoenix/README.md",
+      "sha": "3b6919f87532e57063bb3f1e85c2f509323b513e",
+      "sha256": "01fe6fece2893023b4d64c60ff7e5030d5fabaf892898e6ce95b7818974a7910",
+      "url": "https://github.com/xai-org/x-algorithm/blob/3b6919f87532e57063bb3f1e85c2f509323b513e/phoenix/README.md"
+    },
+    {
+      "repo": "bytedance/monolith",
+      "file": "monolith/native_training/layers/README.md",
+      "sha": "135c491a52b151772b976af989d8bc938c44d210",
+      "sha256": "0121895f580637d2036e5278b4a61fa0d2858bc300a16ca2dcca1df4bac2775a",
+      "url": "https://github.com/bytedance/monolith/blob/135c491a52b151772b976af989d8bc938c44d210/monolith/native_training/layers/README.md"
+    }
+  ]
+}

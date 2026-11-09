@@ -1,0 +1,220 @@
+{
+  "scope": "data structure and train-to-validation diagnostic; historical v3 final results already known",
+  "datasets": {
+    "ml-1m": {
+      "manifest": {
+        "dataset": "ml-1m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-1m.zip",
+        "archive_sha256": "a6898adb50b9ca05aa231689da44c217cb524e7ebd39d264c56e2832f2c54e20",
+        "ratings_member_sha256": "506d64ca44484487c11dc2d9a28de5c54948213e6b96285e298afe28d6ea4e0f",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 6040,
+        "n_items": 3706,
+        "n_ratings": 1000209,
+        "split_counts": {
+          "train": 797758,
+          "val": 99692,
+          "test": 102759
+        },
+        "split_index_sha256": {
+          "train": "97aa15dc4b04933a2485f6831e64351463f2fa740be87513e0362039c0b44259",
+          "val": "b059c734d2eb92c9da66f4e77fbb009b4a04609f7aa71c1791fbf086781607e9",
+          "test": "061f5643cf46c36df961d6917b1d4f2e8996fc8c87297adee551e478e2c482b3"
+        },
+        "files": {
+          "id_maps.npz": "e315949d96b31d93369c0b472786cb8b99b412cec0645da840c0bbcf07b1453a",
+          "splits.npz": "1b15ffb94fca33a500ded12d0c79fecc15d91b6b09109dcbcd0e99846154807f",
+          "ratings.csv": "e7975f8bfddae01d10e53804c837111bb157131dc30f1bebd0ab2f634a76512a"
+        },
+        "fingerprint": "679e7c70d5846c1dcff110314e33ceebd0c6e280d174d143c9cbeb0f3740d3e9"
+      },
+      "density": 0.044683625622312845,
+      "train_user_count_quantiles": {
+        "min": 16.0,
+        "p25": 35.0,
+        "median": 76.0,
+        "p75": 166.0,
+        "max": 1851.0
+      },
+      "val_positive_count_quantiles": {
+        "min": 1.0,
+        "median": 6.0,
+        "p90": 22.0,
+        "max": 111.0
+      },
+      "validation_rating_mean": 3.467068571199294,
+      "validation_rating_variance": 1.2506408349641625,
+      "validation_baseline_rmse": 0.9128939159581628,
+      "validation_baseline_r2": 0.33364137928751547,
+      "validation_cold_item_count": 17,
+      "validation_cold_item_fraction": 0.0001705252176704249,
+      "baseline_item_support_cohorts": [
+        {
+          "item_support": "cold",
+          "count": 17,
+          "baseline_rmse": 1.0475406787005386
+        },
+        {
+          "item_support": "1_to_19_fit_ratings",
+          "count": 1112,
+          "baseline_rmse": 1.0882769737531104
+        },
+        {
+          "item_support": "20_to_99_fit_ratings",
+          "count": 9799,
+          "baseline_rmse": 0.9665744917067047
+        },
+        {
+          "item_support": "100plus_fit_ratings",
+          "count": 88764,
+          "baseline_rmse": 0.9043175196115109
+        }
+      ],
+      "legacy_dense_float32_score_gib": 0.08338779211044312,
+      "legacy_eager_candidate_int64_gib_upper_bound": 0.16677558422088623
+    },
+    "ml-10m": {
+      "manifest": {
+        "dataset": "ml-10m",
+        "source_url": "https://files.grouplens.org/datasets/movielens/ml-10m.zip",
+        "archive_sha256": "813c411ccb6122564edfe752e7f80c4dcc5aa25fa94c93622f6877a7ba252862",
+        "ratings_member_sha256": "4ce3f48dc570268079e4227901bd675f4997e687dafafec16de94170737179ad",
+        "split_policy": "user temporal floor(.8n)/floor(.9n); ties timestamp,item,row_id",
+        "n_users": 69878,
+        "n_items": 10677,
+        "n_ratings": 10000054,
+        "split_counts": {
+          "train": 7972582,
+          "val": 995759,
+          "test": 1031713
+        },
+        "split_index_sha256": {
+          "train": "c278a3efc1f46aade27b494258c36b98e45b26ec7fb9bc636bac66ff038224f3",
+          "val": "e339b3a4e911417bcc53b0618148ccc8be5916b30b9280df08d719d1940cf08a",
+          "test": "21d7817140cdf04fdbd1727445b5a7eae9cd7a77c931a07fa3c075670e897839"
+        },
+        "files": {
+          "id_maps.npz": "527790f17bf8d136a77a09cfce5dc1dbd190c4bb7e25012867ba4288ee2f66a0",
+          "splits.npz": "9d91bc4d0e3fcb6bb6df9cafffef358320ed022ec54485c88871ce189e463b53",
+          "ratings.csv": "4e1aa0d16a9941bda069b7bad8b299005c97c37dac442da513dbc6c0192cafb2"
+        },
+        "fingerprint": "481d5b1e9afa0354deee11ee43d88522c36f601b14d743a220368ded2b59547a"
+      },
+      "density": 0.013403327706083809,
+      "train_user_count_quantiles": {
+        "min": 16.0,
+        "p25": 28.0,
+        "median": 55.0,
+        "p75": 124.0,
+        "max": 5887.0
+      },
+      "val_positive_count_quantiles": {
+        "min": 1.0,
+        "median": 4.0,
+        "p90": 16.0,
+        "max": 359.0
+      },
+      "validation_rating_mean": 3.441362819718426,
+      "validation_rating_variance": 1.1062712091973355,
+      "validation_baseline_rmse": 0.8619896733029154,
+      "validation_baseline_r2": 0.3283507780881544,
+      "validation_cold_item_count": 73,
+      "validation_cold_item_fraction": 7.33109115759938e-05,
+      "baseline_item_support_cohorts": [
+        {
+          "item_support": "cold",
+          "count": 73,
+          "baseline_rmse": 1.084301753190951
+        },
+        {
+          "item_support": "1_to_19_fit_ratings",
+          "count": 7440,
+          "baseline_rmse": 0.9586985987374939
+        },
+        {
+          "item_support": "20_to_99_fit_ratings",
+          "count": 36106,
+          "baseline_rmse": 0.8824239574090107
+        },
+        {
+          "item_support": "100plus_fit_ratings",
+          "count": 952140,
+          "baseline_rmse": 0.8603867972529774
+        }
+      ],
+      "legacy_dense_float32_score_gib": 2.7793921753764153,
+      "legacy_eager_candidate_int64_gib_upper_bound": 5.5587843507528305
+    }
+  },
+  "v3_stopping": {
+    "biasmf_rmse_v3": [
+      {
+        "seed": 17,
+        "best_epoch": 5,
+        "stopped_epoch": 20,
+        "max_epoch": 60,
+        "best_at_training_limit": false
+      },
+      {
+        "seed": 29,
+        "best_epoch": 5,
+        "stopped_epoch": 20,
+        "max_epoch": 60,
+        "best_at_training_limit": false
+      },
+      {
+        "seed": 43,
+        "best_epoch": 5,
+        "stopped_epoch": 20,
+        "max_epoch": 60,
+        "best_at_training_limit": false
+      }
+    ],
+    "autorec_rmse_v3": [
+      {
+        "seed": 17,
+        "best_epoch": 70,
+        "stopped_epoch": 80,
+        "max_epoch": 80,
+        "best_at_training_limit": false
+      },
+      {
+        "seed": 29,
+        "best_epoch": 80,
+        "stopped_epoch": 80,
+        "max_epoch": 80,
+        "best_at_training_limit": true
+      },
+      {
+        "seed": 43,
+        "best_epoch": 80,
+        "stopped_epoch": 80,
+        "max_epoch": 80,
+        "best_at_training_limit": true
+      }
+    ],
+    "multivae_v3": [
+      {
+        "seed": 17,
+        "best_epoch": 45,
+        "stopped_epoch": 60,
+        "max_epoch": 60,
+        "best_at_training_limit": false
+      },
+      {
+        "seed": 29,
+        "best_epoch": 40,
+        "stopped_epoch": 55,
+        "max_epoch": 60,
+        "best_at_training_limit": false
+      },
+      {
+        "seed": 43,
+        "best_epoch": 40,
+        "stopped_epoch": 55,
+        "max_epoch": 60,
+        "best_at_training_limit": false
+      }
+    ]
+  }
+}

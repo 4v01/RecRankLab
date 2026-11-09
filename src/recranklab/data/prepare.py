@@ -34,8 +34,23 @@ def split_rows(frame):
     return {k: np.concatenate(v) for k, v in parts.items()}
 
 
+def split_rows_vectorized(frame):
+    """Exactly the original user/time/item/row tie rule without per-user frames."""
+    if frame.duplicated(["user","item"]).any():
+        raise ValueError("Repeated user-item ratings are not supported")
+    ordered=frame.sort_values(["user","timestamp","item","row_id"],kind="stable")
+    u=ordered.user.to_numpy();_,start,count=np.unique(u,return_index=True,return_counts=True)
+    if (count<3).any():raise ValueError("Each user needs at least three observations")
+    position=np.arange(len(u))-np.repeat(start,count)
+    a=np.minimum(np.maximum(1,(.8*count).astype(int)),count-2)
+    b=np.minimum(np.maximum(a+1,(.9*count).astype(int)),count-1)
+    cut_a,cut_b=np.repeat(a,count),np.repeat(b,count)
+    rows=ordered.row_id.to_numpy(dtype=np.int64)
+    return {"train":rows[position<cut_a],"val":rows[(position>=cut_a)&(position<cut_b)],"test":rows[position>=cut_b]}
+
+
 def prepare(dataset, root="data"):
-    if dataset not in ("ml-1m", "ml-100k"):
+    if dataset not in ("ml-1m", "ml-100k", "ml-10m"):
         raise ValueError(dataset)
     raw = Path(root) / "raw" / f"{dataset}.zip"
     raw.parent.mkdir(parents=True, exist_ok=True)
@@ -45,11 +60,18 @@ def prepare(dataset, root="data"):
             temp.write_bytes(response.read())
         temp.replace(raw)
     with zipfile.ZipFile(raw) as archive:
-        member = f"{dataset}/" + ("ratings.dat" if dataset == "ml-1m" else "u.data")
+        member = "ml-10M100K/ratings.dat" if dataset == "ml-10m" else f"{dataset}/" + ("ratings.dat" if dataset == "ml-1m" else "u.data")
         ratings_bytes = archive.read(member)
-    frame = pd.read_csv(io.BytesIO(ratings_bytes), sep="::" if dataset == "ml-1m" else "\t",
-                        engine="python", names=["user", "item", "rating", "timestamp"])
-    if frame.isna().any().any() or not frame.rating.between(1, 5).all():
+    if dataset == "ml-10m":
+        # Literal colon C parser avoids ten million Python split lists.
+        frame = pd.read_csv(io.BytesIO(ratings_bytes), sep=":", header=None,
+            names=["user","sep1","item","sep2","rating","sep3","timestamp"],
+            usecols=["user","item","rating","timestamp"],
+            dtype={"user":"int32","item":"int32","rating":"float32","timestamp":"int64"})
+    else:
+        frame = pd.read_csv(io.BytesIO(ratings_bytes), sep="::" if dataset == "ml-1m" else "\t",
+                            engine="python", names=["user", "item", "rating", "timestamp"])
+    if frame.isna().any().any() or not frame.rating.between(.5 if dataset == "ml-10m" else 1, 5).all():
         raise ValueError("Invalid ratings")
     # Structural ID remapping only. No held-out rating statistics enter model fitting.
     users = np.sort(frame.user.unique())
@@ -57,7 +79,7 @@ def prepare(dataset, root="data"):
     frame["user"] = np.searchsorted(users, frame.user)
     frame["item"] = np.searchsorted(items, frame.item)
     frame["row_id"] = np.arange(len(frame))
-    parts = split_rows(frame)
+    parts = split_rows_vectorized(frame) if dataset == "ml-10m" else split_rows(frame)
     out = Path(root) / "processed" / dataset
     out.mkdir(parents=True, exist_ok=True)
     frame.to_csv(out / "ratings.csv", index=False)
@@ -89,7 +111,7 @@ def load(dataset, root="data"):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--dataset", choices=["ml-1m", "ml-100k"], default="ml-1m")
+    p.add_argument("--dataset", choices=["ml-1m", "ml-100k", "ml-10m"], default="ml-1m")
     p.add_argument("--config", default="configs/base.yaml")
     a = p.parse_args()
     config = yaml.safe_load(Path(a.config).read_text())

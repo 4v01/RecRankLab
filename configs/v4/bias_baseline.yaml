@@ -1,0 +1,8 @@
+experiment: bias_baseline_v4
+output_root: outputs/v4
+selection_metric: rmse
+evaluate_ranking: false
+epochs: 1
+trials:
+  - {bias_shrink: 10.0}
+  - {bias_shrink: 25.0}

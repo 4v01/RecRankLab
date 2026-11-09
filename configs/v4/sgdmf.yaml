@@ -1,0 +1,17 @@
+experiment: sgdmf_v4
+output_root: outputs/v4
+selection_metric: rmse
+evaluate_ranking: false
+early_stopping: true
+epochs: 60
+eval_interval: 2
+patience: 5
+min_delta: 0.00001
+lr: 0.005
+lr_decay: 0.98
+reg: 0.02
+bias_reg: 0.02
+bias_shrink: 10.0
+trials:
+  - {dim: 64}
+  - {dim: 128}

@@ -5,6 +5,22 @@ import numpy as np
 import pandas as pd
 
 
+def stable_top_indices(scores,k):
+    if len(scores)<=k:return np.argsort(-scores,kind="stable")
+    threshold=np.partition(scores,len(scores)-k)[len(scores)-k]
+    selected=np.flatnonzero(scores>=threshold)
+    return selected[np.argsort(-scores[selected],kind="stable")[:k]]
+
+
+class _LazyCandidates:
+    """Same full catalog and mask, materialized for only the requested user."""
+    def __init__(self,catalog,history,users):self.catalog,self.history,self.users=catalog,history,users
+    def __getitem__(self,user):
+        return self.catalog[~np.isin(self.catalog,list(self.history[int(user)]))]
+    def __iter__(self):return iter(self.users)
+    def __len__(self):return len(self.users)
+
+
 class RankingProtocol:
     def __init__(self, history, target, n_users, n_items):
         self.catalog = np.sort(history.item.unique())
@@ -21,8 +37,7 @@ class RankingProtocol:
             if valid and u in self.history:
                 self.targets[int(u)] = valid
         self.users = np.array(sorted(self.targets), dtype=np.int64)
-        self.candidates = {int(u): self.catalog[~np.isin(self.catalog, list(self.history[int(u)]))]
-                           for u in self.users}
+        self.candidates = _LazyCandidates(self.catalog, self.history, self.users)
         self.audit = {"eligible_users": len(self.users), "total_users": n_users,
                       "excluded_users": n_users - len(self.users),
                       "users_without_heldout_positives": n_users - positives.user.nunique(),
@@ -32,16 +47,26 @@ class RankingProtocol:
                       "eligible_user_sha256": hashlib.sha256(self.users.astype('<i8').tobytes()).hexdigest(),
                       "candidate_catalog_sha256": hashlib.sha256(self.catalog.astype('<i8').tobytes()).hexdigest()}
 
-    def evaluate(self, model, ks=(10, 20)):
+    def evaluate(self, model, ks=(10, 20), batch_size=1):
         rows = []
         recommended = {k: set() for k in ks}
-        for u in self.users:
-            candidates = self.candidates[int(u)]
-            scores = model.predict_scores([u], candidates)[0]
+        if batch_size<1:raise ValueError("Invalid evaluation batch size")
+        def scored_users():
+            for start in range(0,len(self.users),batch_size):
+                batch=self.users[start:start+batch_size]
+                if batch_size==1:
+                    u=int(batch[0]);candidates=self.candidates[u]
+                    yield u,candidates,model.predict_scores([u],candidates)[0]
+                else:
+                    matrix=model.predict_scores(batch,self.catalog)
+                    for j,u in enumerate(batch):
+                        keep=~np.isin(self.catalog,list(self.history[int(u)]))
+                        yield int(u),self.catalog[keep],matrix[j,keep]
+        for u,candidates,scores in scored_users():
             if not np.isfinite(scores).all():
                 raise ValueError("Nonfinite ranking scores")
-            # Stable sort preserves ascending item ID for equal scores; no random tie jitter.
-            ranking = candidates[np.argsort(-scores, kind="stable")[:max(ks)]]
+            # Exact stable top-K, including all boundary ties before ID tie-break.
+            ranking=candidates[stable_top_indices(scores,max(ks))]
             truth = self.targets[int(u)]
             hits = np.array([i in truth for i in ranking], dtype=float)
             row = {"user": int(u)}
@@ -61,13 +86,17 @@ class RankingProtocol:
 def rating_metrics(model, target):
     if not len(target):
         return {"rmse": None, "mae": None, "r2":None, "rating_count": 0}
-    predictions = np.array([model.predict_scores([u], g.item.to_numpy())[0] for u, g in target.groupby("user")], dtype=object)
-    prediction = np.concatenate([np.asarray(x, dtype=float) for x in predictions])
-    truth = np.concatenate([g.rating.to_numpy() for _, g in target.groupby("user")])
+    if hasattr(model,"predict_pairs"):
+        prediction=np.asarray(model.predict_pairs(target.user.to_numpy(),target.item.to_numpy()),dtype=float)
+        truth=target.rating.to_numpy(dtype=float)
+    else:
+        predictions = np.array([model.predict_scores([u], g.item.to_numpy())[0] for u, g in target.groupby("user")], dtype=object)
+        prediction = np.concatenate([np.asarray(x, dtype=float) for x in predictions])
+        truth = np.concatenate([g.rating.to_numpy() for _, g in target.groupby("user")])
     if not np.isfinite(prediction).all():
         raise ValueError("Nonfinite rating predictions")
     error = prediction - truth
-    clipped_error=np.clip(prediction,1.,5.)-truth
+    clipped_error=np.clip(prediction,getattr(model,"config",{}).get("rating_min",1.),5.)-truth
     sst=float(np.square(truth-truth.mean()).sum())
     r2=float(1-np.square(error).sum()/sst) if len(truth)>=2 and sst>0 else None
     return {"rmse": float(np.sqrt(np.mean(error**2))), "mae": float(np.mean(abs(error))),
@@ -80,6 +109,11 @@ def rating_metrics(model, target):
 
 def rating_user_errors(model,target):
     """Observed-only sufficient statistics; never export ratings/prediction pairs."""
+    if hasattr(model,"predict_pairs"):
+        error=model.predict_pairs(target.user.to_numpy(),target.item.to_numpy())-target.rating.to_numpy()
+        if not np.isfinite(error).all():raise ValueError('Nonfinite rating predictions')
+        stats=pd.DataFrame({'user':target.user.to_numpy(),'count':np.ones(len(target),dtype=int),'sse':np.square(error),'sae':np.abs(error)})
+        return stats.groupby('user',sort=True,as_index=False).sum()
     rows=[]
     for user,group in target.groupby('user',sort=True):
         prediction=model.predict_scores([user],group.item.to_numpy())[0]

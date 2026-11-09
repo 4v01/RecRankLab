@@ -1,0 +1,8 @@
+experiment: sparse_ease_v4
+output_root: outputs/v4
+selection_metric: ndcg@10
+epochs: 1
+trials:
+  - {ridge: 300.0}
+  - {ridge: 1000.0}
+evaluation_batch_users: 128

@@ -1,0 +1,19 @@
+experiment: mf_dcn_v4
+output_root: outputs/v4
+selection_metric: rmse
+evaluate_ranking: false
+early_stopping: true
+epochs: 35
+eval_interval: 2
+patience: 4
+min_delta: 0.00001
+lr: 0.001
+reg: 0.001
+bias_shrink: 10.0
+weight_decay: 0.00001
+cross_layers: 2
+dropout: 0.1
+rating_batch_size: 8192
+trials:
+  - {dim: 16}
+  - {dim: 32}

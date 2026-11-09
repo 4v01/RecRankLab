@@ -1,0 +1,17 @@
+experiment: history_tower_v4
+output_root: outputs/v4
+selection_metric: ndcg@10
+early_stopping: true
+epochs: 80
+eval_interval: 5
+patience: 3
+min_delta: 0.00001
+history_length: 50
+user_batch_size: 512
+dim: 64
+lr: 0.001
+reg: 0.00001
+trials:
+  - {temperature: 0.1}
+  - {temperature: 0.2}
+evaluation_batch_users: 128
